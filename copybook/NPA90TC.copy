@@ -1,0 +1,234 @@
+      *---------------------------------------------------------------*
+      *                                                               *
+      *  *******  **   **  **  *****  **  **                          *
+      *  **   **  **   **  **  **     ** **          PRODOTTO         *
+      *  **   **  **   **  **  **     ***       ANTICIPO DOCUMENTI    *
+      *  ** * **  **   **  **  **     ** **                           *
+      *  *******  *******  **  *****  **  **                          *
+      *       *                                  INFOSER S.R.L.       *
+      *                                                               *
+      *---------------------------------------------------------------*
+      *   TABELLA ISTITUTO PARTE 3                                    *
+      *                          (VEDI ANCHE NPA50TC/NPA90TC/NPA91TC) *
+      *---------------------------------------------------------------*
+      *08101999 IMPLEMENTAZIONE GIORNI RIFERIMENTO PER SVECCHIAMENTO  *
+      *         NPEMAT                                                *
+VZ1107*07112000 INSERITO NUOVI CAMPI X ALLINEAMENTO COPY CON UFFICIO  *
+VZ1107*         A90-FGINC E A90-FGCCC                                 *
+VZ1107*07112000 INSERITO NUOVO CAMPO A90-QTMAX PER NUOVA GESTIONE DEL *
+VZ1107*         NUMERO EFFETTI PER RIMESSE DI SPEDIZIONE              *
+XTRA02*06102004 INSERITI NUOVI CAMPI                                  *
+XTRA02*         -GSTRP - NUM GG PER GESTIONE SVECCHIAMENTO NPTTRPT    *
+XTRA02*         -GSTRA - NUM GG PER GESTIONE SVECCHIAMENTO NPTTRAT    *
+EFF01 *29092011 -GSTGC - NUM GG PER GESTIONE SVECCHIAMENTO NPTGCAT    *
+      *---------------------------------------------------------------*
+      *                                                               *
+      *   CHIAVE COMPOSTA DA :                                        *
+      *     CODIT = 'A90'                                             *
+      *     ABIUT = CODICE ABI ISTITUTO                               *
+      *                                                               *
+      *   DATI TABELLA :                                              *
+      *      FRDPE = FLAG GESTIONE RIMESSE DIRETTE IN PERIFERIA       *
+      *              S = AMMESSO CARICAMENTO IN PERIFERIA             *
+      *              (USI FUTURI)                                     *
+      *      FRDSE = FLAG GESTIONE RIMESSE DIRETTE DA SERVICE         *
+      *              S = AMMESSO CARICAMENTO IN PRESSO SERVICE        *
+      *              (USI FUTURI)                                     *
+      *      FRDST = STAMPA RIMESSA DOCUMENTATA PRESSO SERVICE        *
+      *              0 = STAMPA DA EFFETTUARE IN GESIN                *
+      *              1 = STAMPA EFFETTUATA PRESSO SERVICE             *
+      *              DATO SIGNIFICATIVO SE FRDSE = 'S'                *
+      *              (USI FUTURI)                                     *
+      *      FGTSP = FLAG TRONCATURA SPORTELLI (S/SPESE)              *
+      *              S = TRONCATURA SU NS. SPORTELLI                  *
+      *              (USI FUTURI)                                     *
+      *      FGTBA = FLAG TRONCATURA BANCHE    (S/SPESE)              *
+      *              S = TRONCATURA SU BANCHE                         *
+      *              (USI FUTURI)                                     *
+      *      FGTBC = FLAG TRONCATURA BANCHE DI CONTO ACCENTRATO (S/S) *
+      *              S = TRONCATURA SU BANCHE DI CONTO ACCENTRATO     *
+      *              (USI FUTURI)                                     *
+      *      GGVDI = GIORNI PER CUI CONSIDERARE A VISTA UN'EFFETTO CON*
+      *              SCADENZA (VISTA LIKE)                            *
+      *              UTILIZZATO NELLA FASE DI SPEDIZIONE A BANCHE,    *
+      *              UTILIZZATO NELLA FASE DI CARICO EFFETTI DI       *
+      *              TRANSITO (RISPETTO ALLA DATA SPEDIZIONE),        *
+      *              E NELLE RIMESSE INSOLUTI INVIATI E RICEVUTI,     *
+      *              PER LA DETERMINAZIONE DELLA VALUTA               *
+      *              SEGNALATA/CALCOLATA.                             *
+      *              (VALIDO PER EFFETTI CARTACEI A BANCHE DIRETTE    *
+      *      GGVIN = GIORNI PER CUI CONSIDERARE A VISTA UN'EFFETTO CON*
+      *              SCADENZA (VISTA LIKE)                            *
+      *              UTILIZZATO NELLA FASE DI SPEDIZIONE A BANCHE,    *
+      *              UTILIZZATO NELLA FASE DI CARICO EFFETTI DI       *
+      *              TRANSITO (RISPETTO ALLA DATA SPEDIZIONE),        *
+      *              E NELLE RIMESSE INSOLUTI INVIATI E RICEVUTI,     *
+      *              PER LA DETERMINAZIONE DELLA VALUTA               *
+      *              SEGNALATA/CALCOLATA.                             *
+      *              (VALIDO PER EFFETTI CARTACEI A BANCHE INDIRETTE  *
+      *      FGLAV = FLAG LAVORATIVO/CALENDARIO                       *
+      *              RIFERITO AL CAMPO GGVDI/GGVIN                    *
+      *      GGSPE = GIORNI DOPO L'INVIO ALL'INCASSO (SPEDIZIONE)     *
+      *              PER GLI EFFETTI CARTACEI PER L'INVIO A BANCHE    *
+      *              VALIDA PER TUTTE LE DISPOSIZIONI                 *
+      *              LDI-DTRNI                                        *
+      *              SI TRATTA DI GIORNI LAVORATIVI                   *
+      *      GGBRE = GIORNI IN MAGGIORAZIONE (RISPETTO AI PARAMETRI   *
+      *              DI ESTRAZIONE PER SPEDIZIONE)                    *
+      *              PER LA DETERMINAZIONE DEGLI EFFETTI BREVI.(FBRCA)*
+      *              CALCOLATI AL CARICO                              *
+      *              TALI EFFETTI POTRANNO ESSERE CONTABILIZZATI      *
+      *              SENZA ENTRARE NELLA VOCE DI CARICO CAVEAU E      *
+      *              SARANNO SCARICATI UGUALMENTE SENZA TENER CONTO   *
+      *              DEL PARAMETRO DI PERIODICITA' CAVEAU (A32-FESTR) *
+      *              VALIDO SOLO PER EFFETTI CARTACEI                 *
+      *      QTDMX = QUANTITA' MASSIMA DOMUMENTI X RIMESSA            *
+      *              UTILIZZATO NELLA FASE DI SPEDIZIONE              *
+      *              UTILIZZATO NELLA FASE DI INVIO IMPAGATI PASSIVI  *
+      *              SOLO PER RIMESSE CARTACEE                        *
+L00080*      FGETI = FLAG GESTIONE ETICHETTE (INSOLUTI CARTACEO)      *
+L00080*              S = GESTIONE ATTIVATA                            *
+VZ1107*      FGINS = FLAG GESTIONE INSOLUTI CARTACEI NON IDENTIFICATI *
+VZ1107*              AUTOMATICA                                       *
+VZ1107*              S = GESTIONE AUTOMATICA                          *
+VZ1107*                  LA RIMESSA VIENE AUTOMATICAMENTE FORZATA     *
+VZ1107*                  E GLI EFFETTI CORRETTI VENGONO IMMEDIATAMENTE*
+VZ1107*                  SCARICATI AI CEDENTI                         *
+VZ1107*                  (ANALOGO ALLA FORZATURA TP)                  *
+VZ1107*              (USI FUTURI)                                     *
+VZ1107*      FGCCC = FLAG GESTIONE CIRCOLARITA' CONTI CORRENTI        *
+VZ1107*              COLLEGATI AL RAPPORTO                            *
+VZ1107*              S = VIENE ACCETTATA L'IMPOSTAZIONE DI UNA FILIALE*
+VZ1107*                DI UN C/C DIVERSA DA QUELLA DEL RAPPORTO       *
+VZ1107*                FUNZIONE DI INSERIMENTO/VARIAZIONE RAPPORTO    *
+VZ1107*                            INSERIMENTO/VARIAZIONE C/C COLL    *
+VZ1107*                            CONFERMA PRESENTAZIONE             *
+VZ1107*              M = GESTIONE CIRCOLARITA' CON C/C DOMICILIATI    *
+VZ1107*                  PRESSO FILIALI DIVERSE                       *
+VZ1107*                = NON VIENE GESTITA LA CIRCOLARITA'            *
+      *      FSFIE = FLAG CHE INDICA LA POSSIBILITA' DI EFFETTUARE    *
+      *              ANTICIPAZIONI IN CASO DI FIDO INSUFFICIENTE O    *
+      *              INESISTENTE                                      *
+      *              VALIDO PER EFFETTI ELETTRONICI RIBA/RID/RIA/MAV  *
+      *              S= LO SCONF.VIENE SEGNALATO. RICHIESTA FORZATURA *
+      *              N= LO SCONFINO NON E' FORZABILE (BLOCCANTE)      *
+      *              UTILIZZATO NELLE ANTICIPAZIONI A RICHIESTA       *
+L00105*      MDUTI = MODALITA' UTILIZZO TRANSITO PER SCARICO INSOLUTI *
+L00105*              A BANCHE                                         *
+L00111*      QTEMX = QUANTITA' MASSIMA INCASSI RIBA DESTINATI A RNI   *
+L00111*              DA SPEDIRE IN GIORNATA.                           *
+L00111*              E' UTILIZZATO DALLA FASE DI ESTRAZIONE DA CAVEAU *
+L00111*              (ADG40B)                                         *
+L00111*              N.B. SE = SPACES LA ROTTURA NON VIENE EFFETTUATA *
+E00137*      FMARC = FLAG GESTIONE RIMARCATURA EFFETTI CARTACEI       *
+      *              PER GLI EFFETTI PASSIVI CARICATI MANUMENTE       *
+      *              INDICA SE LO STESSO DEVE ESSERE O MENO RIMARCATO *
+      *              S = VIENE EFFETTUATA LA RIMARCATURA              *
+      *              N.B. NEL CASO NON FOSSE FATTA LA RIMARCATURA     *
+      *                   NON VENGONO ACCETTATI NUMERI CEDENTI        *
+      *                   (MARCATURA) NON UNIVOCI                     *
+VZ1107*      QTMAX = QUANTITA' MASSIMA DOCUMENTI ELETTRONICI PER OGNI *
+VZ1107*              RIMESSA NELLA FASE DI SPEDIZIONE.                *
+VZ1107*              SERVE PER SPEZZARE SU PIU' RIMESSE (UTILE PER LE *
+VZ1107*              GIORNATE DI PICCO, PER MOTIVI DI PRESTAZIONI TEC *
+VZ1107*              NICHE)                                           *
+VZ1107*              GESTITO PER RIBA / RID                           *
+VZ1107*              N.B: SE UGUALE A SPACES DATO NON SIGNIFICATIVO   *
+      *                                                               *
+      *         DATI DI SCOSTAMENTO IN ECCESSO O IN DIMINUZIONE       *
+      *         PER RIMESSE CARTACEE (TRANSITO) PER L'INVIO           *
+      *         ALL'INCASSO (UTILIZZATA DAL PGM DI CARICO)            *
+      *                                                               *
+      *      FGCON = FLAG PER INSERIRE A CASSA EFFETTI LA RIMESSA     *
+      *              COME CONFERMATA (VALIDO PER CARTACEO DECENTRATO) *
+      *              UTILIZZATO ALLA SPEDIZIONE A CASSA EFFETTI       *
+      *              S = INSERIRE RIMESSA GIA' CONFERMATA             *
+      *              LE RIMESSE GIA' CONFERMATE NON RICHIEDONO        *
+      *              NEL PRODOTTO 'BILLS' DI UNA PRESA IN CARICO      *
+      *              DELLA STESSA                                     *
+      *      GGMRD = INDICA IL NUMERO GIORNI MASSIMO PER ACCETTARE    *
+      *              UNA RIMESSA DIRETTA DI UN NOSTRO CEDENTE         *
+      *              SE DOMICILIATA IN CASSA EFFETTI.                 *
+      *              E' AMMESSA LA RIMESSA DIRETTA SE LA DIFFERENZA   *
+      *              FRA DATA SCADENZA E DATA PRESENTAZIONE           *
+      *              (GG DI CALENDARIO)                               *
+      *              NON SONO MAGGIORI DI TALE PARAMETRO.             *
+      *                                                               *
+      *              PER RIMESSA DIRETTA SU BANCA TERZA / POSTE       *
+      *              IL CONTROLLO VIENE FATTO IN BASE ALLE CONDIZIONI *
+      *              INTERBANCARIE.                                   *
+      *      FSPEB = FLAG GESTIONE EFFETTI BREVI PER SUDDIVIDERE      *
+      *              GLI EFFETTI BREVI IN RIMESSA DI SPEDIZIONE A     *
+      *              PARTE                                            *
+      *              S = EFFETTI BREVI INCLUSI IN SPEDIZIONE CON      *
+      *                  RIMESSA A PARTE                              *
+      *              N = EFFETTI INCLUSI NELLA RIMESSA DI SPEDIZIONE  *
+      *              SIGNIFICATIVO SOLO PER RIMESSE CARTACEE          *
+L00033*      FILBA = FILIALE BANCHE                                   *
+L00033*              VIENE UTILIZZATA PER CENSIRE I RAPPORTI BANCHE   *
+L00033*             (SE NON ESISTE UNA FILIALE PARTICOLARE CHE        *
+L00033*              CENSISCE I RAPPORTI BANCHE DEVE ESSERE           *
+L00033*              VALORIZZATA COME LA FILIALE CENTRO(A01-FILCE)    *
+PERINF*      FRECC = FLAG RESI AL CARICO CARTACEI                     *
+PERINF*              1 = RESI AL CARICO CARTACEI GESTITI              *
+PERINF*              0 = RESI AL CARICO CARTACEI NON GESTITI          *
+AFFAS2*      GSV05 = NR.GIORNI PRIMA DELLA DATA CONTABILE DELL' OPER. *
+AFFAS2*              PER SVECCHIAMTO MOVIMENTI ESTINZ. PAGATI(NPEMAT) *
+XLMR  *      GGTCI = NR. GIORNI PRIMA DELLA FINE DEL MESE ENTRO I     *
+XLMR  *              QUALI E' INIBITO IL TRASFERIMENTO RAPPORTO PER   *
+XLMR  *              CENTRO IMPRESE.
+XTRA02*      GSTRP = NR. GIORNI DA CONSIDERARE PER LO SVECCHIAMENTO   *
+XTRA02*              DELL'ARCHIVIO DB2 NPTTRPT                        *
+XTRA02*      GSTRA = NR. GIORNI DA CONSIDERARE PER LO SVECCHIAMENTO   *
+XTRA02*              DELL'ARCHIVIO DB2 NPTTRAT                        *
+      *---------------------------------------------------------------*
+       01  NPA90TC.
+           03 A90-KEY.
+              05 A90-CODIT                   PIC X(003).
+              05 A90-ABIUT                   PIC X(005).
+              05 FILLER                      PIC X(027).
+           03 A90-DATI.
+              05 A90-FRDPE                   PIC X(001).
+              05 A90-FRDSE                   PIC X(001).
+              05 A90-FRDST                   PIC X(001).
+              05 A90-FGTSP                   PIC X(001).
+              05 A90-FGTBA                   PIC X(001).
+              05 A90-FGTBC                   PIC X(001).
+              05 A90-GGVDI                   PIC 9(002).
+              05 A90-GGVIN                   PIC 9(002).
+              05 A90-FGLAV                   PIC X(001).
+              05 A90-GGSPE                   PIC 9(002).
+              05 A90-GGBRE                   PIC 9(002).
+              05 A90-QTDMX                   PIC 9(005).
+L00080        05 A90-FGETI                   PIC X(001).
+VZ1107        05 A90-FGINS                   PIC X(001).
+VZ1107        05 A90-FGCCC                   PIC X(001).
+VZ1107*       05 FILLER                      PIC X(002).
+              05 A90-FSFIE                   PIC X(001).
+L00105        05 A90-MDUTI                   PIC X(003).
+L00111        05 A90-QTEMX                   PIC X(005).
+L00111        05 FILLER                      PIC X(002).
+L00105*       05 FILLER                      PIC X(010).
+E00137        05 A90-FMARC                   PIC X(001).
+VZ1107        05 A90-QTMAX                   PIC X(005).
+VZ1107        05 FILLER                      PIC X(057).
+VZ1107*       05 FILLER                      PIC X(062).
+PANZ          05 A90-FGCON                   PIC X(001).
+PANZ          05 A90-GGMRD                   PIC 9(002).
+PANZ          05 A90-FSPEB                   PIC X(001).
+L00033        05 A90-FILBA                   PIC X(005).
+PERINF        05 A90-FRECC                   PIC X(001).
+AFFAS2        05 A90-GSV05                   PIC 9(002).
+XLMR  *       05 FILLER                      PIC X(091).
+XLMR          05 A90-GGTCI                   PIC 9(002).
+XXXXXX*       05 A90-FGMRB                   PIC 9(002).
+XTRA02        05 A90-GSTRP                   PIC 9(003).
+XTRA02        05 A90-GSTRA                   PIC 9(003).
+EFF01         05 A90-GSTGC                   PIC 9(003).
+EFF01         05 A90-GSGRI                   PIC 9(003).
+EFF01         05 FILLER                      PIC X(075).
+XTRA02*       05 FILLER                      PIC X(081).
+XLMR  *       05 FILLER                      PIC X(089).
+PERINF*       05 FILLER                      PIC X(093).
+PERINF*       05 FILLER                      PIC X(094).
+      *===============================================================*

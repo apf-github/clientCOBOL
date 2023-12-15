@@ -1,0 +1,44 @@
+      *---------------------------------------------------------------*
+      *                                                               *
+      *  *******  **   **  **  *****  **  **                          *
+      *  **   **  **   **  **  **     ** **          PRODOTTO         *
+      *  **   **  **   **  **  **     ***       ANTICIPO DOCUMENTI    *
+      *  ** * **  **   **  **  **     ** **                           *
+      *  *******  *******  **  *****  **  **                          *
+      *       *                                  INFOSER S.R.L.       *
+      *                                                               *
+      *---------------------------------------------------------------*
+      *   AREA DI ERRORE                              650 BYTE        *
+      *---------------------------------------------------------------*
+       01  NPG01RC.
+           05 G01-ABIUT                PIC X(005).
+           05 G01-SERVI                PIC X(008).
+           05 G01-NOPER                PIC S9(015) COMP-3.
+           05 G01-CDOPE                PIC X(008).
+           05 G01-CTERM                PIC X(008).
+           05 G01-CTRAN                PIC X(008).
+           05 G01-DTOPE                PIC S9(009) COMP-3.
+           05 G01-ORAOP                PIC S9(007) COMP-3.
+           05 G01-CFILI                PIC X(005).
+           05 G01-MODNM                PIC X(008).
+           05 G01-PGMDR                PIC X(008).
+           05 G01-PGMNM                PIC X(008).
+           05 G01-ROUNM                PIC X(008).
+           05 G01-LABEL                PIC X(020).
+           05 G01-ARCHI                PIC X(008).
+           05 G01-CDERR                PIC X(004).
+           05 G01-CDERR-DEF REDEFINES G01-CDERR.
+               10 G01-TPERR            PIC X(001).
+               10 G01-PIC3             PIC 9(003).
+           05 G01-CDERR-DE1 REDEFINES G01-CDERR.
+               10 FILLER               PIC X(001).
+               10 G01-RCODE            PIC X(002).
+               10 FILLER               PIC X(001).
+           05 G01-DESC1                PIC X(050).
+           05 G01-DESC2                PIC X(050).
+           05 G01-DESC3                PIC X(050).
+           05 G01-DESC4                PIC X(050).
+           05 G01-DESC5                PIC X(050).
+           05 FILLER                   PIC X(127).
+           05 G01-SQLCA                PIC X(150).
+      *===============================================================*

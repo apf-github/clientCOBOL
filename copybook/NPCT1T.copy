@@ -1,0 +1,46 @@
+      ******************************************************************
+      * DCLGEN TABLE(AGNP.NPCT1T)                                      *
+      *        LIBRARY(AM71.COPYCOB.GESIN(NPCT1T))                     *
+      *        ACTION(REPLACE)                                         *
+      *        LANGUAGE(COBOL)                                         *
+      *        STRUCTURE(NPCT1T)                                       *
+      *        APOST                                                   *
+      * ... IS THE DCLGEN COMMAND THAT MADE THE FOLLOWING STATEMENTS   *
+      ******************************************************************
+           EXEC SQL DECLARE AGNP.NPCT1T TABLE
+           ( CT1_ABIUT                      CHAR(5) NOT NULL,
+             CT1_PRFIL                      CHAR(5) NOT NULL,
+             CT1_CDRAP                      DECIMAL(11, 0) NOT NULL,
+             CT1_CDDEB                      DECIMAL(11, 0) NOT NULL,
+             CT1_CDCNV                      DECIMAL(15, 0) NOT NULL,
+             CT1_NRPRE                      DECIMAL(11, 0) NOT NULL,
+             CT1_NRVAL                      DECIMAL(15, 0) NOT NULL,
+             CT1_NRRIM                      DECIMAL(11, 0) NOT NULL,
+             CT1_NRRES                      DECIMAL(15, 0) NOT NULL,
+             CT1_NMARD                      DECIMAL(15, 0) NOT NULL,
+             CT1_NMAMN                      DECIMAL(15, 0) NOT NULL,
+             CT1_ID020                      DECIMAL(11, 0) NOT NULL,
+             CT1_CDOPE                      CHAR(8) NOT NULL,
+             CT1_PRLDI                      DECIMAL(11, 0) NOT NULL
+           ) END-EXEC.
+      ******************************************************************
+      * COBOL DECLARATION FOR TABLE AGNP.NPCT1T                        *
+      ******************************************************************
+       01  NPCT1T.
+           10 CT1-ABIUT            PIC X(5).
+           10 CT1-PRFIL            PIC X(5).
+           10 CT1-CDRAP            PIC S9(11)V USAGE COMP-3.
+           10 CT1-CDDEB            PIC S9(11)V USAGE COMP-3.
+           10 CT1-CDCNV            PIC S9(15)V USAGE COMP-3.
+           10 CT1-NRPRE            PIC S9(11)V USAGE COMP-3.
+           10 CT1-NRVAL            PIC S9(15)V USAGE COMP-3.
+           10 CT1-NRRIM            PIC S9(11)V USAGE COMP-3.
+           10 CT1-NRRES            PIC S9(15)V USAGE COMP-3.
+           10 CT1-NMARD            PIC S9(15)V USAGE COMP-3.
+           10 CT1-NMAMN            PIC S9(15)V USAGE COMP-3.
+           10 CT1-ID020            PIC S9(11)V USAGE COMP-3.
+           10 CT1-CDOPE            PIC X(8).
+           10 CT1-PRLDI            PIC S9(11)V USAGE COMP-3.
+      ******************************************************************
+      * THE NUMBER OF COLUMNS DESCRIBED BY THIS DECLARATION IS 14      *
+      ******************************************************************

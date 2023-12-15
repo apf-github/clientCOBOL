@@ -1,0 +1,94 @@
+      *---------------------------------------------------------------*
+      *                                                               *
+      *  *******  **   **  **  *****  **  **                          *
+      *  **   **  **   **  **  **     ** **          PRODOTTO         *
+      *  **   **  **   **  **  **     ***       ANTICIPO DOCUMENTI    *
+      *  ** * **  **   **  **  **     ** **                           *
+      *  *******  *******  **  *****  **  **                          *
+      *       *                                  INFOSER S.R.L.       *
+      *                                                               *
+      *---------------------------------------------------------------*
+      *     I N F O S E R        SRL                                  *
+      *---------------------------------------------------------------*
+      *    NOME COPY  : <ADW06RC>                                     *
+      *    DESCRIZIONE: CONTROLLO ESISTENZA FILIALE                   *
+      *      IOAREA UTILIZZATA PER IL PASSAGGIO DATI                  *
+      *      PER IL RICHIAMO DELLA ROUTINE NPW06R                     *
+      *                                                               *
+      *      INPUT :                                                  *
+      *             W06-ABIUT      ===> CODICE ABI                    *
+      *             W06-CFILI      ===> CODICE FILIALE                *
+      *             W06-SERVI      ===> CODICE SERVIZIO = NP00        *
+      *             W06-FUNZI      ===> 'RE' LETTURA                  *
+      *                                 'R1' LETTURA PER:             *
+      *                                      ABIUT-CABFI-SERVI        *
+      *                                 'UP' UPDATE        - U.FUTURI *
+      *                                 'DE' CANCELLAZIONE - U.FUTURI *
+      *                                 'IS' INSERIMENTO   - U.FUTURI *
+      *                                 'D1' CANCELLAZIONE TIPO TABELLA
+GAP095*                                 'O1' CURSORE PER FIL DELL'AREA*
+GAP095*                                 'F1' FETCH PER FIL DELL'AREA  *
+GAP095*                                 'C1' CLOSE PER FIL DELL'AREA  *
+      *                                                               *
+      *   DATI TABELLA :                                              *
+      *      CABFI = CODICE CAB DELLA FILIALE                         *
+      *      PRFIL = NUM. PROGRESSIVO ASSOCIATO AL COD. FILIALE       *
+      *      DESCR = DESCRIZIONE FILIALE                              *
+      *      DESCS = DESCRIZIONE SINTETICA FILIALE                    *
+      *      DESCR-CF = DESCRIZIONE FILIALE CON CFILI                 *
+      *      DESCS-CF = DESCRIZIONE SINTETICA FILIALE CON CFILI       *
+      *      CAPOZ = 'A' AGENZIA                                      *
+      *              'C' FILIALE CAPOZONA                             *
+      *              'D' DIREZIONE GENERALE                           *
+      *      FILDP = CODICE FILIALE DA CUI DIPENDE                    *
+      *      FSTAN = PRESENZA STANZA DI COMPENSAZIONE   -- USI FUTURI *
+      *      FCOMP = AMMESSO PAGAM.PER COMPENSO LOCALE  -- USI FUTURI *
+      *      CHIUS = FILIALE CHIUSA REGOLARMENTE        -- USI FUTURI *
+      *             ' '= CHIUSA OK                                    *
+      *              N = NON CHIUSA REGOLARMENTE                      *
+      *      CAPOG = CODICE FILIALE CAPOGRUPPO                        *
+CC0401*      FGGES = FLAG GESTORE                                     *
+CC0401*            ' ' = FILIALE (NON GESTORE)                        *
+CC0401*            'C' = GESTORE CENTRO IMPRESA                       *
+XFUS40*      BRAND = FLAG GESTIONE MILTIBRAND                         *
+SI2303*      IL FILLER DI 73 BYTES IN CODA ERA STATO LASCIATO ASTE-   *
+      *      RISCATO. RIPRISTINATO.                                   *
+      *                                                               *
+      *     RETURN CODE                                               *
+      *             W06-RCODE      ======> SPACES OK                  *
+      *                                    'GE' FILIALE INESISTENTE   *
+      *                                    'KO' ERRORE BLOCCANTE      *
+      *                                                               *
+      *    LUNGHEZZA 300 BYTE                                         *
+      *---------------------------------------------------------------*
+       01  NPW06RC.
+      *
+           05 W06-INPUT.
+               10 W06-ABIUT            PIC X(005).
+               10 W06-CFILI            PIC X(005).
+               10 W06-SERVI            PIC X(004).
+               10 W06-FUNZI            PIC X(002).
+               10 FILLER               PIC X(082).
+      *
+           05 W06-DATI.
+               10 W06-PRFIL            PIC 9(005).
+               10 W06-CABFI            PIC 9(005).
+               10 W06-DESCR            PIC X(035).
+               10 W06-DESCS            PIC X(015).
+               10 W06-CAPOZ            PIC X(001).
+               10 W06-FILDP            PIC X(005).
+               10 W06-FSTAN            PIC X(001).
+               10 W06-FCOMP            PIC X(001).
+               10 W06-CHIUS            PIC X(001).
+               10 W06-DESCR-CF         PIC X(035).
+               10 W06-DESCS-CF         PIC X(015).
+               10 W06-CAPOG            PIC X(005).
+CC0401         10 W06-FGGES            PIC X(001).
+XFUS40         10 W06-BRAND            PIC X(002).
+CC0401*        10 FILLER               PIC X(075).
+CC0401*        10 FILLER               PIC X(076).
+XFUS40*        10 FILLER               PIC X(073).
+SI2303         10 FILLER               PIC X(073).
+      *
+           05 W06-RCODE                PIC X(002).
+      *----------------------------------------------------------------

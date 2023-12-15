@@ -1,0 +1,53 @@
+      *---------------------------------------------------------------*
+      *                                                               *
+      *  *******  **   **  **  *****  **  **                          *
+      *  **   **  **   **  **  **     ** **          PRODOTTO         *
+      *  **   **  **   **  **  **     ***       ANTICIPO DOCUMENTI    *
+      *  ** * **  **   **  **  **     ** **                           *
+      *  *******  *******  **  *****  **  **                          *
+      *       *                                  INFOSER S.R.L.       *
+      *                                                               *
+      *---------------------------------------------------------------*
+      *   TABELLA GESTIONE MINIMO E MASSIMO CONTATORI PER TRAMITAZIONE*
+      *---------------------------------------------------------------*
+      *                                                               *
+      *   CHIAVE COMPOSTA DA :                                        *
+      *     CODIT = 'T62'                                             *
+      *     ABIUT = CODICE ABI ISTITUTO                               *
+      *                                                               *
+      *   DATI TABELLA :                                              *
+      *      MINRS = VALORE MINIMO RIMESSE DI SPEDIZIONE              *
+      *      MAXRS = VALORE MASSIMO RIMESSE DI SPEDIZIONE             *
+      *      MIN01 = VALORE MINIMO 01                                 *
+      *      MAX01 = VALORE MASSIMO 01                                *
+      *      MIN02 = VALORE MINIMO 02                                 *
+      *      MAX02 = VALORE MASSIMO 02                                *
+      *      MIN03 = VALORE MINIMO 03                                 *
+      *      MAX03 = VALORE MASSIMO 03                                *
+      *      MIN04 = VALORE MINIMO 04                                 *
+      *      MAX04 = VALORE MASSIMO 04                                *
+      *      MIN05 = VALORE MINIMO 05                                 *
+      *      MAX05 = VALORE MASSIMO 05                                *
+      *      FILTR = PROFILO FILIALE GENERICA TRAM                    *
+      *---------------------------------------------------------------*
+       01  NPT62TC.
+           03 T62-KEY.
+              05 T62-CODIT                   PIC X(003).
+              05 T62-ABIUT                   PIC X(005).
+              05 FILLER                      PIC X(027).
+           03 T62-DATI.
+              05 T62-MINRS                   PIC 9(015).
+              05 T62-MAXRS                   PIC 9(015).
+              05 T62-MIN01                   PIC 9(015).
+              05 T62-MAX01                   PIC 9(015).
+              05 T62-MIN02                   PIC 9(015).
+              05 T62-MAX02                   PIC 9(015).
+              05 T62-MIN03                   PIC 9(015).
+              05 T62-MAX03                   PIC 9(015).
+              05 T62-MIN04                   PIC 9(015).
+              05 T62-MAX04                   PIC 9(015).
+              05 T62-MIN05                   PIC 9(015).
+              05 T62-MAX05                   PIC 9(015).
+              05 T62-FILTR                   PIC X(005).
+              05 FILLER                      PIC X(015).
+      *===============================================================*

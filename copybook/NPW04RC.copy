@@ -1,0 +1,66 @@
+      *---------------------------------------------------------------*
+      *                                                               *
+      *  *******  **   **  **  *****  **  **                          *
+      *  **   **  **   **  **  **     ** **          PRODOTTO         *
+      *  **   **  **   **  **  **     ***       ANTICIPO DOCUMENTI    *
+      *  ** * **  **   **  **  **     ** **                           *
+      *  *******  *******  **  *****  **  **                          *
+      *       *                                  INFOSER S.R.L.       *
+      *                                                               *
+      *---------------------------------------------------------------*
+      *    NOME COPY  : <ADW04RC>   LUNGHEZZA 100 BYTE                *
+      *    NOME PGM   : <ADW04R >                                     *
+      *---------------------------------------------------------------*
+      *    DESCRIZIONE:                                               *
+      *                                                               *
+      *    IL PROGRAMMA RITORNA :                                     *
+      *                                                               *
+      *       1) DATA SISTEMA                                         *
+      *       2) ORA  SISTEMA                                         *
+      *       3) DATA STAMPA GG/MM/AAAA                               *
+      *       4) ORA  STAMPA HH.MM                                    *
+      *       5) DATA LAVORATIVA CALCOLATA IN BASE AL NOME PGM        *
+      *          E TENENDO CONTO DELL'ORA DI SISTEMA (DTLAV)          *
+      *---------------------------------------------------------------*
+      *                                                               *
+      *  RCODE  : '  '  OPERAZIONE ESEGUITA CON SUCCESSO              *
+      *           'KO'  ERRORE GENERICO DB2 O ERRORE NEL RICHIAMO     *
+      *                 VEDERE AREA NPG01RC                           *
+      *                                                               *
+      *---------------------------------------------------------------*
+PERINF*  ATTENZIONE : COPIA DENTRO PACCHETTO - MANTENERE ALLINEAMENTO.*
+      *---------------------------------------------------------------*
+       01  NPW04RC.
+           05  W04-INPUT.
+               10 W04-ABIUT                 PIC X(005).
+               10 W04-PGMNM                 PIC X(008).
+               10 FILLER                    PIC X(002).
+           05  W04-OUTPUT.
+               10 W04-DATA.
+                  15 W04-DATA-AAAA.
+                     20 W04-DATA-SEC        PIC X(002).
+                     20 W04-DATA-AA         PIC X(002).
+                  15 W04-DATA-MM            PIC X(002).
+                  15 W04-DATA-GG            PIC X(002).
+               10 W04-ORA.
+                  15 W04-ORA-HH             PIC X(002).
+                  15 W04-ORA-MM             PIC X(002).
+                  15 W04-ORA-SS             PIC X(002).
+               10 W04-ORA-DEC REDEFINES W04-ORA PIC 9(006).
+               10 W04-DATA-STAMPA.
+                  15 W04-GG-ST              PIC X(002).
+                  15 W04-SEP1               PIC X(001).
+                  15 W04-MM-ST              PIC X(002).
+                  15 W04-SEP2               PIC X(001).
+                  15 W04-AAAA-ST.
+                     20 W04-SEC-ST          PIC X(002).
+                     20 W04-AA-ST           PIC X(002).
+               10 W04-ORA-STAMPA.
+                  15 W04-HH-ST              PIC X(002).
+                  15 W04-SEP3               PIC X(001).
+                  15 W04-MI-ST              PIC X(002).
+               10 W04-DTLAV                 PIC X(008).
+           05  W04-RETURN-CODE.
+               10 W04-RCODE                 PIC X(002).
+           05 FILLER                        PIC X(046).
+      *----------------------------------------------------------------

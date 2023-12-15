@@ -1,0 +1,85 @@
+      *---------------------------------------------------------------*
+      *                                                               *
+      *  *******  **   **  **  *****  **  **                          *
+      *  **   **  **   **  **  **     ** **          PRODOTTO         *
+      *  **   **  **   **  **  **     ***       ANTICIPO DOCUMENTI    *
+      *  ** * **  **   **  **  **     ** **                           *
+      *  *******  *******  **  *****  **  **                          *
+      *       *                                  INFOSER S.R.L.       *
+      *                                                               *
+      *---------------------------------------------------------------*
+      *    PARTE COMUNE PER SEGNALAZIONI STATISTICHE PER PGM BATCH    *
+      *---------------------------------------------------------------*
+       01  STA-RIGA01                              VALUE SPACES.
+           05  FILLER                   PIC X(008).
+           05  STA-ABIUT                PIC X(005).
+           05  FILLER                   PIC X(017).
+           05  STA-DESBA                PIC X(045).
+       01  STA-RIGA02                              VALUE SPACES.
+           05  FILLER                   PIC X(018).
+           05  STA-TESTA                PIC X(045).
+       01  STA-RIGA03.
+           05  FILLER                   PIC X(001) VALUE SPACES.
+           05  FILLER                   PIC X(007) VALUE 'PGM  :'.
+           05  STA-PGMNM                PIC X(008) VALUE SPACES.
+           05  FILLER                   PIC X(001) VALUE SPACES.
+           05  STA-DESCR                PIC X(030) VALUE SPACES.
+           05  FILLER                   PIC X(001) VALUE SPACES.
+           05  FILLER                   PIC X(007) VALUE 'DATA :'.
+           05  STA-DATA                            VALUE SPACES.
+               10 STA-GG                PIC X(002).
+               10 STA-SEP1              PIC X(001).
+               10 STA-MM                PIC X(002).
+               10 STA-SEP2              PIC X(001).
+               10 STA-AAAA.
+                  15 STA-SEC            PIC X(002).
+                  15 STA-AA             PIC X(002).
+           05  FILLER                   PIC X(004) VALUE SPACES.
+           05  FILLER                   PIC X(006) VALUE 'ORA :'.
+           05  STA-ORA                             VALUE SPACES.
+               10 STA-HH                PIC X(002).
+               10 STA-SEP3              PIC X(001).
+               10 STA-MI                PIC X(002).
+       01  STA-RIGA04.
+           05  FILLER                   PIC X(003) VALUE SPACES.
+           05  FILLER                   PIC X(023)
+                VALUE 'ELABORAZIONE TERMINATA'.
+           05  STA-ESITO                PIC X(054) VALUE SPACES.
+       01  STA-RIGA05.
+           05  FILLER                   PIC X(008) VALUE SPACES.
+           05  FILLER                   PIC X(015)
+                VALUE 'ROUTINE    : '.
+           05  STA-ROUNM                PIC X(008) VALUE SPACES.
+           05  FILLER                   PIC X(019) VALUE SPACES.
+           05  FILLER                   PIC X(015)
+                VALUE 'LABEL      :'.
+           05  STA-LABEL                PIC X(030) VALUE SPACES.
+       01  STA-RIGA06.
+           05  FILLER                   PIC X(008) VALUE SPACES.
+           05  FILLER                   PIC X(015)
+                VALUE 'ARCHIVIO   :'.
+           05  STA-ARCHI                PIC X(008) VALUE SPACES.
+           05  FILLER                   PIC X(019) VALUE SPACES.
+           05  FILLER                   PIC X(015)
+                VALUE 'COD.ERRORE :'.
+           05  STA-CDERR                PIC X(004) VALUE SPACES.
+       01  STA-RIGA07                              VALUE SPACES.
+           05  FILLER                   PIC X(008).
+           05  STA-DESC1                PIC X(050).
+       01  STA-RIGA08                              VALUE SPACES.
+           05  FILLER                   PIC X(008).
+           05  STA-DESC2                PIC X(050).
+       01  STA-RIGA09                              VALUE SPACES.
+           05  FILLER                   PIC X(008).
+           05  STA-DESC3                PIC X(050).
+       01  STA-RIGA10                              VALUE SPACES.
+           05  FILLER                   PIC X(008).
+           05  STA-DESC4                PIC X(050).
+       01  STA-RIGA11.
+           05  FILLER                   PIC X(008) VALUE SPACES.
+           05  FILLER                   PIC X(015)
+                VALUE 'CHIAVE  :'.
+           05  STA-DESC5                PIC X(050) VALUE SPACES.
+       01  STA-TRATT.
+           05  FILLER                   PIC X(100) VALUE ALL '-'.
+      *---------------------------------------------------------------

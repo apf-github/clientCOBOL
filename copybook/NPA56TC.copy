@@ -1,0 +1,81 @@
+      *---------------------------------------------------------------*
+      *                                                               *
+      *  *******  **   **  **  *****  **  **                          *
+      *  **   **  **   **  **  **     ** **          PRODOTTO         *
+      *  **   **  **   **  **  **     ***       ANTICIPO DOCUMENTI    *
+      *  ** * **  **   **  **  **     ** **                           *
+      *  *******  *******  **  *****  **  **                          *
+      *       *                                  INFOSER S.R.L.       *
+      *                                                               *
+      *---------------------------------------------------------------*
+      *   TABELLA RANGES NUMERAZIONI PER NUMERAZIONE SCADENZARIO      *
+      *---------------------------------------------------------------*
+      *                                                               *
+      *   CHIAVE COMPOSTA DA :                                        *
+      *      CODIT = 'A56'                                            *
+      *      ABIUT = CODICE ABI                                       *
+      *                                                               *
+      *   DATI TABELLA :                                              *
+      *      -------- ATTENZIONE ------------------------------       *
+      *      FARE ATTENZIONE AD ASSEGNARE INTERVALLI SENZA            *
+      *      SOVRAPPOSIZIONI                                          *
+      *      --------------------------------------------------       *
+      *                                                               *
+      *      MIN01 = NUMERO MINIMO  PER CARTACEO  (NR.INTERNO)        *
+      *      MAX01 = NUMERO MASSIMO PER CARTACEO  (NR.INTERNO)        *
+      *              (N.B. IN CASO DI UTILIZZO DEL PRODOTTO BILLS,    *
+      *               MAX01 NON DEVE SUPERARE LE 10 CIFRE)            *
+      *                                                               *
+      *      MIN02 = NUMERO MINIMO  PER RI.BA.                        *
+      *      MAX02 = NUMERO MASSIMO PER RI.BA.                        *
+      *              (N.B. IN CASO DI UTILIZZO DEL PRODOTTO BILLS,    *
+      *               MAX01 NON DEVE SUPERARE LE 10 CIFRE)            *
+      *                                                               *
+      *      MIN04 = NUMERO MINIMO  PER M.AV.                         *
+      *      MAX04 = NUMERO MASSIMO PER M.AV.                         *
+      *                                                               *
+      *      MIN05 = NUMERO MINIMO  PER RID                           *
+      *      MAX05 = NUMERO MASSIMO PER RID                           *
+      *              (N.B. IN CASO DI UTILIZZO DEL PRODOTTO BILLS,    *
+      *               MAX01 NON DEVE SUPERARE LE 10 CIFRE)            *
+      *                                                               *
+      *      MIN07 = NUMERO MINIMO  PER RIA                           *
+      *      MAX07 = NUMERO MASSIMO PER RIA                           *
+      *              (N.B. IN CASO DI UTILIZZO DEL PRODOTTO BILLS,    *
+      *               MAX01 NON DEVE SUPERARE LE 10 CIFRE)            *
+      *                                                               *
+      *      MIN10 = NUMERO MINIMO  PER A.FATTURE                     *
+      *      MAX10 = NUMERO MASSIMO PER A.FATTURE                     *
+      *                                                               *
+      *---------------------------------------------------------------*
+       01  NPA56TC.
+           03 A56-KEY.
+              05 A56-CODIT                   PIC X(003).
+              05 A56-ABIUT                   PIC X(005).
+              05 FILLER                      PIC X(027).
+           03 A56-DATI.
+              05 A56-MIN01                   PIC 9(015).
+              05 FILLER                      PIC X(001).
+              05 A56-MAX01                   PIC 9(015).
+              05 FILLER                      PIC X(001).
+              05 A56-MIN02                   PIC 9(015).
+              05 FILLER                      PIC X(001).
+              05 A56-MAX02                   PIC 9(015).
+              05 FILLER                      PIC X(001).
+              05 A56-MIN04                   PIC 9(015).
+              05 FILLER                      PIC X(001).
+              05 A56-MAX04                   PIC 9(015).
+              05 FILLER                      PIC X(001).
+              05 A56-MIN05                   PIC 9(015).
+              05 FILLER                      PIC X(001).
+              05 A56-MAX05                   PIC 9(015).
+              05 FILLER                      PIC X(001).
+              05 A56-MIN07                   PIC 9(015).
+              05 FILLER                      PIC X(001).
+              05 A56-MAX07                   PIC 9(015).
+              05 FILLER                      PIC X(001).
+              05 A56-MIN10                   PIC 9(015).
+              05 FILLER                      PIC X(001).
+              05 A56-MAX10                   PIC 9(015).
+              05 FILLER                      PIC X(009).
+      *---------------------------------------------------------------*

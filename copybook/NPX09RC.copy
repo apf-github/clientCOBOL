@@ -1,0 +1,76 @@
+      *---------------------------------------------------------------*
+      *                                                               *
+      *  *******  **   **  **  *****  **  **                          *
+      *  **   **  **   **  **  **     ** **          PRODOTTO         *
+      *  **   **  **   **  **  **     ***       ANTICIPO DOCUMENTI    *
+      *  ** * **  **   **  **  **     ** **                           *
+      *  *******  *******  **  *****  **  **                          *
+      *       *                                  INFOSER S.R.L.       *
+      *                                                               *
+      *---------------------------------------------------------------*
+      *   AREA DI PASSAGGIO ROUTINE ACCESSI TABELLA NPCTRT            *
+      *---------------------------------------------------------------*
+      * INPUT :   FUNZI = CODICE FUNZIONE                             *
+      *                   'RE' = LETTURA RECORD PER CHIAVE            *
+      *                   'IS' = INSERT  RECORD                       *
+      *                   'UP' = UPDATE  TUTTO RECORD                 *
+      *                   'DE' = DELETE  RECORD                       *
+      *                   'U3' = UPDATE CTR-NRRIM                     *
+      *                   'U4' = UPDATE CTR-NRD01/02/04/05/07/10      *
+      *                   'U5' = UPDATE CTR-NRVAL                     *
+      *                   'U6' = UPDATE CTR-UNOPE                     *
+      *                   'U7' = UPDATE CTR-CDRAP                     *
+      *                   'U8' = UPDATE CTR-NRRI1                     *
+      *                   'U9' = UPDATE CTR-CDDEB                     *
+      *                   'UA' = UPDATE CTR-CDCNV                     *
+      *                   'UB' = UPDATE CTR-NRRES                     *
+      *                   'UC' = UPDATE CTR-NRPRE                     *
+      *                   'UD' = UPDATE CTR-NRSBF                     *
+      *                   'UE' = UPDATE CTR-NRMAV                     *
+      *                   'UF' = UPDATE CTR-DTSTA                     *
+      *                   'UG' = UPDATE CTR-DTDST                     *
+      *                   'UI' = UPDATE CTR-NMAMN                     *
+      *                   'UL' = UPDATE CTR-ID020                     *
+L00054*                   'UM' = UPDATE CTR-PRLDI                     *
+PERINF*                   'UN' = UPDATE CTR-CDRAP(NRPLI)              *
+MO1006*                   'US' = UPDATE CTR04 (MAV) PER Q.TA > 1      *
+      *           FTPRE = FORMA TECNICA DI INCASSO                    *
+      *                   DA IMPOSTARE PER FUNZIONE U4                *
+      *  TIPOA = 'A' ANNULLO (NON SCRIVE IL LOG)                      *
+      *        = ' '         (SI SCRIVE IL LOG UPDATE,DELETE)         *
+      *                                                               *
+      *  OUTPUT :  DATI CONTATORI RESTITUITI IN CASO DI LETTURA OK    *
+      *                                                               *
+      *  FOPTB = FLAG CHIAMANTE TP / BATCH:                           *
+      *               T : TP                                          *
+      *               B : BATCH                                       *
+      *               D : DRIVER                                      *
+      *                                                               *
+MO1006*  QUANT = QUANTITA' CONTATORI DA AGGIORNARE                    *
+      *                                                               *
+      * RCODE  : '  '  OPERAZIONE ESEGUITA CON SUCCESSO               *
+      *          'GE'  RECORD NON TROVATO                             *
+      *          'DP'  CHIAVE DUPLICATA                               *
+      *          'KO'  ERRORE GENERICO DB2 O ERRORE NEL RICHIAMO      *
+      *                VEDERE AREA SIG01RC                            *
+      *                                            500 BYTE           *
+      *---------------------------------------------------------------*
+       01  NPX09RC.
+           05  X09-INPUT.
+               10 X09-FUNZI                  PIC X(002).
+               10 X09-TIPOA                  PIC X(001).
+               10 X09-DATI-LOG.
+                  15 X09-ABIUT               PIC X(005).
+                  15 X09-CTRAN               PIC X(008).
+                  15 X09-NOPER               PIC S9(015) COMP-3.
+                  15 X09-MODNM               PIC X(008).
+                  15 X09-CDOPE               PIC X(008).
+               10 X09-FOPTB                  PIC X(001).
+           05  X09-RETURN-CODE.
+               10  X09-RCODE                 PIC X(002).
+           05  X09-NPCTRT                    PIC X(257).
+CTR        05  X09-FTPRE                     PIC X(002).
+MO1006     05  X09-QUANT                     PIC S9(05)V USAGE COMP-3.
+MO1006     05  FILLER                        PIC X(195).
+MO1006*CTR 05  FILLER                        PIC X(198).
+      *---------------------------------------------------------------*

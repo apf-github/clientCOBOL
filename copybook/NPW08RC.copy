@@ -1,0 +1,214 @@
+      *---------------------------------------------------------------*
+      *                                                               *
+      *  *******  **   **  **  *****  **  **                          *
+      *  **   **  **   **  **  **     ** **          PRODOTTO         *
+      *  **   **  **   **  **  **     ***       ANTICIPO DOCUMENTI    *
+      *  ** * **  **   **  **  **     ** **                           *
+      *  *******  *******  **  *****  **  **                          *
+      *       *                                  INFOSER S.R.L.       *
+      *                                                               *
+      *---------------------------------------------------------------*
+      *    NOME COPY  : <ADW08RC>                                     *
+      *---------------------------------------------------------------*
+      *    DESCRIZIONE:                                               *
+      *    IOAREA PER RICHIAMO ROUTINE                                *
+      *    PER VERIFICA E GESTIONE DELLA DATA                         *
+      *                                                               *
+280500*    DATI DI INPUT : W08-RTIPO = FUNZIONE RICHIESTA (01-37)     *
+      *                    W08-RDATA = DATA (AAAAMMGG)                *
+      *                    W08-RGGG  = DATA IN PROGRESSIVO NNNNNNN    *
+      *                             AMMESSO DA    366 (01.01.1962)    *
+      *                                      A 32.859 (31.12.2050)    *
+      *    COD. RITORNO  : W08-RCODE = 00  TUTTO OK                   *
+      *                  : W08-RCODE = 06  DATA FESTIVA (RICH. 12)    *
+      *                  : W08-RCODE = 99  DATA NON AMMESSA           *
+      *                                                               *
+      *    LUNGHEZZA 120 BYTE                                         *
+      *---------------------------------------------------------------*
+      *                                                               *
+      *   DESCRIZIONE CODICI FUNZIONE                                 *
+      *                                                               *
+      *   01 = DECODIFICA CIVILE                 * DECOCIVI           *
+      *                                          * DA RDATA IN RGGG   *
+      *        PASSARE LA DATA IN RDATA (AAAAMMGG)                    *
+      *                                                               *
+      *   02 = RICODIFICA SOLARE                 * RISOL              *
+      *                                          * DA RGGG  IN RDATA  *
+      *        PASSARE N. GG   IN RGGG                                *
+      *                                                               *
+      *   03 = RICODIFICA CIVILE                 * RICOCIVI           *
+      *                                          * DA RGGG  IN RDATA  *
+      *        PASSARE N. GG   IN RGGG                                *
+      *                                                               *
+      *   04 = DECODI/+GG/RICODIFICA SOLARE       * DECORICO          *
+      *        PASSARE LA DATA IN FORMATO AAAAMMGG* DA RDATA + RGGG   *
+      *        SOMMA A DATA NUMERO FISSO DI GIORNI* A  RDATA          *
+      *                                                               *
+      *   05 = RICODIFICA CIVILE                  * RICOCIVI-5        *
+      *                                           * DA RGGG IN RDATA  *
+      *        PASSARE N. GG   IN FORMATO RGGG                        *
+      *       (RICODIF. GIORNI SE FESTIVA-PRESIDENTE)                 *
+      *                                                               *
+      *   06 = DECODIF. DAL 1 DELL'ANNO       * DECOCIVI-6            *
+      *        PASSARE LA DATA IN FORMATO RDATA (AAAAMMGG)            *
+      *                                       * DA RDATA    IN RGGG   *
+      *                                                               *
+      *   07 = DATA FINE MESE PRECEDENTE      * FINEMMPR              *
+      *        PASSARE LA DATA IN RDATA (AAAAMMGG)                    *
+      *                                       * DA RDATA    IN RGGG   *
+      *                                       * IN FORMATO AAAAMMGG   *
+      *                                                               *
+      *   08 = DATA FINE TRIM.PRECEDENTE      * FINETRPR              *
+      *        PASSARE LA DATA IN FORMATO AAMMGG                      *
+      *                                       * DA RDATA    IN RGGG   *
+      *                                       * IN FORMATO AAAAMMGG   *
+      *                                                               *
+      *   09 = NUMERO TRIMESTRE               * NRTRM                 *
+      *        PASSARE LA DATA IN FORMATO AAAAMMGG                    *
+      *                                       * DA RDATA    IN RGGG   *
+      *                                                               *
+      *   10 = CONTROLLO DI VALIDITA"         * CNTLDATA              *
+      *        PASSARE LA DATA IN FORMATO AAAAMMGG                    *
+      *                                       * DA RDATA    IN RDATA  *
+      *                                                               *
+      *   11 = INVERSIONE DATA                * INVDATA               *
+      *                                       * DA RDATA IN RGGG      *
+      *        DAL FORMATO AAAAMMGG AL FORMATO GGMMAAAA               *
+      *                                                               *
+      *   12 = CONTROLLO DATA FESTIVITA"      * DATALAV               *
+      *        PASSARE LA DATA IN FORMATO AAAAMMGG                    *
+      *                                                               *
+      *   13 = DECODIFICA COMMERCIALE         * DECOCOM               *
+      *        PASSARE LA DATA IN FORMATO AAAAMMGG                    *
+      *                                       * DA RDATA    IN RGGG   *
+      *                                                               *
+      *   14 = RICODIFICA COMMERCIALE         * RICOCOM               *
+      *        PASSARE LA DATA IN FORMATO RGGG                        *
+      *                                       * DA RGGG     IN RDATA  *
+      *                                                               *
+      *   15 = DECOD/-GG/RICODIFICA SOLARE    * DECORICO-6            *
+      *        PASSARE LA DATA IN FORMATO AAAAMMGG                    *
+      *                                       * DA RDATA    IN RDATA  *
+      *                                                               *
+      *   16 = DECOD/+GG/RICODIFICA CIVILE    * RICOLAV3              *
+      *        PASSARE LA DATA IN FORMATO AAAAMMGG                    *
+      *        SE LA DATA CALCOLATA E' IN DATA FESTIVA, VIENE         *
+      *        PORTATA AL 1½ GIORNO LAVORATIVO SUCCESSIVO             *
+      *                                       * DA RDATA    IN RDATA  *
+      *                                                                *
+      *   17 = DECOD/-GG/RICODIFICA CIVILE    * RICOLAV4              *
+      *        PASSARE LA DATA IN FORMATO AAAAMMGG                    *
+      *        SE LA DATA CALCOLATA E' IN DATA FESTIVA, VIENE         *
+      *        PORTATA AL 1½ GIORNO LAVORATIVO PRECEDENTE             *
+      *                                       * DA RDATA    IN RDATA  *
+      *                                                               *
+      *   18 = DECOD/+GG LAVOR/RICODIFICA     * RICOLAV5              *
+      *        PASSARE LA DATA IN FORMATO AAAAMMGG                    *
+      *   N.B. SE LA DATA DI RIFERIMENTO DECOD E' UNA DATA FESTIVA    *
+      *        VIENE CALCOLATO IL PRIMO GIORNO LAVORATIVO +           *
+      *        I GIORNI RICHIESTI                                     *
+      *                                       * DA RDATA    IN RDATA  *
+      *                                                               *
+      *   19 = DECOD/-GG LAVOR/RICODIFICA     * RICOLAV6              *
+      *        PASSARE LA DATA IN FORMATO AAAAMMGG                    *
+      *   N.B. SE LA DATA DI RIFERIMENTO DECOD E' UNA DATA FESTIVA    *
+      *        VIENE CALCOLATO IL PRIMO GIORNO LAVORATIVO -           *
+      *        I GIORNI RICHIESTI                                     *
+      *                                       * DA RDATA    IN RDATA  *
+      *                                                               *
+      *   20 = DIFF. DATE CIVILI  SOLARI 365  * DIFFCIVI              *
+      *        PASSARE LA DATA IN FORMATO AAAAMMGG W08-RDATA >        *
+      *        PASSARE LA DATA IN FORMATO AAAAMMGG W08-RGGG  <        *
+      *        RDATA DEVE ESSERE > RGGG       * DA RDATA    E  RGGG   *
+      *                                       * RISULTATO  IN  RGGG   *
+      *                                                               *
+      *   21 = DIFF. DATE COMMERCIALI         * DIFFCOMM              *
+      *        PASSARE LA DATA IN FORMATO AAAAMMGG W08-RDATA          *
+      *        PASSARE LA DATA IN FORMATO AAAAMMGG W08-RGGG           *
+      *        RDATA DEVE ESSERE > RGGG       * DA RDATA    E  RGGG   *
+      *                                       * RISULTATO  IN  RGGG   *
+      *                                                               *
+      *   22 = CALCOLO DATA SUCCESSIVA DI N MESI CIVILE               *
+      *        PASSARE LA DATA IN FORMATO AAAAMMGG W08-RDATA          *
+      *        PASSARE N MESI  IN                W08-RGGG             *
+      *                                       * DA RDATA    E  RGGG   *
+      *                                       * RISULTATO  IN  RGGG   *
+      *                                       * IN FORMATO AAAAMMGG   *
+      *                                                               *
+      *   23 = CALCOLO DATA PRECEDENTE DI N MESI CIVILE               *
+      *        ARROTONDATA AL PRIMO DEL MESE
+      *        PASSARE LA DATA IN FORMATO AAAAMMGG W08-RDATA          *
+      *        PASSARE N MESI (>=0) IN           W08-RGGG             *
+      *                                       * DA RDATA    E  RGGG   *
+      *                                       * RISULTATO  IN  RGGG   *
+      *                                       * IN FORMATO AAAAMMGG   *
+      *                                                               *
+      *   24 = CALCOLA SE LA DATA E' DI FINE MESE                     *
+      *        PASSARE LA DATA IN FORMATO AAAAMMGG W08-RDATA          *
+      *                                                               *
+      *   25 = CALCOLA SE LA DATA E' DI FINE TRIMESTRE                *
+      *        PASSARE LA DATA IN FORMATO AAMMGG W08-RDATA            *
+      *                                                               *
+      *   26 = DATA AAAAMMGG IN FORMA AAGGG (GIULIANA)                *
+      *        PASSARE LA DATA IN FORMATO AAMMGG W08-RDATA            *
+      *                                       * DA RDATA   IN  RGGG   *
+      *   27 = DATA AAGGG IN FORMA AAAAMMGG                           *
+      *        PASSARE LA DATA IN FORMATO AAGGG  W08-RGGG             *
+      *                                       * DA RGGG    IN  RDATA  *
+      *                                       * IN FORMATO AAAAMMGG   *
+      *                                                               *
+      *   28 = CALCOLA IL GIORNO DELLA SETTIMANA                      *
+      *        PASSARE LA DATA IN FORMATO AAAAMMGG W08-RDATA          *
+      *                                       * DA RDATA   IN  RGGG   *
+      *                                                               *
+      *   29 = DATA DA GGMMAA IN AAAAMMGG                             *
+      *        PASSARE LA DATA IN FORMATO GGMMAA W08-RDATA            *
+      *                                       * DA RDATA   IN  RDATA  *
+      *                                       * IN FORMATO AAAAMMGG   *
+      *                                                               *
+      *   31 = DATA DA GGMMAA IN AAGGG                                *
+      *        PASSARE LA DATA IN FORMATO GGMMAA W08-RDATA            *
+      *                                       * DA RDATA   IN  RGGG   *
+      *                                       * IN FORMATO AAGGG      *
+      *                                                               *
+      *   34 = DATA DA AAGGG IN AAAAMMGG                              *
+      *        PASSARE LA DATA IN FORMATO AAGGG    W08-RGGG           *
+      *                                       * DA RGGG    IN  RDATA  *
+      *                                       * IN FORMATO AAAAMMGG   *
+      *                                                               *
+      *   35 = DECOMPLEMENTO RDATA E RGGG     DATA E ORA              *
+      *        PASSARE LA DATA IN FORMATO AAMMGG  W08-RDATA           *
+      *        PASSARE ORA        FORMATO AAGGG   W08-RGGG            *
+      *                                                               *
+      *   36 = RICERCA FINE MESE DATA CORRENTE                        *
+      *        PASSARE LA DATA IN FORMATO AAAAMMGG  W08-RDATA         *
+      *                                                               *
+280500*   37 = DECOD/+GG LAVOR/RICODIFICA     * RICOLAV7              *
+280500*        PASSARE LA DATA IN FORMATO AAAAMMGG                    *
+280500*   N.B. SE LA DATA DI RIFERIMENTO DECOD E' UNA DATA FESTIVA    *
+280500*        SI PARTE DA TALE DATA + I GIORNI RICHIESTI             *
+280500*        (CALCOLO GIORNI VALUTA MEDIA PER CARTACEO)             *
+280500*                                                               *
+      *---------------------------------------------------------------*
+       01  NPW08RC.
+           03   W08-RCODE               PIC 9(002).
+           03   W08-RTIPO               PIC X(002).
+           03   W08-RDATA               PIC 9(008).
+           03   W08-RGGG                PIC 9(008).
+      *
+           03   W08-RDT5                PIC X(010).
+      *        DATA IN FORMATO GG/MM/AAAA
+           03   W08-RDT6                PIC X(008).
+      *        DATA IN FORMATO GG/MM/AA
+           03   W08-RDT10               PIC X(017).
+      *        DATA IN FORMATO GG MMMMMMMMM AAAA
+           03   W08-RDT11               PIC X(009).
+      *        DATA IN FORMATO GG MMMM AA
+           03   W08-RDT12               PIC X(027).
+      *        DATA IN FORMATO GGGGGGGGGG GG MMMMMMMMM AAAA
+           03   W08-RDT13               PIC X(013).
+      *        DATA IN FORMATO GGG GG MMM AA
+           03   W08-RDT15               PIC X(008).
+      *        DATA IN FORMATO MM/GG/AA
+           03   FILLER                  PIC X(008).
+      *--------------------------------------------------------

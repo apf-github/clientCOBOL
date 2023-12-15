@@ -1,0 +1,56 @@
+      *---------------------------------------------------------------*
+      *                                                               *
+      *  *******  **   **  **  *****  **  **                          *
+      *  **   **  **   **  **  **     ** **          PRODOTTO         *
+      *  **   **  **   **  **  **     ***       ANTICIPO DOCUMENTI    *
+      *  ** * **  **   **  **  **     ** **                           *
+      *  *******  *******  **  *****  **  **                          *
+      *       *                                  INFOSER S.R.L.       *
+      *                                                               *
+      *---------------------------------------------------------------*
+      *    NOME COPY  : <ADW05RC>   LUNGHEZZA 100 BYTE                *
+      *    NOME PGM   : <ADW05R >                                     *
+      *---------------------------------------------------------------*
+      *                                                               *
+      *    DESCRIZIONE: ACQUISIZIONE DATA CONTABILE                   *
+      *                                                               *
+      *    INPUT :  ABIUT       CODICE ABI                            *
+      *             PGMNM       NOME PROGRAMMA                        *
+      *             TIPGM       TIPO PROGRAMMA  T = ONLINE            *
+      *                                         B = BATCH             *
+      *   OUTPUT :  DTCON       DATA CONTABILE  AAAAMMGG              *
+      *   OUTPUT :  DTCO1       DATA CONTABILE  GGMMAAAA              *
+      *   OUTPUT :  DTCO2       DATA CONTABILE  AAAAMMGG COMP-3       *
+      *   OUTPUT :  DTDB2       DATA CONTABILE  'GG.MM.AAAA'          *
+      *                                                               *
+      *---------------------------------------------------------------*
+      *  RCODE  : '  '  OPERAZIONE ESEGUITA CON SUCCESSO              *
+      *           'KO'  ERRORE GENERICO DB2 O ERRORE NEL RICHIAMO     *
+      *                 VEDERE AREA NPG01RC                           *
+      *                                                               *
+      *---------------------------------------------------------------*
+       01  NPW05RC.
+           05  W05-INPUT.
+               10 W05-ABIUT              PIC X(005).
+               10 W05-PGMNM              PIC X(008).
+               10 W05-TIPGM              PIC X(001).
+               10 W05-FILLER             PIC X(010).
+           05  W05-OUTPUT.
+               10 W05-DTCON.
+                  15 W05-DATA-AAAA.
+                     20 W05-DATA-SEC     PIC X(002).
+                     20 W05-DATA-AA      PIC X(002).
+                  15 W05-DATA-MM         PIC X(002).
+                  15 W05-DATA-GG         PIC X(002).
+               10 W05-DTCO1.
+                  15 W05-DATA-GG1        PIC X(002).
+                  15 W05-DATA-MM1        PIC X(002).
+                  15 W05-DATA-AAAA1.
+                     20 W05-DATA-SEC1    PIC X(002).
+                     20 W05-DATA-AA1     PIC X(002).
+               10 W05-DTCO2              PIC S9(9) COMP-3.
+               10 W05-DTDB2              PIC X(10).
+           05  W05-RETURN-CODE.
+               10 W05-RCODE              PIC X(002).
+           05 FILLER                     PIC X(043).
+      *----------------------------------------------------------------

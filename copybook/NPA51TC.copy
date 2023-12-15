@@ -1,0 +1,61 @@
+      *---------------------------------------------------------------*
+      *                                                               *
+      *  *******  **   **  **  *****  **  **                          *
+      *  **   **  **   **  **  **     ** **          PRODOTTO         *
+      *  **   **  **   **  **  **     ***       ANTICIPO DOCUMENTI    *
+      *  ** * **  **   **  **  **     ** **                           *
+      *  *******  *******  **  *****  **  **                          *
+      *       *                                  INFOSER S.R.L.       *
+      *                                                               *
+      *---------------------------------------------------------------*
+      *   TABELLA DATI BOLLO PER ISTITUTO CON STORICIZZAZIONE         *
+      *---------------------------------------------------------------*
+      *                                                               *
+      *   CHIAVE COMPOSTA DA :                                        *
+      *     CODIT = 'A51'                                             *
+      *     ABIUT = CODICE ABI ISTITUTO                               *
+      *     FTPRE = CODICE FORMA TECNICA DI PRESENTAZIONE             *
+      *     DTINI = DECORRENZA VALIDITA' DATI (AAAAMMGG)              *
+      *     DTFIN = TERMINE    VALIDITA' DATI (AAAAMAGG)              *
+      *             TUTTI 9 SE SENZA TERMINE                          *
+      *                                                               *
+      *   DATI TABELLA :                                              *
+      *      IBOLL = IMPORTO DEL BOLLO DA APPLICARE PER DOCUMENTI     *
+      *              ESENTI IVA                                       *
+      *              (GESTITO PER FTPRE = MAV)                        *
+      *      IBOL1 = IMPORTO DI RIFERIMENTO MINIMO PER L' APPLICAZIONE*
+      *              DEL BOLLO A51-IBOLL                              *
+      *              (GESTITO PER FTPRE = MAV)                        *
+      *      ID146 = DATI BOLLO VIRTUALE                              *
+      *              ID46B = PROVINCIA INTENDENZA DI FINANZA          *
+      *              ID46C = N.AUTORIZZAZIONE INTENDENZA DI FINANZA   *
+      *              ID46D = DATA RILASCIO AUTORIZZAZIONE (AAAAMMGG)  *
+      *      FAUIF = FLAG N. AUTORIZZAZIONE INTENDENZA DI FINANZA:    *
+      *              1= FORZARE SEMPRE N. AUTORIZZAZIONE ISTITUTO     *
+      *              0= ASSEGNARE N. AUTOR. CLIENTE O ISTITUTO        *
+E00990*      IBOL2 = IMPORTO DEL BOLLO DA APPLICARE PER DOCUMENTI     *
+E00990*              ESENTI IVA                                       *
+E00990*              (GESTITO PER FTPRE = MAV) VALORE IN EURO         *
+E00990*      IBOL3 = IMPORTO DI RIFERIMENTO MINIMO PER L' APPLICAZIONE*
+E00990*              DEL BOLLO A51-IBOL2                              *
+E00990*              (GESTITO PER FTPRE = MAV) VALORE IN EURO         *
+      *---------------------------------------------------------------*
+       01  NPA51TC.
+           03 A51-KEY.
+              05 A51-CODIT                   PIC X(003).
+              05 A51-ABIUT                   PIC X(005).
+              05 A51-FTPRE                   PIC X(002).
+              05 A51-DTINI                   PIC 9(008).
+              05 A51-DTFIN                   PIC 9(008).
+              05 FILLER                      PIC X(009).
+           03 A51-DATI.
+              05 A51-IBOLL                   PIC 9(007).
+              05 A51-IBOL1                   PIC 9(009).
+              05 A51-ID46B                   PIC X(015).
+              05 A51-ID46C                   PIC X(010).
+              05 A51-ID46D                   PIC X(008).
+              05 A51-FAUIF                   PIC 9(001).
+E00990        05 A51-IBOL2                   PIC 9(005)V99.
+E00990        05 A51-IBOL3                   PIC 9(007)V99.
+E00990        05 FILLER                      PIC X(134).
+      *===============================================================*

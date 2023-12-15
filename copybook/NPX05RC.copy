@@ -1,0 +1,44 @@
+PERINF*****************************************************************
+PERINF*****************************************************************
+PERINF*****************************************************************
+PERINF******    ATTENZIONE ESISTE UNA VERSIONE FUORI PACCHETTO    *****
+PERINF******    ATTENZIONE ESISTE UNA VERSIONE FUORI PACCHETTO    *****
+PERINF******    ATTENZIONE ESISTE UNA VERSIONE FUORI PACCHETTO    *****
+PERINF******    ATTENZIONE ESISTE UNA VERSIONE FUORI PACCHETTO    *****
+PERINF******    ATTENZIONE ESISTE UNA VERSIONE FUORI PACCHETTO    *****
+PERINF*****************************************************************
+PERINF*****************************************************************
+PERINF*****************************************************************
+      *---------------------------------------------------------------*
+      *                                                               *
+      *  *******  **   **  **  *****  **  **                          *
+      *  **   **  **   **  **  **     ** **          PRODOTTO         *
+      *  **   **  **   **  **  **     ***       ANTICIPO DOCUMENTI    *
+      *  ** * **  **   **  **  **     ** **                           *
+      *  *******  *******  **  *****  **  **                          *
+      *       *                                  INFOSER S.R.L.       *
+      *                                                               *
+      *---------------------------------------------------------------*
+      *   AREA DI PASSAGGIO ROUTINE ACCESSI TABELLA CHECKPOINT        *
+      *---------------------------------------------------------------*
+      * INPUT :   FUNZI = CODICE FUNZIONE                             *
+      *                   'RE' = LETTURA RECORD                       *
+      *                   'IS' = INSERT  RECORD                       *
+      *                   'U1' = UPDATE  CHIAVE ELABORATA             *
+      *                   'U2' = UPDATE  CHIAVE ERRATA                *
+      *                   'DE' = DELETE  RECORD                       *
+      *                                                               *
+      * RCODE  : '  '  OPERAZIONE ESEGUITA CON SUCCESSO               *
+      *          'GE'  RECORD NON TROVATO                             *
+      *          'DP'  CHIAVE DUPLICATA                               *
+      *          'KO'  ERRORE GENERICO DB2 O ERRORE NEL RICHIAMO      *
+      *                VEDERE AREA CEG01RC                            *
+      *                                     LEN 500 BYTE              *
+      *---------------------------------------------------------------*
+       01  NPX05RC.
+           05 X05-INPUT.
+              10 X05-FUNZI                  PIC X(002).
+           05 X05-RETURN-CODE.
+              10 X05-RCODE                  PIC X(002).
+           05 X05-NPCKPT                    PIC X(496).
+      *---------------------------------------------------------------*

@@ -1,0 +1,26 @@
+      ******************************************************************
+      * DCLGEN TABLE(AGNP.NPCKPT)                                      *
+      *        LIBRARY(AM71.COPYCOB.GESIN(NPCKPT))                     *
+      *        ACTION(REPLACE)                                         *
+      *        LANGUAGE(COBOL)                                         *
+      *        STRUCTURE(NPCKPT)                                       *
+      *        APOST                                                   *
+      * ... IS THE DCLGEN COMMAND THAT MADE THE FOLLOWING STATEMENTS   *
+      ******************************************************************
+           EXEC SQL DECLARE AGNP.NPCKPT TABLE
+           ( CKP_PGMNM                      CHAR(8) NOT NULL,
+             CKP_KEYCM                      CHAR(100) NOT NULL,
+             CKP_KEYER                      CHAR(100),
+             CKP_NPATI                      CHAR(250) NOT NULL
+           ) END-EXEC.
+      ******************************************************************
+      * COBOL DECLARATION FOR TABLE AGNP.NPCKPT                        *
+      ******************************************************************
+       01  NPCKPT.
+           10 CKP-PGMNM            PIC X(8).
+           10 CKP-KEYCM            PIC X(100).
+           10 CKP-KEYER            PIC X(100).
+           10 CKP-NPATI            PIC X(250).
+      ******************************************************************
+      * THE NUMBER OF COLUMNS DESCRIBED BY THIS DECLARATION IS 4       *
+      ******************************************************************

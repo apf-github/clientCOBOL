@@ -1,0 +1,56 @@
+      *---------------------------------------------------------------*
+      *                                                               *
+      *  *******  **   **  **  *****  **  **                          *
+      *  **   **  **   **  **  **     ** **          PRODOTTO         *
+      *  **   **  **   **  **  **     ***       ANTICIPO DOCUMENTI    *
+      *  ** * **  **   **  **  **     ** **                           *
+      *  *******  *******  **  *****  **  **                          *
+      *       *                                  INFOSER S.R.L.       *
+      *                                                               *
+      *---------------------------------------------------------------*
+      *   TABELLA CAB                                                 *
+      *---------------------------------------------------------------*
+      *                                                               *
+      *   CHIAVE COMPOSTA DA :                                        *
+      *      CODIT = 'T07'                                            *
+      *      ABIUT = CODICE ABI                                       *
+      *      CABFI = CODICE CAB DELLA FILIALE                         *
+      *      SERVI = CODICE SERVIZIO                                  *
+      *                                                               *
+      *   DATI TABELLA :                                              *
+      *      PRFIL = PROGRESSIVO NUMERICO ASSOCIATO ALLA FILIALE      *
+      *      CFILI = CODICE FILIALE (ALFANUMERICO)                    *
+      *              E' AMMESSA LA FILIALE CFILI = 00000              *
+      *      DESCR = DESCRIZIONE FILIALE                              *
+      *      DESCS = DESCRIZIONE SINTETICA FILIALE                    *
+      *      CAPOZ = TIPO FILIALE :                                   *
+      *              'A' AGENZIA                                      *
+      *              'C' FILIALE CAPOZONA                             *
+      *              'D' DIREZIONE GENERALE                           *
+      *      FILDP = CODICE FILIALE DA CUI DIPENDE (SUPERIORE)        *
+      *      CHIUS = USI FUTURI                                       *
+      *      CAPOG = CODICE FILIALE CAPOGRUPPO                        *
+CC0401*      FGGES = FLAG GESTORE                                     *
+CC0401*            ' ' = FILIALE (NON GESTORE)                        *
+CC0401*            'I' = GESTORE CENTRO IMPRESA                       *
+      *---------------------------------------------------------------*
+       01  NPT07TC.
+           03 T07-KEY.
+              05 T07-CODIT                   PIC X(003).
+              05 T07-ABIUT                   PIC X(005).
+              05 T07-CABFI                   PIC 9(005).
+              05 T07-SERVI                   PIC X(004).
+              05 FILLER                      PIC X(018).
+           03 T07-DATI.
+              05 T07-PRFIL                   PIC 9(005).
+              05 T07-CFILI                   PIC X(005).
+              05 T07-DESCR                   PIC X(035).
+              05 T07-DESCS                   PIC X(015).
+              05 T07-CAPOZ                   PIC X(001).
+              05 T07-FILDP                   PIC X(005).
+              05 T07-CHIUS                   PIC X(001).
+              05 T07-CAPOG                   PIC X(005).
+CC0401        05 T07-FGGES                   PIC X(001).
+CC0401        05 FILLER                      PIC X(127).
+CC0401*       05 FILLER                      PIC X(128).
+      *---------------------------------------------------------------*
