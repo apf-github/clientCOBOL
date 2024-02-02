@@ -6,16 +6,10 @@
        FILE-CONTROL.
            SELECT CUSTINPT ASSIGN TO DDCUSTIN
            ORGANIZATION IS SEQUENTIAL
-      *     ORGANIZATION IS INDEXED
-      *     ACCESS MODE IS SEQUENTIAL
-      *     RECORD KEY IS CUSTIN-PRI-KEY
            FILE STATUS IS WS-CUSTIN-FS.
 
            SELECT LOANINPT ASSIGN TO DDLOANIN
            ORGANIZATION IS SEQUENTIAL
-      *     ORGANIZATION IS INDEXED
-      *     ACCESS MODE IS SEQUENTIAL
-      *     RECORD KEY IS LOANIN-PRI-KEY
            FILE STATUS IS WS-LOANIN-FS.
 
            SELECT ERRFILE ASSIGN TO DDERRFIL
@@ -24,17 +18,17 @@
 
        DATA DIVISION.
        FILE SECTION.
-       FD CUSTINPT.
-       COPY CUSTTRAN.
+        FD CUSTINPT.
+        COPY CUSTTRAN.
 
-       FD LOANINPT.
-       COPY LOANTRAN.
+        FD LOANINPT.
+        COPY LOANTRAN.
 
-       FD ERRFILE.
-       01 ERROR-REC.
-           02 EREC-NO   PIC X(4).
-           02 FILLER PIC XX VALUE '-'.
-           02 ERROR-MSG  PIC X(74).
+        FD ERRFILE.
+        01 ERROR-REC.
+            02 EREC-NO   PIC X(4).
+            02 FILLER PIC XX VALUE '-'.
+            02 ERROR-MSG  PIC X(74).
 
        WORKING-STORAGE SECTION.
            EXEC SQL
@@ -103,41 +97,42 @@
                        WS-FILE-STATUS.
 
             PERFORM A1000-OPEN-FILE-PARA
-               THRU A1000-EXIT
+               THRU A1000-EXIT.
 
             PERFORM A2000-PROCESS-CUST-REQST
-               THRU A2000-EXIT
+               THRU A2000-EXIT.
 
             PERFORM A3000-PROCESS-LOAN-REQST
-               THRU A3000-EXIT
+               THRU A3000-EXIT.
 
             PERFORM A4000-CLOSE-FILE-PARA
                THRU A4000-EXIT.
+
            GOBACK.
+
        0000-EXIT.
             EXIT.
+
        A1000-OPEN-FILE-PARA.
 
-      *      CLOSE CUSTINPT
-      *      CLOSE LOANINPT
-      *      CLOSE ERRFILE
+            OPEN INPUT CUSTINPT.
+            DISPLAY 'CUSTIN FILE STATUS -',WS-CUSTIN-FS.
 
-            OPEN INPUT CUSTINPT
-            DISPLAY 'CUSTIN FILE STATUS -',WS-CUSTIN-FS
+            OPEN INPUT LOANINPT.
+            DISPLAY 'LOANIN FILE STATUS -',WS-LOANIN-FS.
 
-            OPEN INPUT LOANINPT
-            DISPLAY 'LOANIN FILE STATUS -',WS-LOANIN-FS
-
-            OPEN OUTPUT ERRFILE
+            OPEN OUTPUT ERRFILE.
             DISPLAY 'ERROR FILE STATUS -',WS-ERRFIL-FS.
 
        A1000-EXIT.
              EXIT.
+
        A2000-PROCESS-CUST-REQST.
-             PERFORM R1000-READ-CUST-FILE
+             PERFORM R1000-READ-CUST-FILE.
              PERFORM A2100-TAKE-CUST-REQ UNTIL END-OF-CUSTIN.
        A2000-EXIT.
              EXIT.
+
        A2100-TAKE-CUST-REQ.
 
              EVALUATE TRUE
@@ -152,13 +147,14 @@
              PERFORM R1000-READ-CUST-FILE.
        A2100-EXIT.
              EXIT.
+
        A2200-ADD-CUST-PARA.
 
-           MOVE CUSTIN-CUSTM-NAME-FRSTNM  TO ACN-CUSTM-NAME-FRSTNM
-           MOVE CUSTIN-CUSTM-NAME-MDLNM   TO ACN-CUSTM-NAME-MDLNM
-           MOVE CUSTIN-CUSTM-NAME-LASTNM  TO ACN-CUSTM-NAME-LASTNM
-           MOVE CUSTIN-CUSTM-ADDR         TO ACN-CUSTM-ADDR
-           MOVE CUSTIN-CUSTM-DOB          TO ACN-CUSTM-DOB
+           MOVE CUSTIN-CUSTM-NAME-FRSTNM  TO ACN-CUSTM-NAME-FRSTNM.
+           MOVE CUSTIN-CUSTM-NAME-MDLNM   TO ACN-CUSTM-NAME-MDLNM.
+           MOVE CUSTIN-CUSTM-NAME-LASTNM  TO ACN-CUSTM-NAME-LASTNM.
+           MOVE CUSTIN-CUSTM-ADDR         TO ACN-CUSTM-ADDR.
+           MOVE CUSTIN-CUSTM-DOB          TO ACN-CUSTM-DOB.
 
            EXEC SQL
                 INSERT INTO CUSTM_TABLE
@@ -192,12 +188,12 @@
        A2200-EXIT.
              EXIT.
        A2300-MOD-CUST-PARA.
-           MOVE CUSTIN-CUSTM-NO           TO ACN-CUSTM-NO
-           MOVE CUSTIN-CUSTM-NAME-FRSTNM  TO ACN-CUSTM-NAME-FRSTNM
-           MOVE CUSTIN-CUSTM-NAME-MDLNM   TO ACN-CUSTM-NAME-MDLNM
-           MOVE CUSTIN-CUSTM-NAME-LASTNM  TO ACN-CUSTM-NAME-LASTNM
-           MOVE CUSTIN-CUSTM-ADDR         TO ACN-CUSTM-ADDR
-           MOVE CUSTIN-CUSTM-DOB          TO ACN-CUSTM-DOB
+           MOVE CUSTIN-CUSTM-NO           TO ACN-CUSTM-NO.
+           MOVE CUSTIN-CUSTM-NAME-FRSTNM  TO ACN-CUSTM-NAME-FRSTNM.
+           MOVE CUSTIN-CUSTM-NAME-MDLNM   TO ACN-CUSTM-NAME-MDLNM.
+           MOVE CUSTIN-CUSTM-NAME-LASTNM  TO ACN-CUSTM-NAME-LASTNM.
+           MOVE CUSTIN-CUSTM-ADDR         TO ACN-CUSTM-ADDR.
+           MOVE CUSTIN-CUSTM-DOB          TO ACN-CUSTM-DOB.
 
            EXEC SQL
                 UPDATE CUSTM_TABLE   SET
@@ -219,7 +215,7 @@
        A2300-EXIT.
              EXIT.
        A2400-DEL-CUST-PARA.
-             MOVE CUSTIN-CUSTM-NO           TO ACN-CUSTM-NO
+             MOVE CUSTIN-CUSTM-NO           TO ACN-CUSTM-NO.
 
              EXEC SQL
                 DELETE FROM CUSTM_TABLE
@@ -236,7 +232,7 @@
        A2400-EXIT.
              EXIT.
        A3000-PROCESS-LOAN-REQST.
-             PERFORM R2000-READ-LOAN-FILE
+             PERFORM R2000-READ-LOAN-FILE.
              PERFORM A3100-TAKE-LOAN-REQ UNTIL END-OF-LOANIN.
        A3000-EXIT.
              EXIT.
@@ -253,25 +249,24 @@
        A3100-EXIT.
              EXIT.
        A3200-NEW-LOAN-PARA.
-      * RAGHU BELOW PARA NEED TO CHECK AND UNCOMMENT
-      *      PERFORM A3210-SEARCH-LOANMSTR
-             PERFORM A3220-SEARCH-CUSTNO-PARA
+
+             PERFORM A3220-SEARCH-CUSTNO-PARA.
              PERFORM A3240-UPDATE-LOANMSTR.
        A3200-EXIT.
              EXIT.
        A3210-SEARCH-LOANMSTR.
               INITIALIZE WS-LOAN-NO
-                         WS-TEMP-LOAN-NO
+                         WS-TEMP-LOAN-NO.
 
-              MOVE LOANIN-LLOANM-CAT      TO  LLOANM-CAT
-              MOVE LOANIN-LLOANM-CUST-NO  TO  LLOANM-CUST-NO
+              MOVE LOANIN-LLOANM-CAT      TO  LLOANM-CAT.
+              MOVE LOANIN-LLOANM-CUST-NO  TO  LLOANM-CUST-NO.
 
               EXEC SQL
                    SELECT LOANM_NO INTO :WS-LOAN-NO
                    FROM LOANMSTR
                    WHERE LOANM_CAT = :LLOANM-CAT AND
                          LOANM_CUST_NO = :LLOANM-CUST-NO
-              END-EXEC
+              END-EXEC.
 
               EVALUATE TRUE
               WHEN SQLCODE = 0
@@ -285,14 +280,14 @@
              EXIT.
        A3220-SEARCH-CUSTNO-PARA.
                       INITIALIZE  ACN-CUSTM-NO
-                                  WS-CUST-NO
+                                  WS-CUST-NO.
 
-               MOVE LOANIN-LLOANM-CUST-NO TO ACN-CUSTM-NO
+               MOVE LOANIN-LLOANM-CUST-NO TO ACN-CUSTM-NO.
 
                EXEC SQL
                    SELECT CUSTM_NO INTO :WS-CUST-NO
                    FROM CUSTM_TABLE WHERE CUSTM_NO = :ACN-CUSTM-NO
-               END-EXEC
+               END-EXEC.
 
                EVALUATE TRUE
                WHEN SQLCODE = 0
@@ -312,37 +307,36 @@
                EXEC SQL
                    SELECT MAX (LOANM_NO) INTO :LLOANM-NO
                    FROM LOANMSTR
-               END-EXEC
+               END-EXEC.
 
                EVALUATE TRUE
                WHEN SQLCODE = 0
                   COMPUTE WS-NEXT-LOAN-NO = LLOANM-NO + 1
                   MOVE WS-NEXT-LOAN-NO TO WS-TEMP1-LOAN-NO
-      *RAGHU COMMENTS BELOW RETURN CODE WILL BE FOR NOT FOUND ALSO
                WHEN OTHER
                   DISPLAY ' A3230 PARA ERR GENERATING LOAN-',SQLCODE
                END-EVALUATE.
        A3230-EXIT.
              EXIT.
        A3240-UPDATE-LOANMSTR.
-            MOVE LOANIN-LLOANM-CAT      TO  LLOANM-CAT
-            MOVE LOANIN-LLOANM-TERM     TO  LLOANM-TERM
-            MOVE LOANIN-LLOANM-MAX-AMT  TO  LLOANM-MAX-AMT
-            MOVE 20                     TO  LLOANM-MIN-AGE
-            MOVE 50                     TO  LLOANM-MAX-AGE
-            MOVE WS-NEXT-LOAN-NO        TO  LLOANM-NO
-            MOVE 'O'                    TO  LLOANM-ST
-            MOVE LOANIN-LLOANM-CUST-NO  TO  LLOANM-CUST-NO
+            MOVE LOANIN-LLOANM-CAT      TO  LLOANM-CAT.
+            MOVE LOANIN-LLOANM-TERM     TO  LLOANM-TERM.
+            MOVE LOANIN-LLOANM-MAX-AMT  TO  LLOANM-MAX-AMT.
+            MOVE 20                     TO  LLOANM-MIN-AGE.
+            MOVE 50                     TO  LLOANM-MAX-AGE.
+            MOVE WS-NEXT-LOAN-NO        TO  LLOANM-NO.
+            MOVE 'O'                    TO  LLOANM-ST.
+            MOVE LOANIN-LLOANM-CUST-NO  TO  LLOANM-CUST-NO.
 
             IF LOANIN-LLOANM-CAT = 01
                MOVE 'AUTO LOAN'  TO  LLOANM-TITLE
                MOVE 11           TO  LLOANM-ROI
-            END-IF
+            END-IF.
 
             IF LOANIN-LLOANM-CAT = 02
                MOVE 'PRSNL LOAN' TO  LLOANM-TITLE
                MOVE 14           TO  LLOANM-ROI
-            END-IF
+            END-IF.
 
             EXEC SQL
               INSERT INTO LOANMSTR VALUES
@@ -356,7 +350,7 @@
               :LLOANM-MAX-AGE,
               :LLOANM-ST,
               :LLOANM-CUST-NO)
-            END-EXEC
+            END-EXEC.
 
             EVALUATE TRUE
             WHEN SQLCODE = 0
@@ -368,14 +362,14 @@
              EXIT.
        A3300-LOAN-REPAY-PARA.
 
-             PERFORM A3310-SEARCH-LOANNO-PARA
+             PERFORM A3310-SEARCH-LOANNO-PARA.
 
              IF LOANNO-ALEARDY-CLOSED
                 CONTINUE
              ELSE
                 PERFORM A3320-GET-DATE-PARA
                 PERFORM A3330-INSERT-REPAYMNT-DATA
-             END-IF
+             END-IF.
 
              IF ERROR-UPDATE-LOANHIST
                 CONTINUE
@@ -386,7 +380,7 @@
        A3300-EXIT.
              EXIT.
        A3310-SEARCH-LOANNO-PARA.
-               MOVE LOANIN-LLOANM-NO  TO LLOANM-NO
+               MOVE LOANIN-LLOANM-NO  TO LLOANM-NO.
 
                EXEC SQL
                    SELECT LOANM_CAT, LOANM_ROI, LOANM_MAX_AMT,
@@ -397,7 +391,7 @@
                        :LLOANM-ST,:LLOANM-CUST-NO
                    FROM LOANMSTR WHERE LOANM_NO = :LLOANM-NO
 
-               END-EXEC
+               END-EXEC.
                EVALUATE TRUE
                WHEN SQLCODE = 0
                    IF LLOANM-ST = 'C'
@@ -420,20 +414,20 @@
        A3310-EXIT.
              EXIT.
        A3320-GET-DATE-PARA.
-             ACCEPT WS-TEMP-DATE FROM DATE
+             ACCEPT WS-TEMP-DATE FROM DATE.
 
-             MOVE WS-TEMP-DATE-MM  TO WS-CURT-DATE-MM
-             MOVE WS-TEMP-DATE-DD  TO WS-CURT-DATE-DD
-             MOVE '20'             TO WS-CURT-DATE-CC
+             MOVE WS-TEMP-DATE-MM  TO WS-CURT-DATE-MM.
+             MOVE WS-TEMP-DATE-DD  TO WS-CURT-DATE-DD.
+             MOVE '20'             TO WS-CURT-DATE-CC.
              MOVE WS-TEMP-DATE-YY  TO WS-CURT-DATE-YY.
        A3220-EXIT.
              EXIT.
        A3330-INSERT-REPAYMNT-DATA.
-               MOVE LOANIN-LLOANM-CAT     TO RLOANRPH-CAT
-               MOVE LOANIN-LLOANM-NO      TO RLOANRPH-NO
-               MOVE WS-CURR-DATE          TO RLOANRPH-DATE
-               MOVE LOANIN-LLOANM-MAX-AMT TO RLOANRPH-RP-AMT
-               MOVE WS-LOAN-OUTAMT        TO RLOANRPH-OS-AMT
+               MOVE LOANIN-LLOANM-CAT     TO RLOANRPH-CAT.
+               MOVE LOANIN-LLOANM-NO      TO RLOANRPH-NO.
+               MOVE WS-CURR-DATE          TO RLOANRPH-DATE.
+               MOVE LOANIN-LLOANM-MAX-AMT TO RLOANRPH-RP-AMT.
+               MOVE WS-LOAN-OUTAMT        TO RLOANRPH-OS-AMT.
 
                EXEC SQL
                    INSERT INTO LOANRPHST VALUES
@@ -452,8 +446,8 @@
        A3330-EXIT.
              EXIT.
        A3340-UPDATE-LOANMSTR-DATA.
-               MOVE LOANIN-LLOANM-NO     TO LLOANM-NO
-               MOVE 'C'                  TO LLOANM-ST
+               MOVE LOANIN-LLOANM-NO     TO LLOANM-NO.
+               MOVE 'C'                  TO LLOANM-ST.
 
                EXEC SQL
                   UPDATE LOANMSTR
@@ -473,15 +467,15 @@
              EXIT.
        A4000-CLOSE-FILE-PARA.
 
-            CLOSE CUSTINPT
-            CLOSE LOANINPT
+            CLOSE CUSTINPT.
+            CLOSE LOANINPT.
             CLOSE ERRFILE.
 
        A4000-EXIT.
              EXIT.
        R1000-READ-CUST-FILE.
              READ CUSTINPT
-             END-READ
+             END-READ.
 
              EVALUATE TRUE
              WHEN WS-CUSTIN-FS = '00'
@@ -500,7 +494,7 @@
        R2000-READ-LOAN-FILE.
              READ LOANINPT
              AT END SET END-OF-LOANIN TO TRUE
-             END-READ
+             END-READ.
 
              EVALUATE TRUE
              WHEN WS-LOANIN-FS = '00'
@@ -520,5 +514,3 @@
              WRITE ERROR-REC.
        W1000-EXIT.
              EXIT.
-       END PROGRAM PGBPRTXN.
-
