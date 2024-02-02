@@ -7,7 +7,7 @@
                10  F007-ENT-CAC            PIC X(4).
                10  F007-CEN-CAC            PIC X(4).
                10  F007-NUM-RISK           PIC X(10).
-               10  F007-RISKSEQ            PIC S9(3)       COMP-3.
+               10  F007-RISKSEQ            PIC S9(3) COMP-3.
                10  F007-ENT-OWN            PIC X(4).
                10  F007-CEN-OWN            PIC X(4).
                10  F007-TYP-RISK           PIC X(2).
@@ -20,18 +20,18 @@
                10  F007-COD-SLPAY          PIC X(4).
                10  F007-FLG-SLPAYRISK      PIC X.
                10  F007-DAT-NPAY           PIC X(10).
-               10  F007-NUM-NPAY           PIC S9(3)       COMP-3.
+               10  F007-NUM-NPAY           PIC S9(3) COMP-3.
                10  F007-AMT-NPAY           PIC S9(15)V9(2) COMP-3.
                10  F007-AMT-PROV           PIC S9(15)V9(2) COMP-3.
-               10  F007-FLG-INTST          PIC X(3).ß
+               10  F007-FLG-INTST          PIC X(3).
                10  F007-KEY-CBRISK         PIC X.
                10  F007-FCC                PIC X(3).
                10  F007-KEY-CBTERM         PIC X.
                10  F007-KEY-CBCOLT         PIC X.
                10  F007-KEY-CBST           PIC X.
                10  F007-NCBA               PIC X(5).
-               10  F007-COD-SRGN           PIC S9(3)       COMP-3.
-               10  F007-COD-CBSEC          PIC S9(8)       COMP-3.
+               10  F007-COD-SRGN           PIC S9(3) COMP-3.
+               10  F007-COD-CBSEC          PIC S9(8) COMP-3.
                10  F007-AMT-NOEXPR         PIC S9(15)V9(2) COMP-3.
                10  F007-AMT-LASTEXPRNPAY   PIC S9(15)V9(2) COMP-3.
                10  F007-AMT-PRVEXPRNPAY    PIC S9(15)V9(2) COMP-3.
@@ -39,7 +39,7 @@
                10  F007-FLG-GUAPLCY        PIC X.
                10  F007-FLG-RFNC           PIC X.
                10  F007-COD-COMMPROD       PIC X(6).
-               10  F007-PER-RTN            PIC S9(3)       COMP-3.
+               10  F007-PER-RTN            PIC S9(3) COMP-3.
                10  F007-FLG-INTF           PIC X.
                10  F007-FLG-MOD            PIC X.
                10  F007-ENT-LINKACC        PIC X(4).
@@ -60,16 +60,16 @@
                10  F007-ENT-NEGT           PIC X(4).
                10  F007-BRN-NEGT           PIC X(4).
                10  F007-DAT-ST             PIC X(10).
-               10  F007-MAXQNTY            PIC S9(5)        COMP-3.
+               10  F007-MAXQNTY            PIC S9(5) COMP-3.
                10  F007-AVA1               PIC X(10).
                10  F007-AVA2               PIC X(10).
                10  F007-AVA3               PIC X(10).
                10  F007-FLG-AVA1           PIC X(1).
                10  F007-FLG-AVA2           PIC X(1).
                10  F007-FLG-AVA3           PIC X(1).
-               10  F007-AMT-AVA1           PIC S9(13)V9(2)  COMP-3.
-               10  F007-AMT-AVA2           PIC S9(13)V9(2)  COMP-3.
-               10  F007-AMT-AVA3           PIC S9(13)V9(2)  COMP-3.
+               10  F007-AMT-AVA1           PIC S9(13)V9(2) COMP-3.
+               10  F007-AMT-AVA2           PIC S9(13)V9(2) COMP-3.
+               10  F007-AMT-AVA3           PIC S9(13)V9(2) COMP-3.
                10  F007-DAT-AVA1           PIC X(10).
                10  F007-DAT-AVA2           PIC X(10).
                10  F007-DAT-AVA3           PIC X(10).
@@ -84,13 +84,13 @@
            10  F007-AMT-COM                PIC S9(13)V9(2) COMP-3.
            10  F007-AMT-EXPN               PIC S9(13)V9(2) COMP-3.
            10  F007-AMT-ARR                PIC S9(13)V9(2) COMP-3.
-           10  F007-PER-ARR                PIC S9(2)V9(3)  COMP-3.
+           10  F007-PER-ARR                PIC S9(2)V9(3) COMP-3.
            10  F007-FLG-AVA1-A1            PIC X(1).
       *
-           10  F007-AMT-PENDCAP            PIC S9(13)V99   COMP-3.
+           10  F007-AMT-PENDCAP            PIC S9(13)V99 COMP-3.
            10  F007-AMT-PENDCAP-A1   REDEFINES F007-AMT-PENDCAP
                                            PIC X(8).
-           10  F007-AMT-LEGALCO            PIC S9(13)V99   COMP-3.
+           10  F007-AMT-LEGALCO            PIC S9(13)V99 COMP-3.
            10  F007-AMT-LEGALCO-A1   REDEFINES F007-AMT-LEGALCO
                                            PIC X(8).
       *
