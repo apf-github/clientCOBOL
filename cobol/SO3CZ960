@@ -1,0 +1,477 @@
+      * SO3CZ960: SODT008 CLEAN UP RECORDS SELECTION                   *
+      ******************************************************************
+      *B.PD.S                                                          *
+      * SO3CZ960: SODT008 CLEAN UP RECORDS SELECTION                   *
+      *B.PD.E                                                          *
+      *B.PR.S                                                          *
+      * FILES USED                                                     *
+      * -------------------                                            *
+      * I1DQZ960: FEES FILE (ORIGINAL SODT008 TABLE)                   *
+      * O1DQZ960: SORTED FEES FILE                                     *
+      *                                                                *
+      * COPYS USED                                                     *
+      * ----------------                                               *
+      * BGEC571: COMMAREA BG9C5710                                     *
+      * QAWCSQL                                                        *
+      * QBEC9900                                                       *
+      * QBEC999                                                        *
+      * QRECDB2                                                        *
+      * SOVCF008: OPERATIONS TABLE                                     *
+      * TCEC1200: COMMAREA TC9C1200                                    *
+      *                                                                *
+      * ROUTINES INVOKED                                               *
+      * -----------------                                              *
+      * BG9C5710                                                       *
+      * QB8C9900                                                       *
+      * QR4CDB0                                                        *
+      * TC9C1200: NATIONAL SCHEDULE. (ROUTINE EQUIVALENT TO THE ONLINE *
+      * ONE TC7C2200).                                                 *
+      *B.PR.E                                                          *
+      ******************************************************************
+      *                  IDENTIFICATION DIVISION                       *
+      ******************************************************************
+       IDENTIFICATION DIVISION.
+      *
+       PROGRAM-ID.    SO3CZ960.
+      *
+       AUTHOR.        ALNOVA TECHNOLOGIES CORPORATION.
+      *
+       DATE-WRITTEN.  2006-08-01.
+      *
+      ******************************************************************
+      *                     MODIFICATIONS LOG                          *
+      ******************************************************************
+      *     CODE       AUTHOR  DATE     DESCRIPTION                    *
+      *     ---------- ------- -------- ------------------------------ *
+      ******************************************************************
+      ******************************************************************
+      *                     ENVIRONMENT DIVISION                       *
+      ******************************************************************
+       ENVIRONMENT DIVISION.
+      *
+       CONFIGURATION SECTION.
+      *
+       SOURCE-COMPUTER.  IBM-3090.
+      *
+       OBJECT-COMPUTER.  IBM-3090.
+      *
+       SPECIAL-NAMES.
+      *
+      *        DECIMAL-POINT IS COMMA.
+      *
+       INPUT-OUTPUT SECTION.
+      *
+       FILE-CONTROL.
+      *
+           SELECT INPUT-SO-FILE   ASSIGN TO I1DQZ960
+             FILE STATUS IS FS-INPUT-SO.
+           SELECT OUTPUT-SO-FILE  ASSIGN TO O1DQZ960
+             FILE STATUS IS FS-OUTPUT-SO.
+      *
+      ******************************************************************
+      *                       DATA DIVISION                            *
+      ******************************************************************
+       DATA DIVISION.
+      *
+      ******************************************************************
+      *                       FILE SECTION                             *
+      ******************************************************************
+       FILE SECTION.
+      *
+        FD  INPUT-SO-FILE
+            RECORDING MODE IS F
+            BLOCK CONTAINS 0 RECORDS
+            LABEL RECORD OMITTED.
+        01  RE-INPUT-SO-FILE               PIC X(604).
+      *
+        FD  OUTPUT-SO-FILE
+            RECORDING MODE IS F
+            BLOCK CONTAINS 0 RECORDS
+            LABEL RECORD OMITTED.
+        01  RE-OUTPUT-SO-FILE              PIC X(604).
+      *
+      ******************************************************************
+      *                  WORKING-STORAGE SECTION                       *
+      ******************************************************************
+       WORKING-STORAGE SECTION.
+      *
+       COPY QAWCSQL.
+      *
+       01  VA-QBEC9900-01.
+           COPY QBEC9900.
+      *
+       01  VA-QBEC999-01.
+           COPY QBEC999.
+      *
+       COPY SOVCF008.
+      *
+       COPY BGEC571.
+      *
+       COPY QRECDB2.
+      *
+       COPY TCEC1200.
+      *
+       01 VA-SWITCHES.
+      *
+          05 SW-FINAL-SO                   PIC X(1)    VALUE 'N'.
+             88 SW-FIN-SO-FILE                         VALUE 'Y'.
+      *
+       01 VA-CONS.
+          05 CA-QB8C9900                   PIC X(08)   VALUE 'QB8C9900'.
+          05 CA-QR4CDB0                    PIC X(07)   VALUE 'QR4CDB0'.
+          05 CA-PROGRAM                    PIC X(08)   VALUE 'SO3CZ960'.
+          05 CA-BG9C5710                   PIC X(08)   VALUE 'BG9C5710'.
+          05 CA-ABEND                      PIC X(01)   VALUE 'S'.
+          05 CA-TC9C1200                   PIC X(08)   VALUE 'TC9C1200'.
+          05 CA-ABENDDB2                   PIC X(01)   VALUE 'A'.
+          05 CA-DATE-MIN                   PIC X(08)   VALUE '00010101'.
+          05 CA-DATE-MIN2                  PIC X(10)
+                                           VALUE '0001-01-01'.
+          05 CA-DATE-MAX                   PIC X(08)   VALUE '99991231'.
+          05 CA-ERR-DTA                    PIC X(02)   VALUE '80'.
+          05 CA-A                          PIC X       VALUE 'A'.
+          05 CA-S                          PIC X       VALUE 'S'.
+      *
+          05 CA-00                         PIC X(02)   VALUE '00'.
+          05 CA-10                         PIC X(02)   VALUE '10'.
+          05 CA-SIX                        PIC 9       VALUE 6.
+      *
+          05 CA-ONE                        PIC S9(1)   VALUE +1  COMP-3.
+      *
+       01 VA-VARIABLES.
+      *
+          05 FS-INPUT-SO                   PIC X(2)   VALUE SPACES.
+          05 FS-OUTPUT-SO                  PIC X(2)   VALUE SPACES.
+      *
+          05 CO-WRITE                      PIC 9(9)   VALUE ZEROES.
+          05 CO-READ                       PIC 9(9)   VALUE ZEROES.
+      *
+       01  VA-SQLCODE                      PIC ---9.
+      *
+       01  VA-DAT-PAST.
+           05  VA-YY-PAST                  PIC X(4)    VALUE SPACES.
+           05  VA-MM-PAST                  PIC X(2)    VALUE SPACES.
+           05  VA-DD-PAST                  PIC X(2)    VALUE SPACES.
+      *
+       01  VN-DAT-PAST            REDEFINES VA-DAT-PAST.
+           05  VN-YY-PAST                  PIC 9(4).
+           05  VN-MM-PAST                  PIC 9(2).
+           05  VN-DD-PAST                  PIC 9(2).
+      *
+       01  VA-DAT-POSTING.
+           05  VA-YY-POST                  PIC X(4)    VALUE SPACES.
+           05  VA-MM-POST                  PIC X(2)    VALUE SPACES.
+           05  VA-DD-POST                  PIC X(2)    VALUE SPACES.
+      *
+       01  VA-DAT-PRENOT.
+           05  VA-YY-PRENOT                PIC X(4)    VALUE SPACES.
+           05  VA-MM-PRENOT                PIC X(2)    VALUE SPACES.
+           05  VA-DD-PRENOT                PIC X(2)    VALUE SPACES.
+      *
+       01  VA-DAT-ANN.
+           05  VA-YY-ANN                   PIC X(4)    VALUE SPACES.
+           05  VA-MM-ANN                   PIC X(2)    VALUE SPACES.
+           05  VA-DD-ANN                   PIC X(2)    VALUE SPACES.
+      *
+       01  VA-DAT-SITU.
+           05  VA-YY-SITU                  PIC X(4)    VALUE SPACES.
+           05  VA-MM-SITU                  PIC X(2)    VALUE SPACES.
+           05  VA-DD-SITU                  PIC X(2)    VALUE SPACES.
+      *
+       01  VA-DAT-ACCT.
+           05 VA-YY4-ACCT                  PIC X(4)    VALUE SPACES.
+           05 FILLER                       PIC X       VALUE '-'.
+           05 VA-MM-ACCT                   PIC X(2)    VALUE SPACES.
+           05 FILLER                       PIC X       VALUE '-'.
+           05 VA-DD-ACCT                   PIC X(2)    VALUE SPACES.
+      *
+       01  VA-DAT-ACCT2.
+           05  VA-DD-ACCT2                 PIC X(2)    VALUE SPACES.
+           05  FILLER                      PIC X       VALUE '.'.
+           05  VA-MM-ACCT2                 PIC X(2)    VALUE SPACES.
+           05  FILLER                      PIC X       VALUE '.'.
+           05  VA-YY-ACCT2                 PIC X(4)    VALUE SPACES.
+      *
+       01  VA-DAT-ACCTAUX.
+           05  VA-YY-ACCTAUX               PIC X(4)    VALUE SPACES.
+           05  VA-MM-ACCTAUX               PIC X(2)    VALUE SPACES.
+           05  VA-DD-ACCTAUX               PIC X(2)    VALUE SPACES.
+      *
+       01  VA-DAT-CLOSING.
+           05 VA-YY4-CLOSING               PIC X(4)    VALUE SPACES.
+           05 FILLER                       PIC X       VALUE '-'.
+           05 VA-MM-CLOSING                PIC X(2)    VALUE SPACES.
+           05 FILLER                       PIC X       VALUE '-'.
+           05 VA-DD-CLOSING                PIC X(2)    VALUE SPACES.
+      *
+       01  VA-DAT-LAST-MONTH.
+           05  VA-YY-LAST-MONTH            PIC X(4)    VALUE SPACES.
+           05  VA-MM-LAST-MONTH            PIC X(2)    VALUE SPACES.
+           05  VA-DD-LAST-MONTH            PIC X(2)    VALUE SPACES.
+      *
+      *      '*** END WORKING STORAGE  (SO3CZ960)***'
+      *
+      ******************************************************************
+      *                       PROCEDURE DIVISION                       *
+      ******************************************************************
+       PROCEDURE DIVISION.
+      *
+           PERFORM 1000-START
+      *
+           PERFORM 2000-PROCESS
+             UNTIL  SW-FIN-SO-FILE
+      *
+           PERFORM 3000-END
+      *
+           STOP RUN.
+      *
+      ******************************************************************
+      *.PN 1000-START.                                                 *
+      *B.PR.S                                                          *
+      *  THE PARAGRAPH PERFORMS THE FOLLOWING PROCESSING:              *
+      *    - CALLS THE ENTITY DATA ROUTINE (QB8C9900) TO               *
+      *      RETRIEVE PARAMETERS FOR THE ENTITY                        *
+      *    - INITIALIZES THE COPYBOOKS                                 *
+      *    - INITIALIZES THE PROGRAM VARIABLES                         *
+      *    - OPENS THE PROGRAMS FILES                                  *
+      *    - PERFORMS THE PROGRAMS INITIAL PROCESSING                  *
+      *B.PR.E                                                          *
+      ******************************************************************
+       1000-START.
+      *
+           INITIALIZE QAWCSQL.
+           CALL CA-QB8C9900 USING VA-QBEC9900-01.
+           EVALUATE TRUE
+                 WHEN QBEC9900-88-COD-RETURN-OK
+                       MOVE QBEC9900-DATA-PARAM  TO QBEC999-DATA-PARAM
+                 WHEN OTHER
+                       INITIALIZE QRECDB2
+                       MOVE CA-PROGRAM           TO DB2-DES-PGM
+                       MOVE CA-QB8C9900          TO DB2-OBJECT
+                       MOVE CA-ABEND             TO DB2-ABEND
+                       MOVE CA-ABENDDB2          TO DB2-ABEND-DB2
+                       MOVE QBEC9900-COD-RETURN  TO DB2-CODERR
+                       MOVE QBEC9900-FILE-STATUS TO DB2-REFERENCE1
+      *  @SUK-MODTEC<MT1.7> FACTORIA I+D Reference Version 1.0
+      *                DISPLAY 'ERROR CALLING QB8C9900'
+
+      *  @EUK-MODTEC<MT1.7> FACTORIA I+D Reference Version 1.0
+                       PERFORM ABEND-PROGRAM-QR4CDB0
+           END-EVALUATE.
+      *
+           INITIALIZE VA-SWITCHES.
+      *
+           OPEN  INPUT  INPUT-SO-FILE
+                 OUTPUT OUTPUT-SO-FILE.
+      *
+           PERFORM 8000-FILE-STATUS-I1DQZ960.
+      *
+           PERFORM 8100-READ-INPUT-SO-FILE.
+      *
+           PERFORM 1100-GET-ACCOUNTING-DATE.
+      *
+           MOVE VA-YY4-ACCT      TO VA-YY-PAST
+           MOVE VA-MM-ACCT       TO VA-MM-PAST
+           MOVE VA-DD-ACCT       TO VA-DD-PAST
+      *
+           COMPUTE VN-YY-PAST = VN-YY-PAST - CA-SIX.
+      *
+      ******************************************************************
+      *.PN 1100-GET-ACCOUNTING-DATE.                                   *
+      ******************************************************************
+       1100-GET-ACCOUNTING-DATE.
+      *
+           INITIALIZE BGEC571
+           MOVE '*****'                TO E571-KEY
+           MOVE QBEC999-COD-ENTITY     TO E571-ENT
+
+           CALL CA-BG9C5710 USING BGEC571
+                VA-QBEC999-01.
+
+           EVALUATE E571-COD-RETURN
+              WHEN '00'
+                MOVE E571-DAT-ACCT    TO VA-DAT-ACCT
+                MOVE E571-DAT-CLOSING TO VA-DAT-CLOSING
+             WHEN OTHER
+                INITIALIZE QRECDB2
+                MOVE CA-BG9C5710     TO DB2-DES-PGM
+                MOVE E571-DES-TABLE  TO DB2-OBJECT
+                MOVE E571-REFERENCE  TO DB2-REFERENCE1
+                MOVE CA-ABEND        TO DB2-ABEND
+                MOVE CA-ABENDDB2     TO DB2-ABEND-DB2
+                MOVE E571-COD-RETURN TO DB2-CODERR
+                PERFORM ABEND-PROGRAM-QR4CDB0
+           END-EVALUATE.
+      *
+           PERFORM 1200-GET-FIRST-WORKING-DATE.
+      *
+
+
+      *
+      ******************************************************************
+      *.PN 1200-GET-FIRST-WORKING-DATE.                                *
+      ******************************************************************
+       1200-GET-FIRST-WORKING-DATE.
+      *
+           INITIALIZE TCEC1200
+      *
+           MOVE '3'                TO TCEC1200-COD-REQOPTION
+           MOVE VA-DD-CLOSING      TO VA-DD-ACCT2
+           MOVE VA-MM-CLOSING      TO VA-MM-ACCT2
+           MOVE VA-YY4-CLOSING     TO VA-YY-ACCT2
+           MOVE VA-DAT-ACCT2       TO TCEC1200-DAT-TREAT1
+           MOVE -31                TO TCEC1200-NUM-SSWKD
+           MOVE '1'                TO TCEC1200-TRSATURDAY
+           MOVE '0'                TO TCEC1200-HDYTRCONSI
+           MOVE QBEC999-COD-ENTITY TO TCEC1200-COD-ENTITY1
+           MOVE QBEC999-COD-ENTITY TO TCEC1200-COD-ENTITY2
+      *
+           CALL CA-TC9C1200   USING TCEC1200.
+      *
+           EVALUATE TCEC1200-COD-RETURN
+            WHEN '00'
+                 MOVE TCEC1200-DAT-WORKING1(1:2) TO VA-DD-LAST-MONTH
+                 MOVE TCEC1200-DAT-WORKING1(4:2) TO VA-MM-LAST-MONTH
+                 MOVE TCEC1200-DAT-WORKING1(7:4) TO VA-YY-LAST-MONTH
+            WHEN OTHER
+                 INITIALIZE QRECDB2
+                 MOVE TCEC1200-SQLCODE     TO VA-SQLCODE
+      *          MOVE TCEC1200-SQLERRM     TO SQLERRM
+                 MOVE CA-TC9C1200          TO DB2-OBJECT
+                 MOVE TCEC1200-COD-RETURN  TO DB2-STATEMENT
+                 MOVE TCEC1200-COD-RETURN  TO DB2-REFERENCE1
+                 MOVE 'S'                  TO DB2-ABEND
+
+                 PERFORM ABEND-PROGRAM-QR4CDB0
+           END-EVALUATE.
+      *
+      ******************************************************************
+      *.PN 8000-FILE-STATUS-I1DQZ960.                                  *
+      ******************************************************************
+       8000-FILE-STATUS-I1DQZ960.
+      *
+           IF FS-INPUT-SO NOT = CA-00 AND CA-10
+              MOVE FS-INPUT-SO            TO DB2-STATEMENT
+              MOVE CA-PROGRAM             TO DB2-DES-PGM
+              MOVE 'FILE STATUS I1DQZ960' TO DB2-REFERENCE1
+              MOVE 'S'                    TO DB2-ABEND
+              PERFORM ABEND-PROGRAM-QR4CDB0
+           END-IF.
+      *
+      ******************************************************************
+      *.PN 8100-READ-INPUT-SO-FILE.                                    *
+      ******************************************************************
+       8100-READ-INPUT-SO-FILE.
+      *
+           INITIALIZE SOVCF008.
+      *
+           READ INPUT-SO-FILE  INTO SOVCF008
+             AT END
+                SET SW-FIN-SO-FILE TO TRUE
+             NOT AT END
+                COMPUTE CO-READ = CO-READ + 1.
+      *
+           PERFORM 8000-FILE-STATUS-I1DQZ960.
+      *
+      ******************************************************************
+      *.PN 8200-WRITE-SO-FILE.                                         *
+      ******************************************************************
+       8200-WRITE-SO-FILE.
+      *
+           WRITE RE-OUTPUT-SO-FILE FROM SOVCF008
+      *
+           COMPUTE CO-WRITE = CO-WRITE + 1.
+      *
+      ******************************************************************
+      *.PN 2000-PROCESS.                                               *
+      ******************************************************************
+       2000-PROCESS.
+      *
+           MOVE  V008-DAT-POSTING(9:2)  TO VA-DD-POST
+           MOVE  V008-DAT-POSTING(6:2)  TO VA-MM-POST
+           MOVE  V008-DAT-POSTING(1:4)  TO VA-YY-POST
+      *
+           MOVE  V008-DAT-PRENOT(9:2)   TO VA-DD-PRENOT
+           MOVE  V008-DAT-PRENOT(6:2)   TO VA-MM-PRENOT
+           MOVE  V008-DAT-PRENOT(1:4)   TO VA-YY-PRENOT
+      *
+           MOVE  V008-DAT-ANN(9:2)      TO VA-DD-ANN
+           MOVE  V008-DAT-ANN(6:2)      TO VA-MM-ANN
+           MOVE  V008-DAT-ANN(1:4)      TO VA-YY-ANN
+      *
+           MOVE  V008-DAT-SITU(9:2)     TO VA-DD-ANN
+           MOVE  V008-DAT-SITU(6:2)     TO VA-MM-ANN
+           MOVE  V008-DAT-SITU(1:4)     TO VA-YY-ANN
+      *
+           MOVE  V008-DAT-ACCT(9:2)     TO VA-DD-ACCTAUX
+           MOVE  V008-DAT-ACCT(6:2)     TO VA-MM-ACCTAUX
+           MOVE  V008-DAT-ACCT(1:4)     TO VA-YY-ACCTAUX
+      *
+           IF (V008-TYP-POSTING  EQUAL        CA-A           AND
+               V008-DAT-ACCT     LESS THAN    VA-DAT-CLOSING AND
+              ((VA-DAT-POSTING   NOT EQUAL    CA-DATE-MIN    AND
+               VA-DAT-POSTING    LESS THAN    VA-DAT-LAST-MONTH)
+           OR (VA-DAT-POSTING    EQUAL        CA-DATE-MAX    AND
+               VA-DAT-PRENOT     LESS THAN    VA-DAT-LAST-MONTH)
+           OR (VA-DAT-ANN        NOT EQUAL    CA-DATE-MIN    AND
+               V008-DAT-ANN      LESS THAN    VA-DAT-CLOSING)
+           OR (VA-DAT-POSTING    EQUAL        CA-DATE-MIN    AND
+               VA-DAT-SITU       NOT EQUAL    CA-DATE-MIN    AND
+               V008-DAT-SITU     LESS THAN    VA-DAT-CLOSING)))
+           OR (V008-TYP-POSTING  EQUAL        CA-S           AND
+               VA-DAT-ACCTAUX    LESS THAN    VA-DAT-PAST)
+           OR (V008-TYP-POSTING  EQUAL        CA-S           AND
+               V008-DAT-ANN      NOT EQUAL    CA-DATE-MIN2   AND
+               V008-DAT-ANN      LESS THAN    VA-DAT-CLOSING)
+               PERFORM 8200-WRITE-SO-FILE
+           END-IF.
+      *
+           PERFORM 8100-READ-INPUT-SO-FILE.
+      *
+      ******************************************************************
+      *.PN 3000-END.                                                   *
+      *B.PR.S                                                          *
+      * THIS PARAGRAPH CLOSES THE INPUT AND OUTPUT FILES THEN ENDS     *
+      * THE PROGRAM EXECUTION.                                         *
+      *B.PR.E                                                          *
+      ******************************************************************
+       3000-END.
+      *
+      *  @SUK-MODTEC<MT1.7> FACTORIA I+D Reference Version 1.0
+      *    DISPLAY CO-READ    ' RECORDS READ FROM INPUT FILE'
+      *    DISPLAY CO-WRITE   ' RECORDS WRITTEN TO OUTPUT FILE'
+
+      *  @EUK-MODTEC<MT1.7> FACTORIA I+D Reference Version 1.0
+      *
+           CLOSE  INPUT-SO-FILE
+                  OUTPUT-SO-FILE.
+      *
+           PERFORM 8000-FILE-STATUS-I1DQZ960.
+      *
+           STOP RUN.
+      *
+      ******************************************************************
+      *.PN ABEND-PROGRAM-QR4CDB0.                                      *
+      *B.PR.S                                                          *
+      * CALL TO BATCH/DB2 ERROR MANAGEMENT (QR4CDB0)                   *
+      *B.PR.E                                                          *
+      ******************************************************************
+       ABEND-PROGRAM-QR4CDB0.
+      *
+      *  @SUK-MODTEC<MT1.7> FACTORIA I+D Reference Version 1.0
+      *    DISPLAY 'ERROR ON RECORD ' CO-READ
+      *    DISPLAY V008-NUM-OPE
+      *    DISPLAY V008-KEY-ENT
+      *    DISPLAY V008-ENT-LIABACC
+      *    DISPLAY V008-BRN-LIABACC
+      *    DISPLAY V008-NUM-LIABACC
+      *    DISPLAY V008-TYP-FEE
+      *    DISPLAY V008-TYP-POSTING
+      *    DISPLAY V008-COD-COM
+      *    DISPLAY V008-COD-PRODUCT
+      *    DISPLAY V008-DAT-PEREND
+
+      *  @EUK-MODTEC<MT1.7> FACTORIA I+D Reference Version 1.0
+      *
+           CALL CA-QR4CDB0 USING QRECDB2.
+      *

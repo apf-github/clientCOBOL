@@ -1,0 +1,435 @@
+      * SO3C0295: TOTAL PRENOTIFIED ACCRUED FEES SODT016               *
+      ******************************************************************
+      *B.PD.S                                                          *
+      * SO3C0295: TOTAL PRENOTIFIED ACCRUED FEES SODT016               *
+      *B.PD.E                                                          *
+      *B.PR.S                                                          *
+      * FILES USED                                                     *
+      * -------------------                                            *
+      * I1DQ0295: ACCRUED FEE FILE (MODIFICATONS OF SODT014) SORTED BY *
+      * GROUP                                                          *
+      * I2DQ0295: ACCRUED FEE GROUPED FILE (NEW REGISTERS OF SODT016)  *
+      * O1DQ0295: TOTAL ACCRUED FEE GROUPED FILE UPDATED (SODT016      *
+      * READY TO LOAD)                                                 *
+      *                                                                *
+      * COPYS USED                                                     *
+      * ----------------                                               *
+      * QAWCSQL                                                        *
+      * QBEC9900                                                       *
+      * QBEC999                                                        *
+      * QRECDB2                                                        *
+      * SOEC3021: NO DESCRIPTION                                       *
+      * SOVCF016: ACCRUED FEES GROUPED                                 *
+      * TCEC0050: COMMAREA TC9C0980                                    *
+      * TCWC0080: COPY                                                 *
+      * TCWC0090: COPY                                                 *
+      *                                                                *
+      * ROUTINES INVOKED                                               *
+      * -----------------                                              *
+      * QB8C9900                                                       *
+      * QR4CDB0                                                        *
+      *B.PR.E                                                          *
+      ******************************************************************
+      *                  IDENTIFICATION DIVISION                       *
+      ******************************************************************
+       IDENTIFICATION DIVISION.
+      *
+       PROGRAM-ID.    SO3C0295.
+      *
+       AUTHOR.        ALNOVA TECHNOLOGIES CORPORATION.
+      *
+       DATE-WRITTEN.  2005-06-21.
+      *
+      ******************************************************************
+      *                     MODIFICATIONS LOG                          *
+      ******************************************************************
+      *     CODE       AUTHOR  DATE     DESCRIPTION                    *
+      *     ---------- ------- -------- ------------------------------ *
+      ******************************************************************
+      ******************************************************************
+      *                     ENVIRONMENT DIVISION                       *
+      ******************************************************************
+       ENVIRONMENT DIVISION.
+      *
+       CONFIGURATION SECTION.
+      *
+       SOURCE-COMPUTER.  IBM-3090.
+      *
+       OBJECT-COMPUTER.  IBM-3090.
+      *
+       SPECIAL-NAMES.
+      *
+               DECIMAL-POINT IS COMMA.
+      *
+       INPUT-OUTPUT SECTION.
+      *
+       FILE-CONTROL.
+      *
+           SELECT INPUT-SO14-FILE   ASSIGN TO I1DQ0295
+             FILE STATUS IS FS-INPUT-14.
+      *
+           SELECT INPUT-SO16-FILE   ASSIGN TO I2DQ0295
+             FILE STATUS IS FS-INPUT-16.
+      *
+           SELECT OUTPUT-SO16-FILE  ASSIGN TO O1DQ0295
+             FILE STATUS IS FS-OUTPUT-16.
+      *
+      ******************************************************************
+      *                       DATA DIVISION                            *
+      ******************************************************************
+       DATA DIVISION.
+      *
+      ******************************************************************
+      *                       FILE SECTION                             *
+      ******************************************************************
+       FILE SECTION.
+      *
+        FD  INPUT-SO14-FILE
+            RECORDING MODE IS F
+            BLOCK CONTAINS 0 RECORDS
+            LABEL RECORD OMITTED.
+        01  RE-INPUT-SO14-FILE             PIC X(225).
+      *
+        FD  INPUT-SO16-FILE
+            RECORDING MODE IS F
+            BLOCK CONTAINS 0 RECORDS
+            LABEL RECORD OMITTED.
+        01  RE-INPUT-SO16-FILE             PIC X(206).
+      *
+        FD  OUTPUT-SO16-FILE
+            RECORDING MODE IS F
+            BLOCK CONTAINS 0 RECORDS
+            LABEL RECORD OMITTED.
+        01  RE-OUTPUT-SO16                 PIC X(206).
+      *
+      ******************************************************************
+      *                  WORKING-STORAGE SECTION                       *
+      ******************************************************************
+       WORKING-STORAGE SECTION.
+      *
+       COPY QAWCSQL.
+      *
+       01  VA-BAMENTCONS.
+           05 CA-QB8C9900                  PIC X(08)   VALUE 'QB8C9900'.
+           05 CA-QR4CDB0                   PIC X(07)   VALUE 'QR4CDB0'.
+           05 CA-PROGRAM                   PIC X(08)   VALUE 'SO3C0295'.
+           05 CA-ABEND                     PIC X(01)   VALUE 'S'.
+           05 CA-ABENDDB2                  PIC X(01)   VALUE 'A'.
+      *
+       01  CA-QBEC9900-01.
+           COPY QBEC9900.
+      *
+       01  CA-QBEC999-01.
+           COPY QBEC999.
+      *
+       COPY SOEC3021.
+       COPY SOVCF016.
+      *
+       COPY TCWC0080.
+       COPY TCEC0050.
+       COPY QRECDB2.
+      *
+       01 VA-SWITCHES.
+      *
+          05 SW-FINAL-14                   PIC X(1)    VALUE 'N'.
+             88 SW-FIN-14-FILE                         VALUE 'Y'.
+      *
+          05 SW-FINAL-16                   PIC X(1)    VALUE 'N'.
+             88 SW-FIN-16-FILE                         VALUE 'Y'.
+      *
+       01 VA-CONSTANTS.
+      *
+          05 CA-DES-PGM                    PIC X(08)   VALUE 'SO3C0295'.
+          05 CA-00                         PIC X(02)   VALUE '00'.
+          05 CA-10                         PIC X(02)   VALUE '10'.
+      *
+       01 VA-VARIABLES.
+          05  VA-AMT-TOTAL                PIC S9(13)V9(2) USAGE COMP-3.
+          05  VA-FLG-GROUP                PIC X(1).
+      *
+          05  VA-DETAIL                   PIC X(206) VALUE SPACES.
+      *
+          05  FS-INPUT-14                  PIC X(2)    VALUE SPACES.
+          05  FS-INPUT-16                  PIC X(2)    VALUE SPACES.
+          05  FS-OUTPUT-16                 PIC X(2)    VALUE SPACES.
+      *
+       01 VA-CLV-14.
+          05 VA-CLV-KEY-14                 PIC X(4).
+          05 VA-CLV-ENT-14                 PIC X(4).
+          05 VA-CLV-BRN-14                 PIC X(4).
+          05 VA-CLV-NUM-14                 PIC X(10).
+      *
+      *MC.S.@FLATFEEGROUP.XISD232.08/12/2006
+       01 VA-PREV14-LIABACC.
+          05 VA-PREV14-ENT-LIABACC          PIC X(4).
+          05 VA-PREV14-BRN-LIABACC          PIC X(4).
+          05 VA-PREV14-NUM-LIABACC          PIC X(10).
+      *MC.E.@FLATFEEGROUP.XISD232.08/12/2006
+      *
+       01 VA-CLV-14-OLD.
+          05 VA-CLV-KEY-14-OLD             PIC X(4).
+          05 VA-CLV-ENT-14-OLD             PIC X(4).
+          05 VA-CLV-BRN-14-OLD             PIC X(4).
+          05 VA-CLV-NUM-14-OLD             PIC X(10).
+      *
+       01 VA-CLV-16.
+          05 VA-CLV-KEY-16                 PIC X(4).
+          05 VA-CLV-ENT-16                 PIC X(4).
+          05 VA-CLV-BRN-16                 PIC X(4).
+          05 VA-CLV-NUM-16                 PIC X(10).
+      *
+       01 VA-TXT-ENDWS.
+          05 CA-TXT-ENDW                   PIC X(40)   VALUE
+             '*** END WORKING STORAGE  (SO3C0295)***'.
+      *
+      ******************************************************************
+      *                       PROCEDURE DIVISION                       *
+      ******************************************************************
+       PROCEDURE DIVISION.
+      *
+           PERFORM 1000-START
+      *
+           PERFORM 2000-PROCESS
+             UNTIL (SW-FIN-14-FILE OR SW-FIN-16-FILE)
+      *
+           PERFORM 3000-END
+      *
+           STOP RUN.
+      *
+      ******************************************************************
+      *.PN 1000-START.                                                 *
+      *B.PR.S                                                          *
+      *  THE PARAGRAPH PERFORMS THE FOLLOWING PROCESSING:              *
+      *    - CALLS THE ENTITY DATA ROUTINE (QB8C9900) TO               *
+      *      RETRIEVE PARAMETERS FOR THE ENTITY                        *
+      *    - INITIALIZES THE COPYBOOKS                                 *
+      *    - INITIALIZES THE PROGRAM VARIABLES                         *
+      *    - OPENS THE PROGRAMS FILES                                  *
+      *    - PERFORMS THE PROGRAMS INITIAL PROCESSING                  *
+      *B.PR.E                                                          *
+      ******************************************************************
+       1000-START.
+      *
+           INITIALIZE QAWCSQL.
+           CALL CA-QB8C9900 USING CA-QBEC9900-01.
+           EVALUATE TRUE
+                 WHEN QBEC9900-88-COD-RETURN-OK
+                       MOVE QBEC9900-DATA-PARAM  TO QBEC999-DATA-PARAM
+                 WHEN OTHER
+                       INITIALIZE QRECDB2
+                       MOVE CA-PROGRAM           TO DB2-DES-PGM
+                       MOVE CA-QB8C9900          TO DB2-OBJECT
+                       MOVE CA-ABEND             TO DB2-ABEND
+                       MOVE CA-ABENDDB2          TO DB2-ABEND-DB2
+                       MOVE QBEC9900-COD-RETURN  TO DB2-CODERR
+                       MOVE QBEC9900-FILE-STATUS TO DB2-REFERENCE1
+                       PERFORM ABEND-PROGRAM-QR4CDB0
+           END-EVALUATE.
+
+           INITIALIZE VA-SWITCHES
+                      VA-CLV-14
+                      VA-CLV-14-OLD
+                      VA-CLV-16.
+      *
+      *MC.S.@FLATFEEGROUP.XISD232.08/12/2006
+           INITIALIZE VA-PREV14-LIABACC
+                      SOEC3021.
+      *MC.E.@FLATFEEGROUP.XISD232.08/12/2006
+      *
+           OPEN  INPUT INPUT-SO14-FILE
+                       INPUT-SO16-FILE
+                OUTPUT OUTPUT-SO16-FILE
+      *
+           PERFORM 1010-FILE-STATUS-I1DQ0295
+           PERFORM 1020-FILE-STATUS-I2DQ0295
+           PERFORM 1030-FILE-STATUS-O1DQ0295
+      *
+           PERFORM 1100-READ-INPUT-SO14-FILE
+           PERFORM 1200-READ-INPUT-SO16-FILE.
+      *
+      ******************************************************************
+      *.PN 1010-FILE-STATUS-I1DQ0295.                                  *
+      ******************************************************************
+       1010-FILE-STATUS-I1DQ0295.
+      *
+           IF FS-INPUT-14 NOT = CA-00 AND CA-10
+              MOVE FS-INPUT-14            TO DB2-STATEMENT
+              MOVE CA-DES-PGM             TO DB2-DES-PGM
+              MOVE 'FILE STATUS I1DQ0295' TO DB2-REFERENCE1
+              MOVE 'S'                    TO DB2-ABEND
+      *
+              PERFORM ABEND-PROGRAM-QR4CDB0
+           END-IF.
+      *
+      ******************************************************************
+      *.PN 1020-FILE-STATUS-I2DQ0295.                                  *
+      ******************************************************************
+       1020-FILE-STATUS-I2DQ0295.
+      *
+           IF FS-INPUT-16 NOT = CA-00
+              MOVE FS-INPUT-16            TO DB2-STATEMENT
+              MOVE CA-DES-PGM             TO DB2-DES-PGM
+              MOVE 'FILE STATUS I2DQ0295' TO DB2-REFERENCE1
+              MOVE 'S'                    TO DB2-ABEND
+      *
+              PERFORM ABEND-PROGRAM-QR4CDB0
+           END-IF.
+      *
+      ******************************************************************
+      *.PN 1030-FILE-STATUS-O1DQ0295.                                  *
+      ******************************************************************
+       1030-FILE-STATUS-O1DQ0295.
+      *
+           IF FS-OUTPUT-16 NOT = CA-00
+              MOVE FS-OUTPUT-16            TO DB2-STATEMENT
+              MOVE CA-DES-PGM              TO DB2-DES-PGM
+              MOVE 'FILE STATUS O1DQ0295'  TO DB2-REFERENCE1
+              MOVE 'S'                     TO DB2-ABEND
+      *
+              PERFORM ABEND-PROGRAM-QR4CDB0
+           END-IF.
+      *
+      ******************************************************************
+      *.PN 1100-READ-INPUT-SO14-FILE.                                  *
+      ******************************************************************
+       1100-READ-INPUT-SO14-FILE.
+      *
+      *MC.S.@FLATFEEGROUP.XISD232.08/12/2006
+           MOVE E3021-ENT-LIABACC TO VA-PREV14-ENT-LIABACC
+           MOVE E3021-BRN-LIABACC TO VA-PREV14-BRN-LIABACC
+           MOVE E3021-NUM-LIABACC TO VA-PREV14-NUM-LIABACC
+      *MC.E.@FLATFEEGROUP.XISD232.08/12/2006
+      *
+           INITIALIZE SOEC3021
+      *
+           READ INPUT-SO14-FILE INTO SOEC3021
+             AT END
+                SET SW-FIN-14-FILE TO TRUE
+                MOVE HIGH-VALUES   TO VA-CLV-14
+      *
+             NOT AT END
+                MOVE  E3021-KEY-ENT      TO  VA-CLV-KEY-14
+                MOVE  E3021-ENT-GROUPACC TO  VA-CLV-ENT-14
+                MOVE  E3021-BRN-GROUPACC TO  VA-CLV-BRN-14
+                MOVE  E3021-NUM-GROUPACC TO  VA-CLV-NUM-14
+      *
+           PERFORM 1010-FILE-STATUS-I1DQ0295.
+      *
+      ******************************************************************
+      *.PN 1200-READ-INPUT-SO16-FILE.                                  *
+      ******************************************************************
+       1200-READ-INPUT-SO16-FILE.
+      *
+           INITIALIZE SOVCF016
+      *
+           READ INPUT-SO16-FILE INTO SOVCF016
+             AT END
+                SET SW-FIN-16-FILE TO TRUE
+                MOVE HIGH-VALUES   TO VA-CLV-16
+      *
+             NOT AT END
+                MOVE  V016-KEY-ENT      TO  VA-CLV-KEY-16
+                MOVE  V016-ENT-LIABACC  TO  VA-CLV-ENT-16
+                MOVE  V016-BRN-LIABACC  TO  VA-CLV-BRN-16
+                MOVE  V016-NUM-LIABACC  TO  VA-CLV-NUM-16
+      *
+           PERFORM 1020-FILE-STATUS-I2DQ0295.
+      *
+      ******************************************************************
+      *.PN 2000-PROCESS.                                               *
+      ******************************************************************
+       2000-PROCESS.
+      *
+           IF VA-CLV-14 <  VA-CLV-16
+               PERFORM 1100-READ-INPUT-SO14-FILE
+           ELSE
+               IF VA-CLV-14 > VA-CLV-16
+                   PERFORM 1200-READ-INPUT-SO16-FILE
+               ELSE
+                    IF VA-CLV-14 = VA-CLV-16
+                       MOVE VA-CLV-14             TO VA-CLV-14-OLD
+                       MOVE ZEROES                TO VA-AMT-TOTAL
+                       MOVE 'N'                   TO VA-FLG-GROUP
+                       PERFORM 2100-TREATMENT-RECORD14
+                       UNTIL VA-CLV-14 > VA-CLV-16
+      *
+                       PERFORM 2200-TREATMENT-RECORD16
+                       UNTIL VA-CLV-14-OLD < VA-CLV-16
+                   END-IF
+               END-IF
+           END-IF.
+      *
+      ******************************************************************
+      *.PN 2100-TREATMENT-RECORD14.                                    *
+      ******************************************************************
+       2100-TREATMENT-RECORD14.
+      *
+           IF E3021-DAT-POSTING NOT EQUAL '9999-12-31'
+              IF E3021-SW-FLATFEE = 'Y'
+      *          COMPUTE VA-AMT-TOTAL = VA-AMT-TOTAL + E3021-AMT-FLAT
+      *MC.S.@FLATFEEGROUP.XISD232.08/12/2006
+      *          COMPUTE VA-AMT-TOTAL = E3021-AMT-FLAT
+                 IF E3021-ENT-LIABACC NOT EQUAL  VA-PREV14-ENT-LIABACC
+                 OR E3021-BRN-LIABACC NOT EQUAL  VA-PREV14-BRN-LIABACC
+                 OR E3021-NUM-LIABACC NOT EQUAL  VA-PREV14-NUM-LIABACC
+                    COMPUTE VA-AMT-TOTAL = VA-AMT-TOTAL
+                                         + E3021-AMT-FLAT
+                 END-IF
+      *MC.E.@FLATFEEGROUP.XISD232.08/12/2006
+              ELSE
+                 COMPUTE VA-AMT-TOTAL = VA-AMT-TOTAL + E3021-AMT-ACTSUM
+              END-IF
+           END-IF.
+      *
+           IF E3021-ENT-LIABACC NOT EQUAL  E3021-ENT-GROUPACC OR
+              E3021-BRN-LIABACC NOT EQUAL  E3021-BRN-GROUPACC OR
+              E3021-NUM-LIABACC NOT EQUAL  E3021-NUM-GROUPACC
+                 MOVE 'Y'              TO VA-FLG-GROUP
+           END-IF.
+      *
+           PERFORM 1100-READ-INPUT-SO14-FILE.
+      *
+      ******************************************************************
+      *.PN 2200-TREATMENT-RECORD16.                                    *
+      ******************************************************************
+       2200-TREATMENT-RECORD16.
+      *
+           MOVE VA-AMT-TOTAL              TO V016-AMT-TOTAL
+           MOVE VA-FLG-GROUP              TO V016-FLG-GROUP
+      *    MOVE TMSTP
+      *
+           MOVE SOVCF016                  TO VA-DETAIL
+           WRITE RE-OUTPUT-SO16           FROM VA-DETAIL
+           PERFORM 1030-FILE-STATUS-O1DQ0295
+      *
+           PERFORM 1200-READ-INPUT-SO16-FILE.
+      *
+      ******************************************************************
+      *.PN 3000-END.                                                   *
+      *B.PR.S                                                          *
+      * THIS PARAGRAPH CLOSES THE INPUT AND OUTPUT FILES.              *
+      *B.PR.E                                                          *
+      ******************************************************************
+       3000-END.
+      *
+           CLOSE  INPUT-SO14-FILE
+                  INPUT-SO16-FILE
+                  OUTPUT-SO16-FILE
+      *
+           PERFORM 1010-FILE-STATUS-I1DQ0295
+           PERFORM 1020-FILE-STATUS-I2DQ0295
+           PERFORM 1030-FILE-STATUS-O1DQ0295.
+      *
+       COPY TCWC0090.
+      *
+      ******************************************************************
+      *.PN ABEND-PROGRAM-QR4CDB0.                                      *
+      *B.PR.S                                                          *
+      * CALL TO BATCH/DB2 ERROR MANAGEMENT (QR4CDB0)                   *
+      *B.PR.E                                                          *
+      ******************************************************************
+       ABEND-PROGRAM-QR4CDB0.
+      *
+           CALL CA-QR4CDB0 USING QRECDB2.
+      *
+      * ALNOVA SERIAL NUMBER: 1D8EDD61 ********* DO NOT REMOVE *********
