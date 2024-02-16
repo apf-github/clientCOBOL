@@ -1,0 +1,54 @@
+      * TCEC0050:                                                      *
+      ******************************************************************
+      *                     MODIFICATIONS LOG                          *
+      ******************************************************************
+      *     CODE       AUTHOR  DATE     DESCRIPTION                    *
+      *     ---------- ------- -------- ------------------------------ *
+      ******************************************************************
+      *B.MF TCEC0050                  TCEC0050 COMMAREA                *
+      *B.IF INPUT                     INPUT FIELDS                     *
+      *B.IF ENTITY                    ENTITY CODE                      *
+      *B.IF PROGRAM                   PROGRAM                          *
+      *B.IF LNG-DATA                  DATA LANGUAGE                    *
+      *B.IF TERMINAL                  TERMINAL                         *
+      *B.IF SEQUENCE                  SEQUENCE                         *
+      *B.OF OUTPUT                    OUTPUT FIELDS                    *
+      *B.OF TB-HARD-RE                TABLE OF 20 OCCURRENCES          *
+      *B/OF                           CONTAINING THE FOLLOWING RECORDS *
+      *B/OF                           INFORMATION: CLVSAL: KEY         *
+      *B/OF                                        CONTOCUR: DATA      *
+      *B.OF TB-HAR-COD                SHORT CODE                       *
+      *B.OF TB-HAR-APPLICATION        APPLICATION                      *
+      *B.OF TB-HAR-NUMSEQ             SEQUENCE NUMBERS                 *
+      *B.OF TB-HAR-TXT                LITERAL                          *
+      *B.OF COD-TOT                   TOTAL CODES                      *
+      *B.OF COD-RETURN                RETURN CODE                      *
+      *B/OF                           '00' OK RETURN                   *
+      *B/OF                           '01' RECORD NOT FOUND            *
+      *B/OF                           '99' DB2 ERROR                   *
+      *B.OF DES-TABLE                 DB2 TABLE NAME                   *
+      *B.OF SQLCODE                   SQL RETURN CODE                  *
+      *
+      ******************************************************************
+      ******************************************************************
+
+       01 TCEC0050.
+      *
+         05 TCEC0050-INPUT.
+            10 TCEC0005-ENTITY              PIC X(4) VALUE SPACES.
+            10 TCEC0050-PROGRAM             PIC X(8) VALUE SPACES.
+            10 TCEC0050-LNG-DATA            PIC X(1) VALUE SPACES.
+            10 TCEC0050-TERMINAL            PIC X(4) VALUE SPACES.
+            10 TCEC0050-SEQUENCE            PIC 9(3) VALUE ZEROS.
+      *
+         05 TCEC0050-OUTPUT.
+             10 TCEC0050-TB-HARD-RE OCCURS 100.
+                15 TCEC0050-TB-HAR-COD.
+                   20 TCEC0050-TB-HAR-APPLICATION     PIC X(2).
+                   20 TCEC0050-TB-HAR-NUMSEQ          PIC X(3).
+                15 TCEC0050-TB-HAR-TXT      PIC X(80).
+             10 TCEC0050-COD-TOT            PIC 9(3).
+             10 TCEC0050-COD-RETURN         PIC X(2).
+             10 TCEC0050-DES-TABLE          PIC X(7).
+             10 TCEC0050-SQLCODE            PIC S9(3).
+      *

@@ -1,0 +1,50 @@
+      * TCEC0080: COMMAREA TC9C0080                                    *
+      ******************************************************************
+      *                     MODIFICATIONS LOG                          *
+      ******************************************************************
+      *     CODE       AUTHOR  DATE     DESCRIPTION                    *
+      *     ---------- ------- -------- ------------------------------ *
+      ******************************************************************
+      *B.MF TCEC0080                  TCEC0080 COMMAREA                *
+      *B.IF INPUT                     INPUT AREA                       *
+      *B.IF KEY-ACCESS                ACCESS KEY                       *
+      *B.IF ENTITY-KEY                ENTITY CODE                      *
+      *B.IF FILLER                    FILLER                           *
+      *B.OF OUTPUT                    OUTPUT AREA                      *
+      *B.OF DATA                      DATA                             *
+      *B.OF FILLER                    FILLER                           *
+      *B.OF COD-RETURN                RETURN CODE                      *
+      *B/OF                           00 PROCESS OK                    *
+      *B/OF                           10 ACCESS KEY MISSING            *
+      *B/OF                           20 ACCESS KEY NOT FOUND          *
+      *B/OF                           80 TC9C1000 ACCESS ERROR         *
+      *B/OF                           90 DB2 ERROR                     *
+      *B.OF SQLCODE                   SQL RETURN CODE                  *
+      *B.OF SQLERRM                   SQL ERROR MESSAGE                *
+      *B.OF SQLERRMLTH                SQL RETURN MESSAGE LENGTH        *
+      *B.OF DTA-SQLERRM               SQL RETURN MESSAGE DATA          *
+      *B.OF FILLER                    FILLER                           *
+      *
+      ******************************************************************
+      ******************************************************************
+
+       05 TCEC0080.
+      *
+         10 TCEC0080-INPUT.
+            20 TCEC0080-KEY-ACCESS          PIC X(10).
+            20 TCEC0080-ENTITY-KEY          PIC X(4).
+            20 FILLER                       PIC X(10).
+      *
+         10 TCEC0080-OUTPUT.
+            20 TCEC0080-DATA                PIC X(10).
+            20 FILLER                       PIC X(10).
+      *
+            20 TCEC080-COD-RETURN           PIC 9(2).
+      *
+            20 TCEC0080-SQLCODE             PIC S9(9) COMP.
+            20 TCEC0080-SQLERRM.
+               25 TCEC0080-SQLERRMLTH       PIC S9(4) COMP.
+               25 TCEC0080-DTA-SQLERRM      PIC X(70).
+      *
+            20 FILLER                       PIC X(10).
+      *

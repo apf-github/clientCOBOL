@@ -1,0 +1,458 @@
+      *                     MODIFICATIONS LOG                          *
+      ******************************************************************
+      *     CODE       AUTHOR  DATE     DESCRIPTION                    *
+      *     ---------- ------- -------- ------------------------------ *
+      *B.MD @UK16803DSO USCDB52 25-02-11 FEE FACTORY REQUIREMENTS BBVA
+      *B.MD @UK19118DSO UPXDBM9 20-05-11 ADD NEW FIELD FOR ACCOUNT TYPE*
+      *B/MD                              FLAG                          *
+      *B.MD @UK21325DSO USCDBM6 27-07-11 ADD NEW FIELDS TO CALCULATE   *
+      *B/MD                              FEES                          *
+      ******************************************************************
+      *B.MF BGEC076                   CALL TO COMMAREA OF PROGRAM      *
+      *B/MF                           BG9C0760 LINKED AND MONEY        *
+      *B/MF                           GUARANTEE                        *
+      *B.IF INPUT                     INPUT DATA                       *
+      *B.IF ENT                       ENTITY CODE ACCORDING TO THE     *
+      *B/IF                           BANK OF SPAIN                    *
+      *B.IF CEN-REGISTRATION          ACCOUNT REGISTRATION CENTER      *
+      *B.IF ACC                       ACCOUNT NUMBER                   *
+      *B.IF PROPOPT                   PROPOSAL OPTION                  *
+      *B.OF CAC-ENT                   ENTITY KEY ACCORDING TO BANK OF  *
+      *B/OF                           SPAIN                            *
+      *B.OF ENT-AMT                   ENTITY KEY ACCORDING TO CENTRAL  *
+      *B/OF                           BANK                             *
+      *B.OF CEN-ACC                   ACCOUNT CENTRE                   *
+      *B.OF ACC-AMT                   ACCOUNT NUMBER                   *
+      *B.OF MDC-MDC                   MDC ERRORS                       *
+      *B.OF COD-ERR                   ERROR CODE                       *
+      *B/OF                           BGE0002 ACCOUNT IN MASTER DOESN'T*
+      *B/OF                                   EXIST                    *
+      *B/OF                           BGE0002 ACCOUNT IN AUXILIAR      *
+      *B/OF                                   EXIST                    *
+      *B/OF                           BGE0040 RELATION PRODUCT/SUBPRO- *
+      *B/OF                                   DUT UNKNOWN              *
+      *B.OF VAR1ERR                   VARIABLE 1 OF THE ERROR          *
+      *B.OF VAR2ERR                   VARIABLE 2 OF THE ERROR          *
+      *B.OF OUTPUT                    OUTPUT DATA                      *
+      *B.OF SW-FLG-DEPENVAL           VALIDITY DEPENDING ON FLAG       *
+      *B.FV   SW-DEP-PROD             <'P'> ASSOCIATED PRODUCT         *
+      *B/FV                           'P'                              *
+      *B.FV   SW-DEP-GUA              <'G'> MONEY GUARANTEE            *
+      *B/FV                           'G'                              *
+      *B.OF SW-FLG-ACVACC             ACTIVE ACCOUNT FLAG              *
+      *B.FV   SW-ACV-YES              <'S'> ACTIVE ACCOUNT             *
+      *B/FV                           'S'                              *
+      *B.FV   SW-ACV-NO               <'N'> NOT ACTIVE ACCOUNT         *
+      *B/FV                           'N'                              *
+      *B.OF CAC-DIGIT1                CONTROL DIGIT 1   CLIENT         *
+      *B/OF                           ACCOUNT CODE                     *
+      *B.OF CAC-DIGIT2                CLIENT ACCOUNT CODE DIGIT 2      *
+      *B.OF COD-PRODUCT               PRODUCT CODE                     *
+      *B.OF SDE-PRODUCT               PRODUCT SHORT DESCRIPTION        *
+      *B.OF DES-PRODUCT               PRODUCT LONG DESCRIPTION         *
+      *B.OF COD-SUBPRODUCT            SUBPRODUCT CODE                  *
+      *B.OF SDE-SUBPRODUCT            SUBPRODUCT SHORT DESCRIPTION     *
+      *B.OF DES-SUBPRODUCT            SUBPRODUCT LONG DESCRIPTION      *
+      *B.OF WDRWBAL                   WITHDRAWN BALANCE                *
+      *B.OF LIMIT                     ACCOUNT CURRENT LIMIT            *
+      *B.OF AMT-AVABAL                AVAILABLE AMOUNT IN THE ACCOUNT  *
+      *B/OF                           BALANCE+LIMIT+OVERDRAFT          *
+      *B.OF FLG-SPECIAL               SPECIAL FLAGS                    *
+      *B.OF FLG-NOCPTZ                NO CAPITALIZE INTERESTS FLAG     *
+      *B.OF FLG-JOINT                 JOINT ACCOUNT FLAG               *
+      *B.OF FLG-MANRECLAS             MANUAL CLASSIFIED ACCOUNT FLAG   *
+      *B.OF FLG-INCEXT                INCREMENT APPLICATION TO EXTENSION
+      *B/OF                           FLAG                             *
+      *B.OF FLG-LOSTPSB               LOST PASSBOOK FLAG               *
+      *B.OF FLG-NPENDING              NOT CREATED PENDING FLAG         *
+      *B.OF FLG-PENSACC               PENSIONNER ACCOUNT               *
+      *B.OF FLG-EMPLOYEE              RESTRICTED ACCOUNT FLAG OF       *
+      *B/OF                           EMPLOYEE                         *
+      *B.OF FLG-ONLYBRN               ACCOUNT THAT ONLY OPERATES IN    *
+      *B/OF                           ITS BRANCH                       *
+      *B.OF FLG-DIESEL                ACCOUNTS WITH PETROL-B CHEQUES   *
+      *B/OF                           FLAG                             *
+      *B.OF FLG-BLOCKCOD              BLOCKED CODE FLAG                *
+      *B.OF FLG-BLOCKED               IMMOBILIZED ACCOUNT MARK         *
+      *B.OF FLG-PLGDACC               PLEDGED ACCOUNT FLAG             *
+      *B.OF FLG-AUTOCAN               AUTOMATIC CANCELLATION AT        *
+      *B/OF                           MATURITY FLAG                    *
+      *B.OF FLG-BLOCKCNS              BLOCKED FOR CONSULTANCY FLAG     *
+      *B.OF FLG-ADMBLOCK              ADMINISTRATIVE BLOCKING FLAG     *
+      *B.OF FLG-WITOTTIN              ACCOUNT WITHOUT TIN FLAG         *
+      *B.OF FLG-AUTOVD                AUTHORIZED OVERDRAFT FLAG        *
+      *B.OF FLG-VALOBS                ACCOUNT WITH VALIDATION          *
+      *B/OF                           OBSERVATIONS FLAG                *
+      *B.OF FLG-LNG                   LANGUAGE FLAG                    *
+      *B.OF FLG-RCPRT                 ACCOUNT WITH RECIPROCAL          *
+      *B/OF                           INTERESTS FLAG                   *
+      *B.OF FLG-NOTIFICATION          ACCOUNT WITH WANINGS FLAG        *
+      *B.OF FLG-MARK23                DILIGENCED PASSBOOK FLAG         *
+      *B.OF FLG-MARK24                CONFORMITIES PENDING TO MATCH    *
+      *B/OF                           FLAG                             *
+      *B.OF FLG-MARK25                OLD PASSBOOK FLAG                *
+      *B.OF FLG-MARK26                HOME SAVING ACCOUNT FLAG         *
+      *B.OF FLG-MARK27                ACCOUNT SUPPORT FLAG (L/E)       *
+      *B.OF FLG-MARK28                PRINTED PAYMENT DOCUMENT FLAG    *
+      *B.OF STATUS                    SITUATION OF THE VINCULATION     *
+      *B/OF                           LOWERS -  "LINK STATUS: <'A'> -  *
+      *B/OF                           ACTIVE LINK; <'B'> - DELETED     *
+      *B/OF                           LINK "                           *
+      *B.OF SW-FLG-STATUS             ACCOUNT STATUS FLAG              *
+      *B.FV   SW-STA-ACV              <'A'> = ACTIVE                   *
+      *B/FV                           'A'                              *
+      *B.FV   SW-STA-PRECAN           <'P'> = PRECANCELLED             *
+      *B/FV                           'P'                              *
+      *B.FV   SW-STA-CAN              <'C'> = CANCELLED                *
+      *B/FV                           'C'                              *
+      *B.FV   SW-STA-RNW              <'R'> = CANCELLED AND RENEWED    *
+      *B/FV                           'R'                              *
+      *B.OF SW-FLG-OBJST              ACCOUNT OBJECTIVE SITUATION FLAG *
+      *B.FV   SW-OBJ-STD              <'S'> STANDARD                   *
+      *B/FV                           'N'                              *
+      *B.FV   SW-OBJ-EXPR             <'V'> EXPIRED                    *
+      *B/FV                           'V'                              *
+      *B.FV   SW-OBJ-DELINQUENT       <'M'> DELINQUENT                 *
+      *B/FV                           'M'                              *
+      *B.FV   SW-OBJ-DOUBTFUL         <'D'> DOUBTFUL                   *
+      *B/FV                           'D'                              *
+      *B.FV   SW-OBJ-DBTYY            <'U'> DOUBTFUL FOR A YEAR OF     *
+      *B/FV                           SENIORITY                        *
+      *B/FV                           'U'                              *
+      *B.FV   SW-OBJPROP              <'P'> PROPOSAL FOR BAD LOAD      *
+      *B/FV                           'P'                              *
+      *B.OF FLG-SUBJST                ACCOUNT SUBJECTIVE STATUS FLAG   *
+      *B.FV   SW-SUB-STD              <'S'> STANDARD                   *
+      *B/FV                           'N'                              *
+      *B.FV   SW-SUB-NDOCU            <'O'> NOT DOCUMENTED             *
+      *B/FV                           'O'                              *
+      *B.FV   SW-SUB-DOUBTFUL         <'D'> DOUBTFUL                   *
+      *B/FV                           'D'                              *
+      *B.FV   SW-SUB-PAY              <'L'> DOUBTFUL DEBT AT PAYMENT   *
+      *B/FV                           REQUEST                          *
+      *B/FV                           'L'                              *
+      *B.FV   SW-SUB-LEGAL            <'P'> DOUBTFUL DEBT UNDERGOING   *
+      *B/FV                           LEGAL PROCEEDINGS                *
+      *B/FV                           'P'                              *
+      *B.FV   SW-SUB-DEFAULT          <'F'> BY DEFAULT                 *
+      *B/FV                           'F'                              *
+      *B.OF SW-FLG-INDUCST            ACCOUNT INDUCED STATUS FLAG      *
+      *B.FV   SW-IND-STD              <'S'> STANDARD                   *
+      *B/FV                           'N'                              *
+      *B.FV   SW-IND-CUSRISK          <'R'>   CUSTOMER RISK            *
+      *B/FV                                                            *
+      *B/FV                           'R'                              *
+      *B.OF SW-FLG-OPENING            ACCOUNT OPENING IN THE CURRENT   *
+      *B/OF                           DAY (Y/N) FLAG                   *
+      *B.FV   SW-OPE-DDYES            <'S'>    ACC.OPENING IN THE      *
+      *B/FV                           CURRENT DAY                      *
+      *B/FV                           'S'                              *
+      *B.FV   SW-OPE-DDNO             <'N'>   ACC. OPENING IN OTHER    *
+      *B/FV                           DAY                              *
+      *B/FV                           'N'                              *
+      *B.OF DAT-LASTOPE               ANY TYPE OF TRANSACTION DURING   *
+      *B/OF                           THE LAST DAY                     *
+      *B.OF DAT-MATURITY              MATURITY DATE                    *
+      *B.OF DAT-REGISTRATION          REGISTRATION DATE                *
+      *B.OF DAT-LASTEXT               LAST EXTENSION DATE (PASS TO     *
+      *B/OF                           DELAY)                           *
+      *B.OF DAT-LASTSTSUBJ            SUBJECTIVE STATUS DURING THE LAST*
+      *B/OF                           CHANGED DATE                     *
+      *B.OF DAT-LASTSTOBJ             OBJECTIVE STATUS DURING THE LAST *
+      *B/OF                           CHANGED DATE                     *
+      *B.OF TYP-GUARANTEE             GUARANTEE TYPE                   *
+      *B.OF COD-COUNTRY               COUNTRY CODE FOR CONVERTIBLE OCC *
+      *B.OF ACC-AVGBAL                AVERAGE BALANCE THAT HAD THE     *
+      *B/OF                           ACCOUNT                          *
+      *B.OF AMT-BALNPAY               DEFAULT TOTAL AMOUNT             *
+      *B.OF FEE                       FEE                              *
+      *B.OF PSSIRT                    3-POSITIVE INTEREST RATE         *
+      *B.OF NEGIRT                    4-NEGATIVE INTEREST RATE         *
+      *B.OF OVDIRT                    5-EXCEED./OVERDRAFT INTEREST     *
+      *B/OF                           RATE                             *
+      *B.OF COD-RSNSUBJ               SUBJECT REASON CODE              *
+      *B.OF FLG-ANNCEN                ANNUL CENTER FLAG                *
+      *B.OF FLG-FREE6                 TOTAL TYPE FLAG                  *
+      *B.OF LINE                      PASSBOOK NEXT LINE NUMBER        *
+      *B.OF NUM-PAGE                  PASSBOOK NEXT PAGE NUMBER        *
+      *B.OF SW-OPTION                 IF '1'  LIMITED INQUIRY (INPUT   *
+      *B/OF                           FIELD)                           *
+      *B.OF ENT-ACC                   ACCOUNT ACCOUNTING ENTITY        *
+      *B.OF CEN-ACCT                  ACCOUNT ACCOUNTING CENTRE        *
+      *B.OF AMT-OVDATM                EXCEEDED/OVERDRA. PER CASH       *
+      *B/OF                           DISP. MAX. AMOUNT                *
+      *B.OF COD-FCC                   CURRENCY CODE                    *
+      *B.OF FLG-SENDSTM               FLAG INDICATES TO SEND THE       *
+      *B/OF                           STATEMENT                        *
+      *B.OF WHDBAL                    WITHHOLDED BALANCE               *
+      *B.OF CHANNEL                   CHANNEL                          *
+      *B.OF COD-ZONE                  ZONE                             *
+      *B.OF SEGMENT                   CUSTOMER SEGMENT                 *
+      *B.OF COMPLAN                   COMMISSION PLAN                  *
+      *B.OF DAT-CAN                   CANCELLATION DATE                *
+      *B.OF FLG-PROPOSAL              PROPOSAL FLAG                    *
+      *B.OF CONFIDENTIAL              ACCOUNT CONFIDENTIALITY LEVEL 0-9*
+      *B.OF INILIM                    ACCOUNT INITIAL LIMIT            *
+      *B.OF ENT-SENDER                ENTITY WHERE THE PROPOSAL HAS    *
+      *B/OF                           BEEN SENT FOR APPROVAL           *
+      *B.OF CEN-SENDER                CENTER WHERE THE PROPOSAL HAS    *
+      *B/OF                           BEEN SENT FOR APPROVAL           *
+      *B.OF DAT-PREOPN                ORIGINAL PREOPENING DATE         *
+      *B.OF DEB-FREE                  FREE                             *
+      *B.OF PURPOSE                   TRANSACTION ANALYTIC PURPOSE     *
+      *B.OF FLG-STATUS                ACCOUNT STATUS FLAG              *
+      *B.OF SW-TYP-ACC                TYPE OF ACCOUNT                  *
+      *B.FV   SW-ACC-TDATYP                                            *
+      *B/FV                           'I' TERM DEPOSIT                 *
+      *B.FV   SW-ACC-CREDIT                                            *
+      *B/FV                           'L' LINE OF CREDIT               *
+      *B.FV   SW-ACC-SAVING                                            *
+      *B/FV                           'A' SAVING ACCOUNT               *
+      *B.FV   SW-ACC-CURRENT                                           *
+      *B/FV                           'C' CURRENT ACCOUNT              *
+      *B.OF SW-TYP-SETTLEMENT         SETTLEMENT TYPE <'E00'>          *
+      *B/OF                           STANDARD RATE OR CHARGE VALID    *
+      *B/OF                           FIELDS: NONE <'F00'> FIXED RATE  *
+      *B/OF                           OR CHARGE VALID FIELDS:          *
+      *B/OF                           1,2,3,4,5,10 <'VAR'> VARIABLE    *
+      *B/OF                           ACCORDING TO DATES VALID         *
+      *B/OF                           FIELDS: <'VLF'> VARIES EACH      *
+      *B/OF                           SETL. ACCORD. TO FORMULA VALID   *
+      *B/OF                           FIELDS:    6,7,8 <'VPF'> VAR     *
+      *B.FV   SW-SET-E00              <'E00'> TYPE OR STANDARD FEE     *
+      *B/FV                           VALID FIELDS : NONE              *
+      *B/FV                           'E00'                            *
+      *B.FV   SW-SET-F00              <'F00'> TYPE OR FIXED FEE VALID  *
+      *B/FV                           FIELDS : 1,2,3,4,5,11            *
+      *B/FV                           'F00'                            *
+      *B.FV   SW-SET-VARDATE          <'VAR'> VARIABLE                 *
+      *B/FV                           'VAR'                            *
+      *B.FV   SW-SET-VARFRM           <'VLF'> CHANGE EACH  SETTLEMENT  *
+      *B/FV                           ACCORDING TO VALID FIELD         *
+      *B/FV                           FORMULA : 6,7,8                  *
+      *B/FV                           'VLF'                            *
+      *B.FV   SW-SET-PRDVARFRM        <'VPF'> CHANGE EACH ESTABLISHED  *
+      *B/FV                           SETTLEMENT ACCORDING TO FORMULA  *
+      *B/FV                           'VPF'                            *
+      *B.FV   SW-SET-INIBAND          <'TIF'> VARIABLE CREDITS WITH    *
+      *B/FV                           FIXED INITIAL BAND               *
+      *B/FV                           'TIF'                            *
+      *B.OF CUN                       CUSTOMER                         *
+      *B.OF GROUP                     GROUP                            *
+      *B.OF GROUP-LETTER              GROUP LETTER                     *
+      *B.OF GROUP-NUM                 GROUP NUMBER                     *
+      *B.OF FLG-BONUS                 BONUS FLAG                       *
+      *B.OF AMT-NATCC                 AMOUNT LOCAL CURRENCY            *
+      *B.OF FILLER                    FILLER                           *
+      *B.OF FLG-TAXLIAB               TAX LIABILITY                    *
+      *B.OF RED-INQUIRY               REDUCED INQUIRY                  *
+      *B.OF AMT-FREE3                 LOAN WITHDRAWAL BALANCE          *
+      *B.OF COD-GRADING               CODE GRADING OF ACCOUNT          *
+      *B.OF FLG-NARRAT                FLAG MANDATORY NARRATIVE         *
+      *B.OF TXT-NARRAT                TEXT MANDATORY NARRATIVE         *
+      *B.OF FLG-RTOE                  FLAG REPAY TO EITHER             *
+      *B.OF NON-REF-ST                NON REFERAL STOP INDICATOR       *
+      *B.OF NON-REF-LI                NON REFERAL LIMIT AMOUNT         *
+      *B.OF OVD-LIM                   OVERDRAFT LIMIT                  *
+      *B.OF FLG-BS                    BEHAVIOURAL SCORING FLAG         *
+      *B.OF UNPAID-ENT                UNPAID ACCOUNT ENTITY            *
+      *B.OF UNPAID-CEN                UNPAID ACCOUNT CENTER            *
+      *B.OF UNPAID-ACC                UNPAID ACCOUNT NUMBER            *
+      *B.OF FLG-GROUP                 FLAG GROUP                       *
+      *B.OF GWDRWBAL                  WITHDRAWN BALANCE                *
+      *B.OF GLIMIT                    ACCOUNT CURRENT LIMIT            *
+      *B.OF ATE                       TEMP. EXCESS ACCOUNT             *
+      *B.OF ATE-GROUP                 TEMP. EXCESS GROUP               *
+      *B.OF FLG-SPPROD                FLAG SPECIAL PRODUCT             *
+      *.MC.S @UK16803DSO
+      *B.OF TRANSFER-WAIVERS          TRANSFER WAIVERS                 *
+      *B.OF SC-START                  FEE CHARGING START DATE          *
+      *B.OF SYSTEM-TYPE               SYSTEM TYPE                      *
+      *.MC.E @UK16803DSO
+      *B.OF ACC-TYP-FLG               FLAG ACCOUNT TYPE                *
+      *B.OF LEDG-AVE                  AVERAGE LEDGER BALANCE(DURING    *
+      *B/OF                           CYCLE)                           *
+      *B.OF LEDG-MIN                  MINIMUM LEDGER BALANCE (DURING   *
+      *B/OF                           CYCLE)                           *
+      *B.OF COLL-AVE                  AVERAGE COLLECTED BALANCE        *
+      ******************************************************************
+       02 BGEC076.
+          05 E076-INPUT.
+             10 E076-ENT                   PIC X(04).
+             10 E076-CEN-REGISTRATION      PIC X(04).
+             10 E076-ACC                   PIC X(10).
+             10 E076-PROPOPT               PIC X(01).
+          05 E076-CAC-ENT.
+             10 E076-ENT-AMT               PIC X(04).
+             10 E076-CEN-ACC               PIC X(04).
+             10 E076-ACC-AMT               PIC X(10).
+          05 E076-MDC-MDC.
+             10 E076-COD-ERR               PIC X(07).
+             10 E076-VAR1ERR               PIC X(20).
+             10 E076-VAR2ERR               PIC X(20).
+          05 E076-OUTPUT.
+             10 E076-SW-FLG-DEPENVAL       PIC X(01).
+                88 E076-SW-DEP-PROD                    VALUE 'P'.
+                88 E076-SW-DEP-GUA                     VALUE 'G'.
+             10 E076-SW-FLG-ACVACC         PIC X(01).
+                88 E076-SW-ACV-YES                     VALUE 'S'.
+                88 E076-SW-ACV-NO                      VALUE 'N'.
+             10 E076-CAC-DIGIT1            PIC X(01).
+             10 E076-CAC-DIGIT2            PIC X(01).
+             10 E076-COD-PRODUCT           PIC X(02).
+             10 E076-SDE-PRODUCT           PIC X(10).
+             10 E076-DES-PRODUCT           PIC X(30).
+             10 E076-COD-SUBPRODUCT        PIC X(04).
+             10 E076-SDE-SUBPRODUCT        PIC X(10).
+             10 E076-DES-SUBPRODUCT        PIC X(30).
+             10 E076-WDRWBAL               PIC S9(13)V9(2) COMP-3.
+             10 E076-LIMIT                 PIC S9(13)V9(2) COMP-3.
+             10 E076-AMT-AVABAL            PIC S9(13)V9(2) COMP-3.
+             10 E076-FLG-SPECIAL.
+                15 E076-FLG-NOCPTZ         PIC X(01).
+                15 E076-FLG-JOINT          PIC X(01).
+                15 E076-FLG-MANRECLAS      PIC X(01).
+                15 E076-FLG-INCEXT         PIC X(01).
+                15 E076-FLG-LOSTPSB        PIC X(01).
+                15 E076-FLG-NPENDING       PIC X(01).
+                15 E076-FLG-PENSACC        PIC X(01).
+                15 E076-FLG-EMPLOYEE       PIC X(01).
+                15 E076-FLG-ONLYBRN        PIC X(01).
+                15 E076-FLG-DIESEL         PIC X(01).
+                15 E076-FLG-BLOCKCOD       PIC X(01).
+                15 E076-FLG-BLOCKED        PIC X(01).
+                15 E076-FLG-PLGDACC        PIC X(01).
+                15 E076-FLG-AUTOCAN        PIC X(01).
+                15 E076-FLG-BLOCKCNS       PIC X(01).
+                15 E076-FLG-ADMBLOCK       PIC X(01).
+                15 E076-FLG-WITOTTIN       PIC X(01).
+                15 E076-FLG-AUTOVD         PIC X(01).
+                15 E076-FLG-VALOBS         PIC X(01).
+                15 E076-FLG-LNG            PIC X(01).
+                15 E076-FLG-RCPRT          PIC X(01).
+                15 E076-FLG-NOTIFICATION   PIC X(01).
+                15 E076-FLG-MARK23         PIC X(01).
+                15 E076-FLG-MARK24         PIC X(01).
+                15 E076-FLG-MARK25         PIC X(01).
+                15 E076-FLG-MARK26         PIC X(01).
+                15 E076-FLG-MARK27         PIC X(01).
+                15 E076-FLG-MARK28         PIC X(01).
+             10 E076-STATUS.
+                15 E076-SW-FLG-STATUS      PIC X(01).
+                   88 E076-SW-STA-ACV                  VALUE 'A'.
+                   88 E076-SW-STA-PRECAN               VALUE 'P'.
+                   88 E076-SW-STA-CAN                  VALUE 'C'.
+                   88 E076-SW-STA-RNW                  VALUE 'R'.
+                15 E076-SW-FLG-OBJST       PIC X(01).
+                   88 E076-SW-OBJ-STD                  VALUE 'N'.
+                   88 E076-SW-OBJ-EXPR                 VALUE 'V'.
+                   88 E076-SW-OBJ-DELINQUENT           VALUE 'M'.
+                   88 E076-SW-OBJ-DOUBTFUL             VALUE 'D'.
+                   88 E076-SW-OBJ-DBTYY                VALUE 'U'.
+                   88 E076-SW-OBJPROP                  VALUE 'P'.
+                15 E076-FLG-SUBJST         PIC X(01).
+                   88 E076-SW-SUB-STD                  VALUE 'N'.
+                   88 E076-SW-SUB-NDOCU                VALUE 'O'.
+                   88 E076-SW-SUB-DOUBTFUL             VALUE 'D'.
+                   88 E076-SW-SUB-PAY                  VALUE 'L'.
+                   88 E076-SW-SUB-LEGAL                VALUE 'P'.
+                   88 E076-SW-SUB-DEFAULT              VALUE 'F'.
+                15 E076-SW-FLG-INDUCST     PIC X(01).
+                   88 E076-SW-IND-STD                  VALUE 'N'.
+                   88 E076-SW-IND-CUSRISK              VALUE 'R'.
+                15 E076-SW-FLG-OPENING     PIC X(01).
+                   88 E076-SW-OPE-DDYES                VALUE 'S'.
+                   88 E076-SW-OPE-DDNO                 VALUE 'N'.
+             10 E076-DAT-LASTOPE           PIC X(10).
+             10 E076-DAT-MATURITY          PIC X(10).
+             10 E076-DAT-REGISTRATION      PIC X(10).
+             10 E076-DAT-LASTEXT           PIC X(10).
+             10 E076-DAT-LASTSTSUBJ        PIC X(10).
+             10 E076-DAT-LASTSTOBJ         PIC X(10).
+             10 E076-TYP-GUARANTEE         PIC X(13).
+             10 E076-COD-COUNTRY           PIC X(03).
+             10 E076-ACC-AVGBAL            PIC S9(13)V9(2) COMP-3.
+             10 E076-AMT-BALNPAY           PIC S9(13)V9(2) COMP-3.
+             10 E076-FEE                   PIC X(04).
+             10 E076-PSSIRT                PIC S9(03)V9(2) COMP-3.
+             10 E076-NEGIRT                PIC S9(03)V9(2) COMP-3.
+             10 E076-OVDIRT                PIC S9(03)V9(2) COMP-3.
+             10 E076-COD-RSNSUBJ           PIC X(3).
+             10 E076-FLG-ANNCEN            PIC X(1).
+             10 E076-FLG-FREE6             PIC X(1).
+             10 E076-LINE                  PIC X(2).
+             10 E076-NUM-PAGE              PIC X(2).
+             10 E076-SW-OPTION             PIC X(1).
+             10 E076-ENT-ACC               PIC X(4).
+             10 E076-CEN-ACCT              PIC X(4).
+             10 E076-AMT-OVDATM            PIC S9(13)V9(2) COMP-3.
+             10 E076-COD-FCC               PIC X(3).
+             10 E076-FLG-SENDSTM           PIC X.
+      *
+             10 E076-WHDBAL                PIC S9(13)V9(2) COMP-3.
+             10 E076-CHANNEL               PIC X(02).
+             10 E076-COD-ZONE              PIC X(04).
+             10 E076-SEGMENT               PIC X(02).
+             10 E076-COMPLAN               PIC X(03).
+             10 E076-DAT-CAN               PIC X(10).
+             10 E076-FLG-PROPOSAL          PIC X(01).
+             10 E076-CONFIDENTIAL          PIC X(01).
+             10 E076-INILIM                PIC S9(13)V9(2)  COMP-3.
+             10 E076-ENT-SENDER            PIC X(4).
+             10 E076-CEN-SENDER            PIC X(4).
+             10 E076-DAT-PREOPN            PIC X(10).
+             10 E076-DEB-FREE              PIC X(11).
+             10 E076-PURPOSE               PIC X(05).
+             10 E076-FLG-STATUS            PIC X(01).
+             10 E076-SW-TYP-ACC            PIC X(01).
+                88 E076-SW-ACC-TDATYP                  VALUE 'I'.
+                88 E076-SW-ACC-CREDIT                  VALUE 'L'.
+                88 E076-SW-ACC-SAVING                  VALUE 'A'.
+                88 E076-SW-ACC-CURRENT                 VALUE 'C'.
+             10 E076-SW-TYP-SETTLEMENT     PIC X(03).
+      *
+             10 E076-CUN                   PIC X(08).
+             10 E076-GROUP.
+                15 E076-GROUP-LETTER       PIC X(1).
+                15 E076-GROUP-NUM          PIC 9(7).
+             10 E076-FLG-BONUS             PIC X(1).
+      *
+             10 E076-AMT-NATCC             PIC S9(13)V9(2) COMP-3.
+      *
+             10 FILLER                     PIC X(32).
+             10 E076-FLG-TAXLIAB           PIC X(01).
+      *
+             10 E076-RED-INQUIRY           PIC X(01).
+      *
+             10 E076-AMT-FREE3             PIC S9(13)V9(2) COMP-3.
+             10 E076-COD-GRADING           PIC X(3).
+             10 E076-FLG-NARRAT            PIC X.
+             10 E076-TXT-NARRAT            PIC X(30).
+             10 E076-FLG-RTOE              PIC X(1).
+             10 E076-NON-REF-ST            PIC X(1).
+             10 E076-NON-REF-LI            PIC S9(13)V9(2) COMP-3.
+             10 E076-OVD-LIM               PIC S9(13)V9(2) COMP-3.
+             10 E076-FLG-BS                PIC X(1).
+             10 E076-UNPAID-ENT            PIC X(4).
+             10 E076-UNPAID-CEN            PIC X(4).
+             10 E076-UNPAID-ACC            PIC X(10).
+             10 E076-FLG-GROUP              PIC X.
+             10 E076-GWDRWBAL               PIC S9(13)V9(2) COMP-3.
+             10 E076-GLIMIT                 PIC S9(13)V9(2) COMP-3.
+             10 E076-ATE                    PIC S9(13)V9(2) COMP-3.
+             10 E076-ATE-GROUP              PIC S9(13)V9(2) COMP-3.
+             10 E076-FLG-SPPROD             PIC X(02).
+      *
+      *.MC.S @UK16803DSO
+             10 E076-TRANSFER-WAIVERS       PIC X(02).
+             10 E076-SC-START               PIC X(10).
+             10 E076-SYSTEM-TYPE            PIC X(03).
+      *.MC.E @UK16803DSO
+      *.MC.S @UK19118DSO
+             10 E076-ACC-TYP-FLG            PIC X(01).
+      *.MC.E @UK19118DSO
+      *.MC.S @UK21325DSO
+             10 E076-LEDG-AVE               PIC S9(13)V9(2) COMP-3.
+             10 E076-LEDG-MIN               PIC S9(13)V9(2) COMP-3.
+             10 E076-COLL-AVE               PIC S9(13)V9(2) COMP-3.
+      *.MC.E @UK21325DSO

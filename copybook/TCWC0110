@@ -1,0 +1,908 @@
+      *                     MODIFICATIONS LOG                          *
+      ******************************************************************
+      *     CODE       AUTHOR  DATE     DESCRIPTION                    *
+      *     ---------- ------- -------- ------------------------------ *
+      *B.MD @UK15311DWP USCDB75 29-11-10 NEW TABLE TC-765 SYSTEM TYPES *
+      *B.MD @UK16803DSO USCDB51 18-02-11 FEE FACTORY REQUIREMENTS BBVA *
+      *B.MD @UK17598DSO UPXDBM0 29-06-11 NEW FIELDS ADDED FROM FEE     *
+      *B/MD                              CODES TABLE SODT004           *
+      ******************************************************************
+      *B.MF TCWC0110                  GENERAL CORPORATE TABLES         *
+      *B.MF TBL-0004                  CONFIDENTIAL INFORMATION         *
+      *B.MF TBL-0007                  SUBJECT                          *
+      *B.MF TBL-0008                  CITIES                           *
+      *B.MF TBL-0009                  SUBREGIONS                       *
+      *B.MF TBL-0013                  STUDY CODE                       *
+      *B.MF TBL-0018                  DIRECTION FLAG                   *
+      *B.MF TBL-0026                  DIRECT ALNOVA - ENTITIES         *
+      *B.MF TBL-0029                  N.C.B.A.                         *
+      *B.MF TBL-0035                  NOC                              *
+      *B.MF TBL-0041                  REGION                           *
+      *B.MF TBL-0100                  ENTITY EMPLOYEES                 *
+      *B.MF TBL-0101                  DATA LANGUAGE                    *
+      *B.MF TBL-0102                  WARNINGS                         *
+      *B.MF TBL-0103                  AUTHORIZATION                    *
+      *B.MF TBL-0104                  PROVINCIAL REGISTRATION NUMBER   *
+      *B.MF TBL-0106                  PERSONAL RELATIONS               *
+      *B.MF TBL-0110                  NUMBER ACCOUNT SERVICE           *
+      *B.MF TBL-0111                  PRODUCTS                         *
+      *B.MF TBL-0112                  COUNTRIES                        *
+      *B.MF TBL-0113                  DOCUMENTS CODE                   *
+      *B.MF TBL-0114                  PARTICIPATION TYPES              *
+      *B.MF TBL-0115                  PROPERTY REGISTER                *
+      *B.MF TBL-0116                  MARITAL STATUS                   *
+      *B.MF TBL-0117                  JOINED CORRESPONDENCE EXCEPTIONS *
+      *B.MF TBL-0118                  REVIEW  CLAUSES                  *
+      *B.MF TBL-0121                  BATCH LOANS REQUESTS             *
+      *B.MF TBL-0122                  BATCH REQUEST EXCEPTIONS         *
+      *B.MF TBL-0123                  MOPU SUBSIDIES AGREEMENT         *
+      *B.MF TBL-0124                  ACCOUNT SOURCES ORIGIN           *
+      *B.MF TBL-0125                  MULTIRISK HOME POLICY            *
+      *B.MF TBL-0126                  DETERMINED SCOPE DESTINY'S DATA  *
+      *B.MF TBL-0127                  RESTRICTED SCOPE CITIES          *
+      *B.MF TBL-0128                  ACCOUNT WARNINGS                 *
+      *B.MF TBL-0129                  FOREIGN OPERATION ENTITIES       *
+      *B.MF TBL-0130                  STATISTICAL CODES                *
+      *B.MF TBL-0131                  ENTITY EMPLOYEES                 *
+      *B.MF TBL-0132                  COMPUTER USERS                   *
+      *
+      *B.MF TBL-0134                  SECURITIES FIRM                  *
+      *B.MF TBL-0135                  EXCEPTION ORIGIN                 *
+      *B.MF TBL-0136                  EXCEPTIONS SOLVING CODE          *
+      *B.MF TBL-0137                  CANCELLATION REASONS             *
+      *B.MF TBL-0138                  CAM. PRES. RETURN EXCEPTION CODE *
+      *B.MF TBL-0139                  CHARGING AUTHORIZATION CHECK     *
+      *B/MF                           EXCEPTION CODE                   *
+      *B.MF TBL-0140                  CHECK BOUNCE BACK REASONS        *
+      *B.MF TBL-0141                  AUTHORIZED CENTRE ANSWER CODE    *
+      *B.MF TBL-0142                  BONUS CODES                      *
+      *B.MF TBL-0143                  CARD TYPES                       *
+      *B.MF TBL-0144                  ATM EXCEPTION CODES              *
+      *B.MF TBL-0145                  CHECK CHARACTERISTIC VALUES      *
+      *B.MF TBL-0146                  APPLICANT ORGANIZATION TYPES     *
+      *B.MF TBL-0147                  FOREIGN EXCHANGE MARKET (FOREX   *
+      *B/MF                           MARKET) OPERATION TYPES          *
+      *B.MF TBL-0148                  FOREIGN OPERATION STATUS         *
+      *B.MF TBL-0149                  FOREIGN OPERATION TYPES          *
+      *B.MF TBL-0150                  EXPENSES AND COMMISSIONS         *
+      *B.MF TBL-0151                  OPERATION TYPES GROUP            *
+      *B.MF TBL-0152                  NATIONAL ENTITIES WITHOUT SWIFT  *
+      *B/MF                           KEY                              *
+      *B.MF TBL-0153                  FOREIGN FORM LITERAL             *
+      *B.MF TBL-0154                  FOREIGN SECURITY                 *
+      *B.MF TBL-0155                  PEOPLE TAXS STATUS               *
+      *B.MF TBL-0159                  FINANCIAL ASSETS OPERATION CODE  *
+      *B.MF TBL-0160                  COUNTRIES WITHOUT DOUBLE TERM    *
+      *B/MF                           AGREEMENT                        *
+      *B.MF TBL-0161                  APPLICANT ORGANIZATIONS          *
+      *B.MF TBL-0162                  CLEARING COMMISSIONS             *
+      *B.MF TBL-0163                  STOP-LIST DESCRIPTIONS           *
+      *B.MF TBL-0166                  ADDRESS KIND BY BIN              *
+      *B.MF TBL-0170                  COUNTRIES WITH CASH-LETTER       *
+      *B/MF                           AGREEMENT                        *
+      *B.MF TBL-0171                  ACTIVITY CODES ISSUED BY THE     *
+      *B/MF                           NATIONAL BANK                    *
+      *B.MF TBL-0172                  ACTIVITY-HOLDER RELATION         *
+      *B.MF TBL-0173                  CARD OPERATION TYPES             *
+      *B.MF TBL-0175                  SERVICE LINE                     *
+      *B.MF TBL-0177                  ESTABLISHMENT ACTIVITIES         *
+      *B.MF TBL-0178                  ESTABLISHMENT ANNULMENT REASONS  *
+      *B.MF TBL-0179                  POS SUPPORT COMAPNIES            *
+      *B.MF TBL-0180                  OWN ESTABLISHMENT SITUATION      *
+      *B.MF TBL-0181                  ISSUERS TABLE                    *
+      *B.MF TBL-0182                  CENTRAL SERVICES OF MY ENTITY    *
+      *B.MF TBL-0183                  TAX LITERAL DATA                 *
+      *B.MF TBL-0184                  GROUP TYPES                      *
+      *B.MF TBL-0186                  MARKETING APPLICATION  FIXED     *
+      *B/MF                           DATA                             *
+      *B.MF TBL-0187                  MARKETING PROMOTIONAL MEDIA      *
+      *B.MF TBL-0188                  PRINTERS T.I.N.                  *
+      *B.MF TBL-0189                  MARITAL STATUS CODES             *
+      *B.MF TBL-0190                  LABOR  STATUS                    *
+      *B.MF TBL-0191                  PROFESSIONS                      *
+      *B.MF TBL-0192                  SELF-EMPLOYED PERSON             *
+      *B.MF TBL-0193                  OTHER PROFESSIONS                *
+      *B.MF TBL-0194                  ECONOMIC ACTIVITY CODE           *
+      *B.MF TBL-0195                  LOAN OPERATIONS PURPOSE          *
+      *B.MF TBL-0196                  SCORING CREDITS OPERATION ORIGIN *
+      *B.MF TBL-0197                  CONSUMER CREDITS OBJETIVE        *
+      *B.MF TBL-0198                  REAL STATE TYPES CODES           *
+      *B.MF TBL-0199                  MORTAGE BUILDING STATUS          *
+      *B/MF                           DESCRIPTION                      *
+      *B.MF TBL-0200                  PARTICIPANT RELATIONS            *
+      *B.MF TBL-0201                  REGULAR HOME STATUS              *
+      *B.MF TBL-0203                  ANALITICAL CONCEPTS              *
+      *B.MF TBL-0204                  NATURE                           *
+      *B.MF TBL-0205                  PRODUCTS                         *
+      *B.MF TBL-0206                  EXPENSES GROUP                   *
+      *B.MF TBL-0207                  COST OPERATIONS                  *
+      *B.MF TBL-0208                  M.I.S. INTERFACE                 *
+      *B.MF TBL-0209                  SUBREGION ADMINISTRATION CENTRE  *
+      *B.MF TBL-0210                  RESTRICTE ACCOUNT PROCEDURES     *
+      *B.MF TBL-0211                  RESTRICTED ACCOUNTS DATA         *
+      *B.MF TBL-0212                  BROKERS                          *
+      *B.MF TBL-0213                  VOSTRO ACCOUNTS OPERATION CODES  *
+      *B.MF TBL-0214                  WAGE INTERFASE                   *
+      *B.MF TBL-0215                  OFF-LINE ACTIVITY SECTORS        *
+      *B.MF TBL-0216                  CURRENCY AVAILABILITY            *
+      *B.MF TBL-0217                  DEALER CENTRES                   *
+      *B.MF TBL-0218                  BANK NOTES                       *
+      *B.MF TBL-0219                  CARD EMBOSSING REASONS           *
+      *B.MF TBL-0220                  CARD ANNULMENT REASON            *
+      *B.MF TBL-0221                  DESTINY'S BIN ADDRESS            *
+      *B.MF TBL-0222                  ISSUERS                          *
+      *B.MF TBL-0223                  CITY HALL COUNCILS               *
+      *B.MF TBL-0224                  CURRENCY - APLICATION RELATION   *
+      *B.MF TBL-0225                  EURO TERMS                       *
+      *B.MF TBL-0226                  ASSIGNORS TERMS                  *
+      *B.MF TBL-0227                  INTEREST BRANCHES TABLES         *
+      *B.MF TBL-0228                  FOREIGN CURRENCY REL /MAX. IMP.  *
+      *B/MF                           SDI                              *
+      *
+      *B.MF TBL-0233                  MARKET DESCRIPTIONS              *
+      *
+      *B.MF TBL-0234                  BONUS                            *
+      *B.MF TBL-0236                  REMOVAL REASONS                  *
+      *B.MF TBL-0237                  CARD STATUS CODES                *
+      *B.MF TBL-0238                  EXCEPTION CODES                  *
+      *B.MF TBL-0239                  EXCEPTION REASON CODE            *
+      *B.MF TBL-0240                  EXCEPTIONS SOLUTION CODES        *
+      *B.MF TBL-0241                  SOLUTION REASONS CODES           *
+      *
+      *B.MF TBL-0242                  COMMUNICATION KEYS               *
+      *B.MF TBL-0243                  4B LANGUAGE CODES                *
+      *
+      *B.MF TBL-0245                  TRANSFER TYPES                   *
+      *B.MF TBL-0250                  CAMPAIGN STATUS                  *
+      *B.MF TBL-0301                  MONTHS                           *
+      *B.MF TBL-0302                  CONTRACT TYPES                   *
+      *B.MF TBL-0303                  SEGMENT                          *
+      *B.MF TBL-0304                  CHANEL TYPES                     *
+      *B.MF TBL-0305                  CENTRE GROUPS                    *
+      *B.MF TBL-0306                  AREA CODES                       *
+      *B.MF TBL-0307                  TERMS                            *
+      *B.MF TBL-0308                  ADDRESS STRUCTURE                *
+      *B.MF TBL-0309                  WARNING TYPES                    *
+      *B.MF TBL-0310                  CITY STRUCTURE                   *
+      *B.MF TBL-0311                  CLIENT STATUS                    *
+      *B.MF TBL-0312                  BONUS                            *
+      *B.MF TBL-0313                  CITY/ADDRESS FIELDS              *
+      *B/MF                           MEMOTECHNIQUE                    *
+      *B.MF TBL-0314                  COMMISSION CURRENCY FLAG         *
+      *B.MF TBL-0315                  COMMISSION MEMOTECHNIQUE         *
+      *B.MF TBL-0316                  SEX                              *
+      *B.MF TBL-0317                  DOCUMENT 2 CODE USAGE FLAG       *
+      *B.MF TBL-0318                  DEPOSIT TYPES                    *
+      *B.MF TBL-0319                  ACCOUNT STATUS                   *
+      *B.MF TBL-0320                  CIRBE RISK TYPES                 *
+      *B.MF TBL-0321                  RELATION CODES CHARACTER         *
+      *B.MF TBL-0322                  LOAN STATUS                      *
+      *B.MF TBL-0323                  ROUNDING CODES                   *
+      *B.MF TBL-0324                  SOLVING BRANCH                   *
+      *B.MF TBL-0325                  PRODUCTS GROUP                   *
+      *B.MF TBL-0326                  FUND TYPES                       *
+      *B.MF TBL-0327                  DEPENDENCE MEMOTECHNIQUE         *
+      *
+      *B.MF TBL-0328                  ACCOUNT AVAILABILITY             *
+      *B.MF TBL-0329                  FUND TYPES                       *
+      *B.MF TBL-0330                  SENDING WAYS                     *
+      *B.MF TBL-0331                  SENDING FORMAT                   *
+      *B.MF TBL-0332                  FUND CONTRIBUTION                *
+      *B.MF TBL-0333                  EXCEPTION TYPE                   *
+      *B.MF TBL-0334                  PENSION PLAN TYPES               *
+      *B.MF TBL-0335                  PENSION PLAN FOR INVESTMENT FUND *
+      *B.MF TBL-0336                  SERVICES ALLOWED                 *
+      *B.MF TBL-0337                  OPERATION TYPES NOT ALLOWED      *
+      *B.MF TBL-0338                  VARIABLE TYPE                    *
+      *B.MF TBL-0339                  PENSION PLAN ORDER/ENTRIES STATUS*
+      *B.MF TBL-0340                  COMMERCIAL FLAG                  *
+      *B.MF TBL-0341                  EXPENSES OPERATION CODES         *
+      *B.MF TBL-0342                  INVESTMENT PURPOSE FOR INDIVIDUAL*
+      *B.MF TBL-0343                  POS TRADEMARKS AND MODELS        *
+      *B.MF TBL-0344                  STANDING ORDER CONTROL PARAMETERS*
+      *B.MF TBL-0345                  REPRINTING REASONS               *
+      *B.MF TBL-0346                  UNIVERSITARY CARDS PER GROUP     *
+      *B.MF TBL-0347                  UNIVERSITARY CARDS PER CENTER    *
+      *B.MF TBL-0348                  ATM LOCATION                     *
+      *B.MF TBL-0349                  COMMUNICATION CHANNEL            *
+      *B.MF TBL-0350                  REJECTION REASON                 *
+      *B.MF TBL-0351                  FLASH OUTCOME                    *
+      *B.MF TBL-0352                  MANAGEMENT TYPE                  *
+      *B.MF TBL-0353                  ORIGIN OF THE FLASH              *
+      *B.MF TBL-0354                  POTENTIAL INDICATOR              *
+      *B.MF TBL-0355                  TIPE OF ACTION                   *
+      *B.MF TBL-0356                  REASON OF CERTIFICATE            *
+      *B.MF TBL-0357                  POSITION                         *
+      *B.MF TBL-0358                  TYPE OF MANAGEMENT               *
+      *B.MF TBL-0359                  VARIABLE                         *
+      *B.MF TBL-0360                  INCOME LEVEL                     *
+      *B.MF TBL-0361                  OPERATION REASONS IN FUNDS       *
+      *B.MF TBL-0362                  CSR TYPE                         *
+      *B.MF TBL-0363                  CSR PROFILE                      *
+      *
+      *B.MF TBL-0364                  SERVICE FACTOR VALUE             *
+      *
+      *B.MF TBL-0365                  RELATION LINE-IR ACCOUNT TYPE    *
+      *
+      *B.MF TBL-0366                  ABSORBED ENTITIES                *
+      *
+      *B.MF TBL-0367                  SEARCHING CRITERIA               *
+      *
+      *B.MF TBL-0368                  IDENTIFICATION DATA              *
+      *
+      *B.MF TBL-0369                  ECONOMICAL DATA                  *
+      *
+      *B.MF TBL-0370                  GROUPING DATA                    *
+      *
+      *B.MF TBL-0371                  SEARCHING OF TYPE                *
+      *
+      *B.MF TBL-0372                  PERIODICITY PER PRODUCT          *
+      *
+      *B.MF TBL-0373                  CARDS MARKS SERMEPA              *
+      *
+      *B.MF TBL-0374                  CODE CARDS ADMITTED BY SERMEPA   *
+      *
+      *B.MF TBL-0375                  BANNERS                          *
+      *
+      *B.MF TBL-0376                  DEBT SITUATION CONVERSION        *
+      *
+      *B.MF TBL-0377                  LISTINGS PER ORGANIZATION        *
+      *
+      *B.MF TBL-0378                  CUSTOMER ATTENTION REQ. TYPES    *
+      *
+      *B.MF TBL-0379                  CUSTOMER ATTENTION REQ. REASONS  *
+      *
+      *B.MF TBL-0380                  SEGMENTATION TYPES               *
+      *
+      *B.MF TBL-0381                  IDEAL INVESTMENT PORTFOLIO       *
+      *
+      *B.MF TBL-0382                  VOSTRO ACCOUNTS OP. CODE         *
+      *
+      *B.MF TBL-0383                  INVEST. DESTINAT. TAX ADMIN.     *
+      *
+      *B.MF TBL-0384                  TREASURY OPERATORY TYPES         *
+      *
+      *B.MF TBL-0385                  TREASURY MARGINS                 *
+      *
+      *B.MF TBL-0386                  ISSUER CLASIFICATION             *
+      *
+      *B.MF TBL-0387                  TREASURY LIMIT TYPES             *
+      *
+      *B.MF TBL-0388                  TREASURY PRODUCTS                *
+      *
+      *B.MF TBL-0390                  PROVINCE ADMIN. CENTER RELATIONS *
+      *
+      *B.MF TBL-0391                  COMMIS.CODE RELATED TO SWIFT CODE*
+      *
+      *B.MF TBL-0392                  TYPE OF COMPLEMENTARY INFORMATION*
+      *
+      *B.MF TBL-0393                  GUARANTEE TYPES                  *
+      *
+      *B.MF TBL-0394                  TYPES OF GOODS                   *
+      *
+      *B.MF TBL-0395                  STATUS OF GOODS                  *
+      *
+      *B.MF TBL-0396                  ENT RELATION WITH REPRESENT. ENT *
+      *
+      *B.MF TBL-0397                  INTERMEDIARY ENT SYSTEM INTERCHAN*
+      *
+      *B.MF TBL-0398                  COVER TYPE                       *
+      *
+      *B.MF TBL-0399                  PRIORITY COVER                   *
+      *
+      *B.MF TBL-0400                  BASILEA GUARANTEE TYPE           *
+      *
+      *B.MF TBL-0401                  RELATION  CODES                  *
+      *
+      *B.MF TBL-0402                  COLLABOTATOR TYPE                *
+      *
+      *B.MF TBL-0403                  TYPE-MARK-MODEL RELATIOPNS VEHICL*
+      *
+      *B.MF TBL-0404                  COLLATERAL STATUS                *
+      *
+      *B.MF TBL-0405                  RELEASE CODES                    *
+      *
+      *B.MF TBL-0406                  HISTORY EVENT COD OF GUARANTEE   *
+      *
+      *B.MF TBL-0407                  TRANSFER TYPE                    *
+      *
+      *B.MF TBL-0408                  PERSONAL GUARANT. LIMIT CODES    *
+      *
+      *B.MF TBL-0409                  PRODUCTS NEMONIC RELATION        *
+      *
+      *B.MF TBL-0410                  CHARACTERISTIC LEVEL CATALOG.    *
+      *
+      *B.MF TBL-0411                  IDENTIF. CODE CHECK/NOTE         *
+      *
+      *B.MF TBL-0412                  PRODUCT TYPE                     *
+      *.MC.S @UK16803DSO
+      *B.MF TBL-0767                  ACCOUNT TYPES                    *
+      *B.MF TBL-0768                  AGES RANGE                       *
+      *B.MF TBL-0769                  ACCOUNT STATUS                   *
+      *.MC.E @UK16803DSO
+      *B.MF FILLER                    FILLER                           *
+      *B.MF TBL-0600
+      *B.MF TBL-0601
+      *B.MF TBL-0602
+      *B.MF TBL-0603
+      *B.MF TBL-0604
+      *B.MF TBL-0605
+      *B.MF TBL-0606
+      *B.MF TBL-0607
+      *B.MF TBL-0608
+      *B.MF TBL-0609
+      *B.MF TBL-0610
+      *B.MF TBL-0611
+      *B.MF TBL-0612
+      *B.MF TBL-0613
+      *B.MF TBL-0614
+      *B.MF TBL-0615
+      *B.MF TBL-0616
+      *B.MF TBL-0617
+      *B.MF TBL-0618
+      *B.MF TBL-0619
+      *B.MF TBL-0620
+      *B.MF TBL-0621
+      *B.MF TBL-0622
+      *B.MF TBL-0623
+      *B.MF TBL-0624
+      *B.MF TBL-0625
+      *B.MF TBL-0626
+      *B.MF TBL-0627
+      *B.MF TBL-0628
+      *B.MF TBL-0629
+      *B.MF TBL-0630
+      *B.MF TBL-0631
+      *B.MF TBL-0632
+      *B.MF TBL-0633
+      *B.MF TBL-0634
+      *B.MF TBL-0635
+      *B.MF TBL-0636
+      *B.MF TBL-0637
+      *B.MF TBL-0638
+      *B.MF TBL-0639
+      *B.MF TBL-0640
+      *B.MF TBL-0641
+      *B.MF TBL-0642
+      *B.MF TBL-0643
+      *B.MF TBL-0644
+      *B.MF TBL-0645
+      *B.MF TBL-0646
+      *B.MF TBL-0647
+      *B.MF TBL-0648
+      *B.MF TBL-0649
+      *B.MF TBL-0650
+      *B.MF TBL-0651
+      *B.MF TBL-0652
+      *B.MF TBL-0653
+      *B.MF TBL-0654
+      *B.MF TBL-0655
+      *B.MF TBL-0656
+      *B.MF TBL-0657
+      *B.MF TBL-0658
+      *B.MF TBL-0659
+      *B.MF TBL-0660
+      *B.MF TBL-0661
+      *B.MF TBL-0662
+      *B.MF TBL-0663
+      *B.MF TBL-0664
+      *B.MF TBL-0665
+      *B.MF TBL-0666
+      *B.MF TBL-0667
+      *B.MF TBL-0668
+      *B.MF TBL-0669
+      *B.MF TBL-0670
+      *B.MF TBL-0671
+      *B.MF TBL-0672
+      *B.MF TBL-0673
+      *B.MF TBL-0674
+      *B.MF TBL-0675
+      *B.MF TBL-0676
+      *B.MF TBL-0677
+      *B.MF TBL-0678
+      *B.MF TBL-0679
+      *B.MF TBL-0680
+      *B.MF TBL-0681
+      *B.MF TBL-0682
+      *B.MF TBL-0683
+      *B.MF TBL-0684
+      *B.MF TBL-0685
+      *B.MF TBL-0686
+      *B.MF TBL-0687
+      *B.MF TBL-0688
+      *B.MF TBL-0689
+      *B.MF TBL-0690
+      *B.MF TBL-0691
+      *B.MF TBL-0692
+      *B.MF TBL-0693
+      *B.MF TBL-0694
+      *B.MF TBL-0695
+      *B.MF TBL-0696
+      *B.MF TBL-0697
+      *B.MF TBL-0698
+      *B.MF TBL-0699
+      *B.MF TBL-0700
+      *B.MF TBL-0701
+      *B.MF TBL-0702
+      *B.MF TBL-0703
+      *B.MF TBL-0704
+      *B.MF TBL-0705
+      *B.MF TBL-0706
+      *B.MF TBL-0707
+      *B.MF TBL-0708
+      *B.MF TBL-0709
+      *B.MF TBL-0710
+      *B.MF TBL-0711
+      *B.MF TBL-0712
+      *B.MF TBL-0713
+      *B.MF TBL-0714
+      *B.MF TBL-0715
+      *B.MF TBL-0716
+      *B.MF TBL-0717
+      *B.MF TBL-0718
+      *B.MF TBL-0719
+      *B.MF TBL-0720
+      *B.MF TBL-0725                  IMPERSONAL CLEARING ACCOUNTS     *
+      *B.MF TBL-0726                  SUSPENSE CLEARING ACCOUNTS       *
+      *B.MF TBL-0818                  STATE CODES                      *
+      ******************************************************************
+       01  TCWC0110.
+      *
+           05  TCWC0110-TBL-0004            PIC X(4)  VALUE  '0004'.
+           05  TCWC0110-TBL-0007            PIC X(4)  VALUE  '0007'.
+           05  TCWC0110-TBL-0008            PIC X(4)  VALUE  '0008'.
+           05  TCWC0110-TBL-0009            PIC X(4)  VALUE  '0009'.
+           05  TCWC0110-TBL-0013            PIC X(4)  VALUE  '0013'.
+           05  TCWC0110-TBL-0018            PIC X(4)  VALUE  '0018'.
+           05  TCWC0110-TBL-0026            PIC X(4)  VALUE  '0026'.
+           05  TCWC0110-TBL-0029            PIC X(4)  VALUE  '0029'.
+           05  TCWC0110-TBL-0035            PIC X(4)  VALUE  '0035'.
+           05  TCWC0110-TBL-0041            PIC X(4)  VALUE  '0041'.
+           05  TCWC0110-TBL-0100            PIC X(4)  VALUE  '0100'.
+           05  TCWC0110-TBL-0101            PIC X(4)  VALUE  '0101'.
+           05  TCWC0110-TBL-0102            PIC X(4)  VALUE  '0102'.
+           05  TCWC0110-TBL-0103            PIC X(4)  VALUE  '0103'.
+           05  TCWC0110-TBL-0104            PIC X(4)  VALUE  '0104'.
+           05  TCWC0110-TBL-0106            PIC X(4)  VALUE  '0106'.
+           05  TCWC0110-TBL-0110            PIC X(4)  VALUE  '0110'.
+           05  TCWC0110-TBL-0111            PIC X(4)  VALUE  '0111'.
+           05  TCWC0110-TBL-0112            PIC X(4)  VALUE  '0112'.
+           05  TCWC0110-TBL-0113            PIC X(4)  VALUE  '0113'.
+           05  TCWC0110-TBL-0114            PIC X(4)  VALUE  '0114'.
+           05  TCWC0110-TBL-0115            PIC X(4)  VALUE  '0115'.
+           05  TCWC0110-TBL-0116            PIC X(4)  VALUE  '0116'.
+           05  TCWC0110-TBL-0117            PIC X(4)  VALUE  '0117'.
+           05  TCWC0110-TBL-0118            PIC X(4)  VALUE  '0118'.
+           05  TCWC0110-TBL-0121            PIC X(4)  VALUE  '0121'.
+           05  TCWC0110-TBL-0122            PIC X(4)  VALUE  '0122'.
+           05  TCWC0110-TBL-0123            PIC X(4)  VALUE  '0123'.
+           05  TCWC0110-TBL-0124            PIC X(4)  VALUE  '0124'.
+           05  TCWC0110-TBL-0125            PIC X(4)  VALUE  '0125'.
+           05  TCWC0110-TBL-0126            PIC X(4)  VALUE  '0126'.
+           05  TCWC0110-TBL-0127            PIC X(4)  VALUE  '0127'.
+           05  TCWC0110-TBL-0128            PIC X(4)  VALUE  '0128'.
+           05  TCWC0110-TBL-0129            PIC X(4)  VALUE  '0129'.
+           05  TCWC0110-TBL-0130            PIC X(4)  VALUE  '0130'.
+           05  TCWC0110-TBL-0131            PIC X(4)  VALUE  '0131'.
+           05  TCWC0110-TBL-0132            PIC X(4)  VALUE  '0132'.
+      *
+           05  TCWC0110-TBL-0134            PIC X(4)  VALUE  '0134'.
+           05  TCWC0110-TBL-0135            PIC X(4)  VALUE  '0135'.
+           05  TCWC0110-TBL-0136            PIC X(4)  VALUE  '0136'.
+           05  TCWC0110-TBL-0137            PIC X(4)  VALUE  '0137'.
+           05  TCWC0110-TBL-0138            PIC X(4)  VALUE  '0138'.
+           05  TCWC0110-TBL-0139            PIC X(4)  VALUE  '0139'.
+           05  TCWC0110-TBL-0140            PIC X(4)  VALUE  '0140'.
+           05  TCWC0110-TBL-0141            PIC X(4)  VALUE  '0141'.
+           05  TCWC0110-TBL-0142            PIC X(4)  VALUE  '0142'.
+           05  TCWC0110-TBL-0143            PIC X(4)  VALUE  '0143'.
+           05  TCWC0110-TBL-0144            PIC X(4)  VALUE  '0144'.
+           05  TCWC0110-TBL-0145            PIC X(4)  VALUE  '0145'.
+           05  TCWC0110-TBL-0146            PIC X(4)  VALUE  '0146'.
+           05  TCWC0110-TBL-0147            PIC X(4)  VALUE  '0147'.
+           05  TCWC0110-TBL-0148            PIC X(4)  VALUE  '0148'.
+           05  TCWC0110-TBL-0149            PIC X(4)  VALUE  '0149'.
+           05  TCWC0110-TBL-0150            PIC X(4)  VALUE  '0150'.
+           05  TCWC0110-TBL-0151            PIC X(4)  VALUE  '0151'.
+           05  TCWC0110-TBL-0152            PIC X(4)  VALUE  '0152'.
+           05  TCWC0110-TBL-0153            PIC X(4)  VALUE  '0153'.
+           05  TCWC0110-TBL-0154            PIC X(4)  VALUE  '0154'.
+           05  TCWC0110-TBL-0155            PIC X(4)  VALUE  '0155'.
+           05  TCWC0110-TBL-0159            PIC X(4)  VALUE  '0159'.
+           05  TCWC0110-TBL-0160            PIC X(4)  VALUE  '0160'.
+           05  TCWC0110-TBL-0161            PIC X(4)  VALUE  '0161'.
+           05  TCWC0110-TBL-0162            PIC X(4)  VALUE  '0162'.
+           05  TCWC0110-TBL-0163            PIC X(4)  VALUE  '0163'.
+           05  TCWC0110-TBL-0166            PIC X(4)  VALUE  '0166'.
+           05  TCWC0110-TBL-0170            PIC X(4)  VALUE  '0170'.
+           05  TCWC0110-TBL-0171            PIC X(4)  VALUE  '0171'.
+           05  TCWC0110-TBL-0172            PIC X(4)  VALUE  '0172'.
+           05  TCWC0110-TBL-0173            PIC X(4)  VALUE  '0173'.
+           05  TCWC0110-TBL-0175            PIC X(4)  VALUE  '0175'.
+           05  TCWC0110-TBL-0177            PIC X(4)  VALUE  '0177'.
+           05  TCWC0110-TBL-0178            PIC X(4)  VALUE  '0178'.
+           05  TCWC0110-TBL-0179            PIC X(4)  VALUE  '0179'.
+           05  TCWC0110-TBL-0180            PIC X(4)  VALUE  '0180'.
+           05  TCWC0110-TBL-0181            PIC X(4)  VALUE  '0181'.
+           05  TCWC0110-TBL-0182            PIC X(4)  VALUE  '0182'.
+           05  TCWC0110-TBL-0183            PIC X(4)  VALUE  '0183'.
+           05  TCWC0110-TBL-0184            PIC X(4)  VALUE  '0184'.
+           05  TCWC0110-TBL-0186            PIC X(4)  VALUE  '0186'.
+           05  TCWC0110-TBL-0187            PIC X(4)  VALUE  '0187'.
+           05  TCWC0110-TBL-0188            PIC X(4)  VALUE  '0188'.
+           05  TCWC0110-TBL-0189            PIC X(4)  VALUE  '0189'.
+           05  TCWC0110-TBL-0190            PIC X(4)  VALUE  '0190'.
+           05  TCWC0110-TBL-0191            PIC X(4)  VALUE  '0191'.
+           05  TCWC0110-TBL-0192            PIC X(4)  VALUE  '0192'.
+           05  TCWC0110-TBL-0193            PIC X(4)  VALUE  '0193'.
+           05  TCWC0110-TBL-0194            PIC X(4)  VALUE  '0194'.
+           05  TCWC0110-TBL-0195            PIC X(4)  VALUE  '0195'.
+           05  TCWC0110-TBL-0196            PIC X(4)  VALUE  '0196'.
+           05  TCWC0110-TBL-0197            PIC X(4)  VALUE  '0197'.
+           05  TCWC0110-TBL-0198            PIC X(4)  VALUE  '0198'.
+           05  TCWC0110-TBL-0199            PIC X(4)  VALUE  '0199'.
+           05  TCWC0110-TBL-0200            PIC X(4)  VALUE  '0200'.
+           05  TCWC0110-TBL-0201            PIC X(4)  VALUE  '0201'.
+           05  TCWC0110-TBL-0203            PIC X(4)  VALUE  '0203'.
+           05  TCWC0110-TBL-0204            PIC X(4)  VALUE  '0204'.
+           05  TCWC0110-TBL-0205            PIC X(4)  VALUE  '0205'.
+           05  TCWC0110-TBL-0206            PIC X(4)  VALUE  '0206'.
+           05  TCWC0110-TBL-0207            PIC X(4)  VALUE  '0207'.
+           05  TCWC0110-TBL-0208            PIC X(4)  VALUE  '0208'.
+           05  TCWC0110-TBL-0209            PIC X(4)  VALUE  '0209'.
+           05  TCWC0110-TBL-0210            PIC X(4)  VALUE  '0210'.
+           05  TCWC0110-TBL-0211            PIC X(4)  VALUE  '0211'.
+           05  TCWC0110-TBL-0212            PIC X(4)  VALUE  '0212'.
+           05  TCWC0110-TBL-0213            PIC X(4)  VALUE  '0213'.
+           05  TCWC0110-TBL-0214            PIC X(4)  VALUE  '0214'.
+           05  TCWC0110-TBL-0215            PIC X(4)  VALUE  '0215'.
+           05  TCWC0110-TBL-0216            PIC X(4)  VALUE  '0216'.
+           05  TCWC0110-TBL-0217            PIC X(4)  VALUE  '0217'.
+           05  TCWC0110-TBL-0218            PIC X(4)  VALUE  '0218'.
+           05  TCWC0110-TBL-0219            PIC X(4)  VALUE  '0219'.
+           05  TCWC0110-TBL-0220            PIC X(4)  VALUE  '0220'.
+           05  TCWC0110-TBL-0221            PIC X(4)  VALUE  '0221'.
+           05  TCWC0110-TBL-0222            PIC X(4)  VALUE  '0222'.
+           05  TCWC0110-TBL-0223            PIC X(4)  VALUE  '0223'.
+           05  TCWC0110-TBL-0224            PIC X(4)  VALUE  '0224'.
+           05  TCWC0110-TBL-0225            PIC X(4)  VALUE  '0225'.
+           05  TCWC0110-TBL-0226            PIC X(4)  VALUE  '0226'.
+           05  TCWC0110-TBL-0227            PIC X(4)  VALUE  '0227'.
+           05  TCWC0110-TBL-0228            PIC X(4)  VALUE  '0228'.
+      *
+           05  TCWC0110-TBL-0233            PIC X(4)  VALUE  '0233'.
+      *
+           05  TCWC0110-TBL-0234            PIC X(4)  VALUE  '0234'.
+           05  TCWC0110-TBL-0236            PIC X(4)  VALUE  '0236'.
+           05  TCWC0110-TBL-0237            PIC X(4)  VALUE  '0237'.
+           05  TCWC0110-TBL-0238            PIC X(4)  VALUE  '0238'.
+           05  TCWC0110-TBL-0239            PIC X(4)  VALUE  '0239'.
+           05  TCWC0110-TBL-0240            PIC X(4)  VALUE  '0240'.
+           05  TCWC0110-TBL-0241            PIC X(4)  VALUE  '0241'.
+      *
+           05  TCWC0110-TBL-0242            PIC X(4)  VALUE  '0242'.
+           05  TCWC0110-TBL-0243            PIC X(4)  VALUE  '0243'.
+      *
+           05  TCWC0110-TBL-0245            PIC X(4)  VALUE  '0245'.
+      *
+           05  TCWC0110-TBL-0250            PIC X(4)  VALUE  '0250'.
+           05  TCWC0110-TBL-0301            PIC X(4)  VALUE  '0301'.
+           05  TCWC0110-TBL-0302            PIC X(4)  VALUE  '0302'.
+           05  TCWC0110-TBL-0303            PIC X(4)  VALUE  '0303'.
+           05  TCWC0110-TBL-0304            PIC X(4)  VALUE  '0304'.
+           05  TCWC0110-TBL-0305            PIC X(4)  VALUE  '0305'.
+           05  TCWC0110-TBL-0306            PIC X(4)  VALUE  '0306'.
+           05  TCWC0110-TBL-0307            PIC X(4)  VALUE  '0307'.
+           05  TCWC0110-TBL-0308            PIC X(4)  VALUE  '0308'.
+           05  TCWC0110-TBL-0309            PIC X(4)  VALUE  '0309'.
+           05  TCWC0110-TBL-0310            PIC X(4)  VALUE  '0310'.
+           05  TCWC0110-TBL-0311            PIC X(4)  VALUE  '0311'.
+           05  TCWC0110-TBL-0312            PIC X(4)  VALUE  '0312'.
+           05  TCWC0110-TBL-0313            PIC X(4)  VALUE  '0313'.
+           05  TCWC0110-TBL-0314            PIC X(4)  VALUE  '0314'.
+           05  TCWC0110-TBL-0315            PIC X(4)  VALUE  '0315'.
+           05  TCWC0110-TBL-0316            PIC X(4)  VALUE  '0316'.
+           05  TCWC0110-TBL-0317            PIC X(4)  VALUE  '0317'.
+           05  TCWC0110-TBL-0318            PIC X(4)  VALUE  '0318'.
+           05  TCWC0110-TBL-0319            PIC X(4)  VALUE  '0319'.
+           05  TCWC0110-TBL-0320            PIC X(4)  VALUE  '0320'.
+           05  TCWC0110-TBL-0321            PIC X(4)  VALUE  '0321'.
+           05  TCWC0110-TBL-0322            PIC X(4)  VALUE  '0322'.
+           05  TCWC0110-TBL-0323            PIC X(4)  VALUE  '0323'.
+           05  TCWC0110-TBL-0324            PIC X(4)  VALUE  '0324'.
+           05  TCWC0110-TBL-0325            PIC X(4)  VALUE  '0325'.
+           05  TCWC0110-TBL-0326            PIC X(4)  VALUE  '0326'.
+           05  TCWC0110-TBL-0327            PIC X(4)  VALUE  '0327'.
+           05  TCWC0110-TBL-0328            PIC X(4)  VALUE  '0328'.
+           05  TCWC0110-TBL-0329            PIC X(4)  VALUE  '0329'.
+           05  TCWC0110-TBL-0330            PIC X(4)  VALUE  '0330'.
+           05  TCWC0110-TBL-0331            PIC X(4)  VALUE  '0331'.
+           05  TCWC0110-TBL-0332            PIC X(4)  VALUE  '0332'.
+           05  TCWC0110-TBL-0333            PIC X(4)  VALUE  '0333'.
+      *
+           05  TCWC0110-TBL-0334            PIC X(4)  VALUE  '0334'.
+           05  TCWC0110-TBL-0335            PIC X(4)  VALUE  '0335'.
+           05  TCWC0110-TBL-0336            PIC X(4)  VALUE  '0336'.
+           05  TCWC0110-TBL-0337            PIC X(4)  VALUE  '0337'.
+           05  TCWC0110-TBL-0338            PIC X(4)  VALUE  '0338'.
+      *
+           05  TCWC0110-TBL-0339            PIC X(4)  VALUE  '0339'.
+           05  TCWC0110-TBL-0340            PIC X(4)  VALUE  '0340'.
+           05  TCWC0110-TBL-0341            PIC X(4)  VALUE  '0341'.
+           05  TCWC0110-TBL-0342            PIC X(4)  VALUE  '0342'.
+           05  TCWC0110-TBL-0343            PIC X(4)  VALUE  '0343'.
+           05  TCWC0110-TBL-0344            PIC X(4)  VALUE  '0344'.
+      *
+           05  TCWC0110-TBL-0345            PIC X(4)  VALUE  '0345'.
+      *
+           05  TCWC0110-TBL-0346            PIC X(4)  VALUE  '0346'.
+      *
+           05  TCWC0110-TBL-0347            PIC X(4)  VALUE  '0347'.
+      *
+           05  TCWC0110-TBL-0348            PIC X(4)  VALUE  '0348'.
+      *
+           05  TCWC0110-TBL-0349            PIC X(4)  VALUE  '0349'.
+      *
+           05  TCWC0110-TBL-0350            PIC X(4)  VALUE  '0350'.
+      *
+           05  TCWC0110-TBL-0351            PIC X(4)  VALUE  '0351'.
+      *
+           05  TCWC0110-TBL-0352            PIC X(4)  VALUE  '0352'.
+      *
+           05  TCWC0110-TBL-0353            PIC X(4)  VALUE  '0353'.
+      *
+           05  TCWC0110-TBL-0354            PIC X(4)  VALUE  '0354'.
+      *
+           05  TCWC0110-TBL-0355            PIC X(4)  VALUE  '0355'.
+      *
+           05  TCWC0110-TBL-0356            PIC X(4)  VALUE  '0356'.
+      *
+           05  TCWC0110-TBL-0357            PIC X(4)  VALUE  '0357'.
+      *
+           05  TCWC0110-TBL-0358            PIC X(4)  VALUE  '0358'.
+      *
+           05  TCWC0110-TBL-0359            PIC X(4)  VALUE  '0359'.
+      *
+           05  TCWC0110-TBL-0360            PIC X(4)  VALUE  '0360'.
+      *
+           05  TCWC0110-TBL-0361            PIC X(4)  VALUE  '0361'.
+      *
+           05  TCWC0110-TBL-0362            PIC X(4)  VALUE  '0362'.
+           05  TCWC0110-TBL-0363            PIC X(4)  VALUE  '0363'.
+      *
+           05  TCWC0110-TBL-0364            PIC X(4)  VALUE  '0364'.
+      *
+           05  TCWC0110-TBL-0365            PIC X(4)  VALUE  '0365'.
+      *
+           05  TCWC0110-TBL-0366            PIC X(4)  VALUE  '0366'.
+      *
+           05  TCWC0110-TBL-0367            PIC X(4)  VALUE  '0367'.
+      *
+           05  TCWC0110-TBL-0368            PIC X(4)  VALUE  '0368'.
+      *
+           05  TCWC0110-TBL-0369            PIC X(4)  VALUE  '0369'.
+      *
+           05  TCWC0110-TBL-0370            PIC X(4)  VALUE  '0370'.
+      *
+           05  TCWC0110-TBL-0371            PIC X(4)  VALUE  '0371'.
+      *
+           05  TCWC0110-TBL-0372            PIC X(4)  VALUE  '0372'.
+      *
+           05  TCWC0110-TBL-0373            PIC X(4)  VALUE  '0373'.
+      *
+           05  TCWC0110-TBL-0374            PIC X(4)  VALUE  '0374'.
+      *
+           05  TCWC0110-TBL-0375            PIC X(4)  VALUE  '0375'.
+      *
+           05  TCWC0110-TBL-0376            PIC X(4)  VALUE  '0376'.
+      *
+           05  TCWC0110-TBL-0377            PIC X(4)  VALUE  '0377'.
+      *
+           05  TCWC0110-TBL-0378            PIC X(4)  VALUE  '0378'.
+      *
+           05  TCWC0110-TBL-0379            PIC X(4)  VALUE  '0379'.
+      *
+           05  TCWC0110-TBL-0380            PIC X(4)  VALUE  '0380'.
+      *
+           05  TCWC0110-TBL-0381            PIC X(4)  VALUE  '0381'.
+      *
+           05  TCWC0110-TBL-0382            PIC X(4)  VALUE  '0382'.
+      *
+           05  TCWC0110-TBL-0383            PIC X(4)  VALUE  '0383'.
+      *
+           05  TCWC0110-TBL-0384            PIC X(4)  VALUE  '0384'.
+      *
+           05  TCWC0110-TBL-0385            PIC X(4)  VALUE  '0385'.
+      *
+           05  TCWC0110-TBL-0386            PIC X(4)  VALUE  '0386'.
+      *
+           05  TCWC0110-TBL-0387            PIC X(4)  VALUE  '0387'.
+      *
+           05  TCWC0110-TBL-0388            PIC X(4)  VALUE  '0388'.
+      *
+           05  TCWC0110-TBL-0390            PIC X(4)  VALUE  '0390'.
+      *
+           05  TCWC0110-TBL-0391            PIC X(4)  VALUE  '0391'.
+      *
+           05  TCWC0110-TBL-0392            PIC X(4)  VALUE  '0392'.
+      *
+           05  TCWC0110-TBL-0393            PIC X(4)  VALUE  '0393'.
+      *
+           05  TCWC0110-TBL-0394            PIC X(4)  VALUE  '0394'.
+      *
+           05  TCWC0110-TBL-0395            PIC X(4)  VALUE  '0395'.
+      *
+           05  TCWC0110-TBL-0396            PIC X(4)  VALUE  '0396'.
+      *
+           05  TCWC0110-TBL-0397            PIC X(4)  VALUE  '0397'.
+      *
+           05  TCWC0110-TBL-0398            PIC X(4)  VALUE  '0398'.
+      *
+           05  TCWC0110-TBL-0399            PIC X(4)  VALUE  '0399'.
+      *
+           05  TCWC0110-TBL-0400            PIC X(4)  VALUE  '0400'.
+      *
+           05  TCWC0110-TBL-0401            PIC X(4)  VALUE  '0401'.
+      *
+           05  TCWC0110-TBL-0402            PIC X(4)  VALUE  '0402'.
+      *
+           05  TCWC0110-TBL-0403            PIC X(4)  VALUE  '0403'.
+      *
+           05  TCWC0110-TBL-0404            PIC X(4)  VALUE  '0404'.
+      *
+           05  TCWC0110-TBL-0405            PIC X(4)  VALUE  '0405'.
+      *
+           05  TCWC0110-TBL-0406            PIC X(4)  VALUE  '0406'.
+      *
+           05  TCWC0110-TBL-0407            PIC X(4)  VALUE  '0407'.
+      *
+           05  TCWC0110-TBL-0408            PIC X(4)  VALUE  '0408'.
+      *
+           05  TCWC0110-TBL-0409            PIC X(4)  VALUE  '0409'.
+      *
+           05  TCWC0110-TBL-0410            PIC X(4)  VALUE  '0410'.
+      *
+           05  TCWC0110-TBL-0411            PIC X(4)  VALUE  '0411'.
+      *
+           05  TCWC0110-TBL-0412            PIC X(4)  VALUE  '0412'.
+           05  TCWC0110-TBL-0413            PIC X(4)  VALUE  '0413'.
+           05  TCWC0110-TBL-0600            PIC X(4)  VALUE  '0600'.
+           05  TCWC0110-TBL-0601            PIC X(4)  VALUE  '0601'.
+           05  TCWC0110-TBL-0602            PIC X(4)  VALUE  '0602'.
+           05  TCWC0110-TBL-0603            PIC X(4)  VALUE  '0603'.
+           05  TCWC0110-TBL-0604            PIC X(4)  VALUE  '0604'.
+           05  TCWC0110-TBL-0605            PIC X(4)  VALUE  '0605'.
+           05  TCWC0110-TBL-0606            PIC X(4)  VALUE  '0606'.
+           05  TCWC0110-TBL-0607            PIC X(4)  VALUE  '0607'.
+           05  TCWC0110-TBL-0608            PIC X(4)  VALUE  '0608'.
+           05  TCWC0110-TBL-0609            PIC X(4)  VALUE  '0609'.
+           05  TCWC0110-TBL-0610            PIC X(4)  VALUE  '0610'.
+           05  TCWC0110-TBL-0611            PIC X(4)  VALUE  '0611'.
+           05  TCWC0110-TBL-0612            PIC X(4)  VALUE  '0612'.
+           05  TCWC0110-TBL-0613            PIC X(4)  VALUE  '0613'.
+           05  TCWC0110-TBL-0614            PIC X(4)  VALUE  '0614'.
+           05  TCWC0110-TBL-0615            PIC X(4)  VALUE  '0615'.
+           05  TCWC0110-TBL-0616            PIC X(4)  VALUE  '0616'.
+           05  TCWC0110-TBL-0617            PIC X(4)  VALUE  '0617'.
+           05  TCWC0110-TBL-0618            PIC X(4)  VALUE  '0618'.
+           05  TCWC0110-TBL-0619            PIC X(4)  VALUE  '0619'.
+           05  TCWC0110-TBL-0620            PIC X(4)  VALUE  '0620'.
+           05  TCWC0110-TBL-0621            PIC X(4)  VALUE  '0621'.
+           05  TCWC0110-TBL-0622            PIC X(4)  VALUE  '0622'.
+           05  TCWC0110-TBL-0623            PIC X(4)  VALUE  '0623'.
+           05  TCWC0110-TBL-0624            PIC X(4)  VALUE  '0624'.
+           05  TCWC0110-TBL-0625            PIC X(4)  VALUE  '0625'.
+           05  TCWC0110-TBL-0626            PIC X(4)  VALUE  '0626'.
+           05  TCWC0110-TBL-0627            PIC X(4)  VALUE  '0627'.
+           05  TCWC0110-TBL-0628            PIC X(4)  VALUE  '0628'.
+           05  TCWC0110-TBL-0629            PIC X(4)  VALUE  '0629'.
+           05  TCWC0110-TBL-0630            PIC X(4)  VALUE  '0630'.
+           05  TCWC0110-TBL-0631            PIC X(4)  VALUE  '0631'.
+           05  TCWC0110-TBL-0632            PIC X(4)  VALUE  '0632'.
+           05  TCWC0110-TBL-0633            PIC X(4)  VALUE  '0633'.
+           05  TCWC0110-TBL-0634            PIC X(4)  VALUE  '0634'.
+           05  TCWC0110-TBL-0635            PIC X(4)  VALUE  '0635'.
+           05  TCWC0110-TBL-0636            PIC X(4)  VALUE  '0636'.
+           05  TCWC0110-TBL-0637            PIC X(4)  VALUE  '0637'.
+           05  TCWC0110-TBL-0638            PIC X(4)  VALUE  '0638'.
+           05  TCWC0110-TBL-0639            PIC X(4)  VALUE  '0639'.
+           05  TCWC0110-TBL-0640            PIC X(4)  VALUE  '0640'.
+           05  TCWC0110-TBL-0641            PIC X(4)  VALUE  '0641'.
+           05  TCWC0110-TBL-0642            PIC X(4)  VALUE  '0642'.
+           05  TCWC0110-TBL-0643            PIC X(4)  VALUE  '0643'.
+           05  TCWC0110-TBL-0644            PIC X(4)  VALUE  '0644'.
+           05  TCWC0110-TBL-0645            PIC X(4)  VALUE  '0645'.
+           05  TCWC0110-TBL-0646            PIC X(4)  VALUE  '0646'.
+           05  TCWC0110-TBL-0647            PIC X(4)  VALUE  '0647'.
+           05  TCWC0110-TBL-0648            PIC X(4)  VALUE  '0648'.
+           05  TCWC0110-TBL-0649            PIC X(4)  VALUE  '0649'.
+           05  TCWC0110-TBL-0650            PIC X(4)  VALUE  '0650'.
+           05  TCWC0110-TBL-0651            PIC X(4)  VALUE  '0651'.
+           05  TCWC0110-TBL-0652            PIC X(4)  VALUE  '0652'.
+           05  TCWC0110-TBL-0653            PIC X(4)  VALUE  '0653'.
+           05  TCWC0110-TBL-0654            PIC X(4)  VALUE  '0654'.
+           05  TCWC0110-TBL-0655            PIC X(4)  VALUE  '0655'.
+           05  TCWC0110-TBL-0656            PIC X(4)  VALUE  '0656'.
+           05  TCWC0110-TBL-0657            PIC X(4)  VALUE  '0657'.
+           05  TCWC0110-TBL-0658            PIC X(4)  VALUE  '0658'.
+           05  TCWC0110-TBL-0659            PIC X(4)  VALUE  '0659'.
+           05  TCWC0110-TBL-0660            PIC X(4)  VALUE  '0660'.
+           05  TCWC0110-TBL-0661            PIC X(4)  VALUE  '0661'.
+           05  TCWC0110-TBL-0662            PIC X(4)  VALUE  '0662'.
+           05  TCWC0110-TBL-0663            PIC X(4)  VALUE  '0663'.
+           05  TCWC0110-TBL-0664            PIC X(4)  VALUE  '0664'.
+           05  TCWC0110-TBL-0665            PIC X(4)  VALUE  '0665'.
+           05  TCWC0110-TBL-0666            PIC X(4)  VALUE  '0666'.
+           05  TCWC0110-TBL-0667            PIC X(4)  VALUE  '0667'.
+           05  TCWC0110-TBL-0668            PIC X(4)  VALUE  '0668'.
+           05  TCWC0110-TBL-0669            PIC X(4)  VALUE  '0669'.
+           05  TCWC0110-TBL-0670            PIC X(4)  VALUE  '0670'.
+           05  TCWC0110-TBL-0671            PIC X(4)  VALUE  '0671'.
+           05  TCWC0110-TBL-0672            PIC X(4)  VALUE  '0672'.
+           05  TCWC0110-TBL-0673            PIC X(4)  VALUE  '0673'.
+           05  TCWC0110-TBL-0674            PIC X(4)  VALUE  '0674'.
+           05  TCWC0110-TBL-0675            PIC X(4)  VALUE  '0675'.
+           05  TCWC0110-TBL-0676            PIC X(4)  VALUE  '0676'.
+           05  TCWC0110-TBL-0677            PIC X(4)  VALUE  '0677'.
+           05  TCWC0110-TBL-0678            PIC X(4)  VALUE  '0678'.
+           05  TCWC0110-TBL-0679            PIC X(4)  VALUE  '0679'.
+           05  TCWC0110-TBL-0680            PIC X(4)  VALUE  '0680'.
+           05  TCWC0110-TBL-0681            PIC X(4)  VALUE  '0681'.
+           05  TCWC0110-TBL-0682            PIC X(4)  VALUE  '0682'.
+           05  TCWC0110-TBL-0683            PIC X(4)  VALUE  '0683'.
+           05  TCWC0110-TBL-0684            PIC X(4)  VALUE  '0684'.
+           05  TCWC0110-TBL-0685            PIC X(4)  VALUE  '0685'.
+           05  TCWC0110-TBL-0686            PIC X(4)  VALUE  '0686'.
+           05  TCWC0110-TBL-0687            PIC X(4)  VALUE  '0687'.
+           05  TCWC0110-TBL-0688            PIC X(4)  VALUE  '0688'.
+           05  TCWC0110-TBL-0689            PIC X(4)  VALUE  '0689'.
+           05  TCWC0110-TBL-0690            PIC X(4)  VALUE  '0690'.
+           05  TCWC0110-TBL-0691            PIC X(4)  VALUE  '0691'.
+           05  TCWC0110-TBL-0692            PIC X(4)  VALUE  '0692'.
+           05  TCWC0110-TBL-0693            PIC X(4)  VALUE  '0693'.
+           05  TCWC0110-TBL-0694            PIC X(4)  VALUE  '0694'.
+           05  TCWC0110-TBL-0695            PIC X(4)  VALUE  '0695'.
+           05  TCWC0110-TBL-0696            PIC X(4)  VALUE  '0696'.
+           05  TCWC0110-TBL-0697            PIC X(4)  VALUE  '0697'.
+           05  TCWC0110-TBL-0698            PIC X(4)  VALUE  '0698'.
+           05  TCWC0110-TBL-0699            PIC X(4)  VALUE  '0699'.
+           05  TCWC0110-TBL-0700            PIC X(4)  VALUE  '0700'.
+           05  TCWC0110-TBL-0701            PIC X(4)  VALUE  '0701'.
+           05  TCWC0110-TBL-0702            PIC X(4)  VALUE  '0702'.
+           05  TCWC0110-TBL-0703            PIC X(4)  VALUE  '0703'.
+           05  TCWC0110-TBL-0704            PIC X(4)  VALUE  '0704'.
+           05  TCWC0110-TBL-0705            PIC X(4)  VALUE  '0705'.
+           05  TCWC0110-TBL-0706            PIC X(4)  VALUE  '0706'.
+           05  TCWC0110-TBL-0707            PIC X(4)  VALUE  '0707'.
+           05  TCWC0110-TBL-0708            PIC X(4)  VALUE  '0708'.
+           05  TCWC0110-TBL-0709            PIC X(4)  VALUE  '0709'.
+           05  TCWC0110-TBL-0710            PIC X(4)  VALUE  '0710'.
+           05  TCWC0110-TBL-0711            PIC X(4)  VALUE  '0711'.
+           05  TCWC0110-TBL-0712            PIC X(4)  VALUE  '0712'.
+           05  TCWC0110-TBL-0713            PIC X(4)  VALUE  '0713'.
+           05  TCWC0110-TBL-0714            PIC X(4)  VALUE  '0714'.
+           05  TCWC0110-TBL-0715            PIC X(4)  VALUE  '0715'.
+           05  TCWC0110-TBL-0716            PIC X(4)  VALUE  '0716'.
+           05  TCWC0110-TBL-0717            PIC X(4)  VALUE  '0717'.
+           05  TCWC0110-TBL-0718            PIC X(4)  VALUE  '0718'.
+           05  TCWC0110-TBL-0719            PIC X(4)  VALUE  '0719'.
+           05  TCWC0110-TBL-0720            PIC X(4)  VALUE  '0720'.
+      *
+           05  TCWC0110-TBL-0725            PIC X(4)  VALUE  '0725'.
+           05  TCWC0110-TBL-0726            PIC X(4)  VALUE  '0726'.
+      *.MC.S @UK15311DWP
+      *    05  FILLER                       PIC X(088).
+           05  TCWC0110-TBL-0765            PIC X(4)  VALUE  '0765'.
+      *.MC.S @UK16803DSO
+      *    05  FILLER                       PIC X(084).
+           05  TCWC0110-TBL-0767            PIC X(4)  VALUE  '0767'.
+           05  TCWC0110-TBL-0768            PIC X(4)  VALUE  '0768'.
+           05  TCWC0110-TBL-0769            PIC X(4)  VALUE  '0769'.
+      *.MC.S @UK17598DSO
+      *    05  FILLER                       PIC X(072).
+           05  TCWC0110-TBL-0818            PIC X(4)  VALUE  '0818'.
+           05  FILLER                       PIC X(068).
+      *.MC.E @UK17598DSO
+      *.MC.E @UK16803DSO
+      *.MC.E @UK15311DWP
+      *

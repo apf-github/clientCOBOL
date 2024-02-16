@@ -1,0 +1,270 @@
+      *                     MODIFICATIONS LOG                          *
+      ******************************************************************
+      *     CODE       AUTHOR  DATE     DESCRIPTION                    *
+      *     ---------- ------- -------- ------------------------------ *
+      *B.MD @UK10489DTC USCDB61 30-07-10 ADDED FOUR ADITIONAL FIELDS   *
+      ******************************************************************
+      *B.MF TCEC1500                  CENTERS MODULE LINK AREA         *
+      *B.IF TCEC1500I                 INPUT FIELDS                     *
+      *B.IF COD-REQOPTION             REQUESTED OPTION                 *
+      *B/IF                           '01'- OBTAIN BRANCH DATA         *
+      *B/IF                           '02'- OBTAIN THE DATA FOR        *
+      *B/IF                               - 20 BRANCHES                *
+      *B/IF                           '03'- OBTAIN THE BRANCH          *
+      *B/IF                               - DATA OF THE SAME CITY      *
+      *B/IF                           '04'- OBTAIN THE DATA FOR        *
+      *B/IF                               - 20 BRANCHES                *
+      *B/IF                           '05'- OBTAIN THE DATA FOR        *
+      *B/IF                               - 20 BRANCHES IN DESCENDING  *
+      *B/IF                               - ORDER                      *
+      *B.IF COD-ENTITY                ENTITY CODE                      *
+      *B.IF COD-BRNCEN1               BRANCH/CENTER CODE               *
+      *B.IF COD-CITY                  CITY CODE                        *
+      *B.IF COD-NSCCEN1               NATIONAL SORT CODE               *
+      *B.OF TCEC1500O                 OUTPUT FIELDS                    *
+      *B.OF COD-RETURN                RETURN CODE                      *
+      *B/OF                           '00' OK                          *
+      *B/OF                           '10' RECORD NOT FOUND (VSAM)     *
+      *B/OF                           '20' TABLE CODE NOT INFORMED     *
+      *B/OF                           '30' KEY NOT INFORMED            *
+      *B/OF                           '40' INVALID OPTION              *
+      *B.OF ERR-DB2                   DB2 ERROR INFORMATION            *
+      *B.OF SQLCODE                   SQL RETURN CODE                  *
+      *B.OF SQLERRM                   SQL ERROR MESSAGE                *
+      *B.OF SQLERRMLON                SQL RETURN MESSAGE LENGTH        *
+      *B.OF DTA-SQLERRM               SQL RETURN MESSAGE DATA          *
+      *B.OF DES-TABLE                 DB2 TABLE NAME                   *
+      *B.OF FILLER                    FILLER                           *
+      *B.OF TB-FLGENDDTA              FINAL DATA FLAG                  *
+      *B.OF TB-FLGENDDTA-BRN-RE       BRANCH DATA                      *
+      *B.OF TB-FLG-COD-ENTITY         ENTITY CODE                      *
+      *B.OF TB-FLG-COD-BRANCH         BRANCH CODE                      *
+      *B.OF TB-FLG-COD-NSC            NATIONAL SORT CODE               *
+      *B.OF TB-FLG-DES-BRANCH         BRANCH NAME                      *
+      *B.OF TB-FLG-SDE-BRANCH         BRANCH SHORT NAME                *
+      *B.OF TB-FLG-BRN-ADDRESS        BRANCH ADDRESS                   *
+      *B.OF TB-FLG-COD-BRNZIP         BRANCH ZIP CODE                  *
+      *B.OF TB-FLG-COD-BRNCTRY        BRANCH COUNTRY CODE              *
+      *B.OF TB-FLG-COD-CITY           CITY CODE                        *
+      *B.OF TB-FLG-COD-BRNLNG         BRANCH LANGUAGE CODE             *
+      *B.OF TB-FLG-COD-HEADOF         HEAD BRANCH CODE                 *
+      *B.OF TB-FLG-COD-CDKBRN         CASHDESK BRANCH CODE             *
+      *B.OF TB-FLG-COD-CORDESTBRN     CORRESPONDENCE DESTINATION       *
+      *B/OF                           BRANCH CODE                      *
+      *B.OF TB-FLG-COD-RESERVED1      RESERVED CODE  1                 *
+      *B.OF TB-FLG-COD-RESERVED2      RESERVED CODE  2                 *
+      *B.OF TB-FLG-COD-RESERVED3      RESERVED CODE  3                 *
+      *B.OF TB-FLG-COD-PARENT         PARENT OFFICE NSC CODE           *
+      *B.OF TB-FLG-TYP-BRANCH1        BRANCH TYPE (N:NORM. F:SALE.     *
+      *B/OF                           S:SERV LIM. I:UNOP. E:EMP.       *
+      *B/OF                           C:HEAD)                          *
+      *B.OF TB-FLG-TYP-BRANCH2        BRANCH TYPE (O:OF 1:G.D.         *
+      *B/OF                           2:A.G.D. C:COORD. D:CUR. A:AREA  *
+      *B/OF                           S:DEP.)                          *
+      *B.OF TB-FLG-FLG-BRNRELTYP      BRANCH RELATION TYPE (N:NORM.    *
+      *B/OF                           F:SUBS. A:EXTERIOR               *
+      *B/OF                           P:PARTICIPA. E:FOREIGN)          *
+      *B.OF TB-FLG-TYP-PROFATTR       PROFILE ATTRIBUTE TYPE           *
+      *B.OF TB-FLG-TYP-CLAS1          RESERVED CLASSIFICATION TYPE 1   *
+      *B.OF TB-FLG-TYP-CLAS2          RESERVED CLASSIFICATION TYPE 2   *
+      *B.OF TB-FLG-TYP-CLAS3          RESERVED CLASSIFICATION TYPE 3   *
+      *B.OF TB-FLG-TYP-CLAS4          RESERVED CLASSIFICATION TYPE 4   *
+      *B.OF TB-FLG-CLHACT             CLEARING HOUSE ACTIVITY          *
+      *B/OF                           EXECUTION FLAG                   *
+      *B.OF TB-FLG-BRNEXS             BRANCH WITH EXTENSION FLAG       *
+      *B.OF TB-FLG-UNZIP              UNIQUE ZIP CODE FLAG             *
+      *
+      *B.OF TB-FLG-FCC-DSTR           DSTR CENTER FLAG                 *
+      *B.OF TB-FLG-SEIZMGT            SEIZURE MANAGEMENT FLAG          *
+      *B.OF TB-FLG-RESERVE1           RESERVED FLAG 1                  *
+      *B.OF TB-FLG-RESERVE2           RESERVED FLAG 2                  *
+      *
+      *B.OF TB-FLG-FCC-TRANS          TRANSPORT TYPE FLAG              *
+      *B.OF TB-FLG-RESERVE4           RESERVED FLAG 4                  *
+      *B.OF TB-FLG-NUM-TELEX          TELEX NUMBER                     *
+      *B.OF TB-FLG-NUM-FAX            FAX NUMBER                       *
+      *B.OF TB-FLG-NUM-TELEP1         TELEPHONE NUMBER 1               *
+      *B.OF TB-FLG-NUM-TELEP2         TELEPHONE NUMBER 2               *
+      *B.OF TB-FLG-SQMTR              SQUARE METERS                    *
+      *B.OF TB-FLG-FILEMTR            FILE METERS                      *
+      *B.OF TB-FLG-NUM-TERMINAL       TERMINAL NUMBERS                 *
+      *B.OF TB-FLG-NUM-ATM            ATM (AUTOMATIC TELLER MACHINE)   *
+      *B/OF                           NUMBERS                          *
+      *B.OF TB-FLG-NUM-DISPENSER      DISPENSER NUMBERS                *
+      *B.OF TB-FLG-RMAGN1             RESERVED MAGNITUDE 1             *
+      *B.OF TB-FLG-RMAGN2             RESERVED MAGNITUDE 2             *
+      *B.OF TB-FLG-RMAGN3             RESERVED MAGNITUDE 3             *
+      *B.OF TB-FLG-AMT-BKNMAX         MAXIMUM BILLS AMOUNT             *
+      *B.OF TB-FLG-AMT-FCCMAX         MAXIMUM CURRENCIES AMOUNT        *
+      *B.OF TB-FLG-MAXCASH            MAXIMUM CASH AMOUNT              *
+      *B.OF TB-FLG-FCC-AMTHUN1        RESERVED AMOUNT 1                *
+      *B.OF TB-FLG-FCC-AMTHUN2        RESERVED AMOUNT 2                *
+      *B.OF TB-FLG-FCC-AMTHUN3        RESERVED AMOUNT 3                *
+      *B.OF TB-FLG-COD-CLH            CHAMBER CODE                     *
+      *B.OF TB-FLG-COD-IRSDOFF        IRS DISTRICT OFFICE CODE         *
+      *B.OF TB-FLG-COD-RESERVE1       RESERVED CODE 1                  *
+      *B.OF TB-FLG-COD-RESERVE2       RESERVED CODE 2                  *
+      *
+      *B.OF TB-FLG-CEN-FCC-DSTR       FOREIGN CURRENCY DSTR. CENTER    *
+      *B.OF TB-FLG-EMPASGN1           EMPLOYEE  AUTHORIZED TO SIGN 1   *
+      *B.OF TB-FLG-DAT-AUT1           AUTHORIZATION DATE 1             *
+      *B.OF TB-FLG-EMPASGN2           EMPLOYEE  AUTHORIZED TO SIGN 2   *
+      *B.OF TB-FLG-DAT-AUT2           AUTHORIZATION DATE 2             *
+      *B.OF TB-FLG-EMPASGN3           EMPLOYEE  AUTHORIZED TO SIGN 3   *
+      *B.OF TB-FLG-DAT-AUT3           AUTHORIZATION DATE 3             *
+      *B.OF TB-FLG-EMPASGN4           EMPLOYEE  AUTHORIZED TO SIGN 4   *
+      *B.OF TB-FLG-DAT-AUT4           AUTHORIZATION DATE 4             *
+      *B.OF TB-FLG-EMPASGN5           EMPLOYEE  AUTHORIZED TO SIGN 5   *
+      *B.OF TB-FLG-DAT-AUT5           AUTHORIZATION DATE 5             *
+      *B.OF TB-FLG-EMPASGN6           EMPLOYEE  AUTHORIZED TO SIGN 6   *
+      *B.OF TB-FLG-DAT-AUT6           AUTHORIZATION DATE 6             *
+      *B.OF TB-FLG-DAT-CENOPEN        BRANCH OPENING DATE              *
+      *B.OF TB-FLG-DAT-CENANN         BRANCH DELETION DATE             *
+      *B.OF TB-FLG-DAT-CENREG         CENTER REGISTRATION DATE         *
+      *B.OF TB-FLG-DAT-RESERVED       RESERVED DATE 1                  *
+      *B.OF TB-FLG-TIMESTAMP          LAST MODIFICATION DATE           *
+      *B.OF TB-FLG-ENT-LASTMOD        LAST MODIFICATION BANK           *
+      *B.OF TB-FLG-BRN-LASTMOD        LAST MODIFICATION BRANCH         *
+      *B.OF TB-FLG-LASTMODTRM         LAST MODIFICATION TERMINAL       *
+      *B.OF TB-FLG-LASTMODUSER        LAST MODIFICATION USER           *
+      *B.OF TB-FLG-COD-REGION         REGION CODE                      *
+      *B.OF TB-FLG-COD-SUBREGION      SUBREGION CODE                   *
+      *B.OF TB-FLG-DES-CITY           CITY NAME                        *
+      *.MC.S @UK10489DTC                                               *
+      *B.OF TB-FLG-BRN-ADDRESS-2      ADDRESS BRANCH FIELD SECOND LINE *
+      *B.OF TB-FLG-INT-MAILCODE       INTEROFFICE MAILCODE             *
+      *B.OF TB-FLG-ROUTING-NUMBER     ROUTING NUMBER ASSOCIATED TO THE *
+      *B.OF TB-FLG-SUBSCRIBER         SUBSCRIBER FOR THE BRANCH        *
+      *.MC.E @UK10489DTC                                               *
+      *B.OF DTA-CENTER                BRANCH DATA                      *
+      *B.OF COD-BRNCEN2               BRANCH/CENTER CODE               *
+      *B.OF CORDESTBRN                CORRESPONDENCE DESTINATION       *
+      *B/OF                           BRANCH                           *
+      *B.OF COD-NSCCEN2               NATIONAL SORT CODE               *
+      ******************************************************************
+       01  TCEC1500.
+         03 TCEC1500-TCEC1500I.
+           05 TCEC1500-COD-REQOPTION        PIC S9(1) COMP-3.
+           05 TCEC1500-COD-ENTITY           PIC S9(4) COMP-3.
+           05 TCEC1500-COD-BRNCEN1          PIC S9(4) COMP-3.
+           05 TCEC1500-COD-CITY             PIC X(7).
+           05 TCEC1500-COD-NSCCEN1          PIC X(6).
+         03 TCEC1500-TCEC1500O.
+           05 TCEC1500-COD-RETURN           PIC X(2).
+           05 TCEC1500-ERR-DB2.
+             07 TCEC1500-SQLCODE            PIC S9(9) COMP.
+             07 TCEC1500-SQLERRM.
+               09 TCEC1500-SQLERRMLON       PIC S9(4) COMP.
+               09 TCEC1500-DTA-SQLERRM      PIC X(30).
+             07 TCEC1500-DES-TABLE          PIC X(16).
+             07 FILLER                      PIC X(5).
+           05 TCEC1500-TB-FLGENDDTA         PIC S9(1) COMP-3.
+           05 TCEC1500-TB-FLGENDDTA-BRN-RE
+                            OCCURS 020 TIMES.
+             10 TCEC1500-TB-FLG-COD-ENTITY  PIC S9999V USAGE COMP-3.
+             10 TCEC1500-TB-FLG-COD-BRANCH  PIC S9999V USAGE COMP-3.
+             10 TCEC1500-TB-FLG-COD-NSC     PIC X(6).
+             10 TCEC1500-TB-FLG-DES-BRANCH  PIC X(40).
+             10 TCEC1500-TB-FLG-SDE-BRANCH  PIC X(20).
+             10 TCEC1500-TB-FLG-BRN-ADDRESS PIC X(40).
+             10 TCEC1500-TB-FLG-COD-BRNZIP  PIC X(10).
+             10 TCEC1500-TB-FLG-COD-BRNCTRY PIC X(3).
+             10 TCEC1500-TB-FLG-COD-CITY    PIC X(7).
+             10 TCEC1500-TB-FLG-COD-BRNLNG  PIC X(1).
+             10 TCEC1500-TB-FLG-COD-HEADOF  PIC S9999V USAGE COMP-3.
+             10 TCEC1500-TB-FLG-COD-CDKBRN  PIC S9999V USAGE COMP-3.
+             10 TCEC1500-TB-FLG-COD-CORDESTBRN      PIC S9999V USAGE
+                 COMP-3.
+             10 TCEC1500-TB-FLG-COD-RESERVED1      PIC S9999V USAGE
+                 COMP-3.
+             10 TCEC1500-TB-FLG-COD-RESERVED2      PIC S9999V USAGE
+                 COMP-3.
+             10 TCEC1500-TB-FLG-COD-RESERVED3      PIC S9999V USAGE
+                 COMP-3.
+             10 TCEC1500-TB-FLG-COD-PARENT         PIC X(6).
+             10 TCEC1500-TB-FLG-TYP-BRANCH1 PIC X(1).
+             10 TCEC1500-TB-FLG-TYP-BRANCH2 PIC X(1).
+             10 TCEC1500-TB-FLG-FLG-BRNRELTYP      PIC X(1).
+             10 TCEC1500-TB-FLG-TYP-PROFATTR      PIC X(1).
+             10 TCEC1500-TB-FLG-TYP-CLAS1   PIC X(1).
+             10 TCEC1500-TB-FLG-TYP-CLAS2   PIC X(1).
+             10 TCEC1500-TB-FLG-TYP-CLAS3   PIC X(1).
+             10 TCEC1500-TB-FLG-TYP-CLAS4   PIC X(1).
+             10 TCEC1500-TB-FLG-CLHACT      PIC X(1).
+             10 TCEC1500-TB-FLG-BRNEXS      PIC X(1).
+             10 TCEC1500-TB-FLG-UNZIP       PIC X(1).
+      *
+             10 TCEC1500-TB-FLG-FCC-DSTR    PIC X(1).
+             10 TCEC1500-TB-FLG-SEIZMGT     PIC X(1).
+             10 TCEC1500-TB-FLG-RESERVE1    PIC X(1).
+             10 TCEC1500-TB-FLG-RESERVE2    PIC X(1).
+      *
+             10 TCEC1500-TB-FLG-FCC-TRANS   PIC X(1).
+             10 TCEC1500-TB-FLG-RESERVE4    PIC X(1).
+             10 TCEC1500-TB-FLG-NUM-TELEX   PIC X(15).
+             10 TCEC1500-TB-FLG-NUM-FAX     PIC X(15).
+             10 TCEC1500-TB-FLG-NUM-TELEP1  PIC X(15).
+             10 TCEC1500-TB-FLG-NUM-TELEP2  PIC X(15).
+             10 TCEC1500-TB-FLG-SQMTR       PIC S999V99 USAGE COMP-3.
+             10 TCEC1500-TB-FLG-FILEMTR     PIC S999V99 USAGE COMP-3.
+             10 TCEC1500-TB-FLG-NUM-TERMINAL       PIC S9999V USAGE
+                 COMP-3.
+             10 TCEC1500-TB-FLG-NUM-ATM     PIC S9999V USAGE COMP-3.
+             10 TCEC1500-TB-FLG-NUM-DISPENSER       PIC S99V USAGE
+                 COMP-3.
+             10 TCEC1500-TB-FLG-RMAGN1      PIC S9999999V USAGE COMP-3.
+             10 TCEC1500-TB-FLG-RMAGN2      PIC S9999999V USAGE COMP-3.
+             10 TCEC1500-TB-FLG-RMAGN3      PIC S9999999V USAGE COMP-3.
+             10 TCEC1500-TB-FLG-AMT-BKNMAX  PIC S999999999V USAGE
+                 COMP-3.
+             10 TCEC1500-TB-FLG-AMT-FCCMAX  PIC S999999999V USAGE
+                 COMP-3.
+             10 TCEC1500-TB-FLG-MAXCASH     PIC S999999999V USAGE
+                 COMP-3.
+             10 TCEC1500-TB-FLG-FCC-AMTHUN1 PIC S999999999V USAGE
+                 COMP-3.
+             10 TCEC1500-TB-FLG-FCC-AMTHUN2 PIC S999999999V USAGE
+                 COMP-3.
+             10 TCEC1500-TB-FLG-FCC-AMTHUN3 PIC S999999999V USAGE
+                 COMP-3.
+             10 TCEC1500-TB-FLG-COD-CLH     PIC X(10).
+             10 TCEC1500-TB-FLG-COD-IRSDOFF PIC S99999V USAGE COMP-3.
+             10 TCEC1500-TB-FLG-COD-RESERVE1      PIC X(10).
+      *
+             10 TCEC1500-TB-FLG-COD-RESERVE2      PIC X(6).
+             10 TCEC1500-TB-FLG-CEN-FCC-DSTR      PIC 9(4).
+             10 TCEC1500-TB-FLG-EMPASGN1    PIC X(8).
+             10 TCEC1500-TB-FLG-DAT-AUT1    PIC X(10).
+             10 TCEC1500-TB-FLG-EMPASGN2    PIC X(8).
+             10 TCEC1500-TB-FLG-DAT-AUT2    PIC X(10).
+             10 TCEC1500-TB-FLG-EMPASGN3    PIC X(8).
+             10 TCEC1500-TB-FLG-DAT-AUT3    PIC X(10).
+             10 TCEC1500-TB-FLG-EMPASGN4    PIC X(8).
+             10 TCEC1500-TB-FLG-DAT-AUT4    PIC X(10).
+             10 TCEC1500-TB-FLG-EMPASGN5    PIC X(8).
+             10 TCEC1500-TB-FLG-DAT-AUT5    PIC X(10).
+             10 TCEC1500-TB-FLG-EMPASGN6    PIC X(8).
+             10 TCEC1500-TB-FLG-DAT-AUT6    PIC X(10).
+             10 TCEC1500-TB-FLG-DAT-CENOPEN PIC X(10).
+             10 TCEC1500-TB-FLG-DAT-CENANN  PIC X(10).
+             10 TCEC1500-TB-FLG-DAT-CENREG  PIC X(10).
+             10 TCEC1500-TB-FLG-DAT-RESERVED      PIC X(10).
+             10 TCEC1500-TB-FLG-TIMESTAMP   PIC X(26).
+             10 TCEC1500-TB-FLG-ENT-LASTMOD PIC S9999V USAGE COMP-3.
+             10 TCEC1500-TB-FLG-BRN-LASTMOD PIC S9999V USAGE COMP-3.
+             10 TCEC1500-TB-FLG-LASTMODTRM  PIC X(4).
+             10 TCEC1500-TB-FLG-LASTMODUSER PIC X(8).
+             10 TCEC1500-TB-FLG-COD-REGION  PIC X(2).
+             10 TCEC1500-TB-FLG-COD-SUBREGION  PIC X(2).
+             10 TCEC1500-TB-FLG-DES-CITY       PIC X(30).
+      *.MC.S @UK10489DTC
+             10 TCEC1500-TB-FLG-BRN-ADDRESS-2   PIC X(40).
+             10 TCEC1500-TB-FLG-INT-MAILCODE    PIC X(40).
+             10 TCEC1500-TB-FLG-ROUTING-NUMBER  PIC X(9).
+             10 TCEC1500-TB-FLG-SUBSCRIBER      PIC 9(8).
+      *.MC.E @UK10489DTC
+           05 TCEC1500-DTA-CENTER.
+             10 TCEC1500-COD-BRNCEN2        PIC S9999V USAGE COMP-3.
+             10 TCEC1500-CORDESTBRN         PIC S9999V USAGE COMP-3.
+             10 TCEC1500-COD-NSCCEN2        PIC 9(6).
+      *

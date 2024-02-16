@@ -1,0 +1,40 @@
+      *                     MODIFICATIONS LOG                          *
+      ******************************************************************
+      *     CODE       AUTHOR  DATE     DESCRIPTION                    *
+      *     ---------- ------- -------- ------------------------------ *
+      ******************************************************************
+      ******************************************************************
+           EXEC SQL DECLARE      SODT012 TABLE
+           ( T012_KEY_ENT                   CHAR(4) NOT NULL,
+             T012_COD_PRODUCT                   CHAR(6) NOT NULL,
+             T012_COD_COM                   CHAR(3) NOT NULL,
+             T012_ENT_CAUSE                   CHAR(4) NOT NULL,
+             T012_BRN_CAUSECOM                   CHAR(4) NOT NULL,
+             T012_NUM_ACCCAUSE                   CHAR(10) NOT NULL,
+             T012_DAT_VALBEG                   DATE NOT NULL,
+             T012_DAT_VALEND                   DATE NOT NULL,
+             T012_PER_BONUS                   DECIMAL(8, 5) NOT NULL,
+             T012_AMT_BONUS                   DECIMAL(15, 2) NOT NULL,
+             T012_FLG_VAL                   CHAR(1) NOT NULL,
+             T012_KEY_OPERBRN                   CHAR(4) NOT NULL,
+             T012_KEY_USER                   CHAR(8) NOT NULL,
+             T012_NUM_TRM                   CHAR(4) NOT NULL,
+             T012_STP_OPE                   TIMESTAMP NOT NULL
+           ) END-EXEC.
+       01  SODT012.
+           10 T012-KEY-ENT                 PIC X(4).
+           10 T012-COD-PRODUCT             PIC X(6).
+           10 T012-COD-COM                 PIC X(3).
+           10 T012-ENT-CAUSE               PIC X(4).
+           10 T012-BRN-CAUSECOM            PIC X(4).
+           10 T012-NUM-ACCCAUSE            PIC X(10).
+           10 T012-DAT-VALBEG              PIC X(10).
+           10 T012-DAT-VALEND              PIC X(10).
+           10 T012-PER-BONUS               PIC S9(3)V9(5) USAGE COMP-3.
+           10 T012-AMT-BONUS               PIC S9(13)V9(2) USAGE COMP-3.
+           10 T012-FLG-VAL                 PIC X(1).
+           10 T012-KEY-OPERBRN             PIC X(4).
+           10 T012-KEY-USER                PIC X(8).
+           10 T012-NUM-TRM                 PIC X(4).
+           10 T012-STP-OPE                 PIC X(26).
+      *

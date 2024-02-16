@@ -1,0 +1,87 @@
+      *                     MODIFICATIONS LOG                          *
+      ******************************************************************
+      *     CODE       AUTHOR  DATE     DESCRIPTION                    *
+      *     ---------- ------- -------- ------------------------------ *
+      *B.MD @UK16448DSO USCDB26 01-02-11 ADDITION OF NEW TABLE COLUMN  *
+      *B.MD @UK17598DSO UPXDBM0 15-06-11 NEW FIELDS ADDED FROM FEE     *
+      *B/MD                              CODES TABLE SODT004           *
+      ******************************************************************
+      ******************************************************************
+           EXEC SQL DECLARE SODT004 TABLE
+           ( T004_KEY_ENT                   CHAR(4) NOT NULL,
+             T004_COD_PRODUCT               CHAR(6) NOT NULL,
+             T004_COD_COM                   CHAR(3) NOT NULL,
+             T004_FLG_VATCOM                CHAR(1) NOT NULL,
+             T004_TYP_MARGIN                CHAR(2) NOT NULL,
+             T004_TXT_PERIOD                CHAR(2) NOT NULL,
+             T004_TXT_DATE                  CHAR(23) NOT NULL,
+             T004_TYP_COM                   CHAR(1) NOT NULL,
+             T004_FLG_PAYTYP                CHAR(1) NOT NULL,
+             T004_TYP_CHAN                  CHAR(1) NOT NULL,
+             T004_FLG_ZONE                  CHAR(1) NOT NULL,
+             T004_FLG_PAYDAT                CHAR(1) NOT NULL,
+             T004_TYP_PROC                  CHAR(2) NOT NULL,
+             T004_FLG_CNDPROC               CHAR(2) NOT NULL,
+             T004_COD_CBEPI                 CHAR(5) NOT NULL,
+             T004_COD_COMCPT                CHAR(5) NOT NULL,
+             T004_COD_VATCOM                CHAR(3) NOT NULL,
+             T004_FLG_BONIMM                CHAR(1) NOT NULL,
+             T004_FLG_PRICEBAND             CHAR(1) NOT NULL,
+             T004_FLG_MANPAY                CHAR(1) NOT NULL,
+             T004_KEY_OPERBRN               CHAR(4) NOT NULL,
+             T004_KEY_USER                  CHAR(8) NOT NULL,
+             T004_NUM_TRM                   CHAR(4) NOT NULL,
+             T004_STP_OPE                   TIMESTAMP NOT NULL,
+             T004_FLG_CREDEB                CHAR(1) NOT NULL,
+             T004_TYP_POSTING               CHAR(1) NOT NULL,
+             T004_TYP_FEE                   CHAR(1) NOT NULL,
+      *.MC.S @UK16448DSO
+             T004_SC_FEE                    CHAR(1) NOT NULL
+      *.MC.E @UK16448DSO
+      *.MC.S @UK17598DSO
+             ,T004_FLG_FASB                  CHAR(1) NOT NULL
+             ,T004_FLG_RECOUP                CHAR(1) NOT NULL
+             ,T004_FLG_TAX_RPT               CHAR(1) NOT NULL
+             ,T004_FLG_REG_Z                 CHAR(1) NOT NULL
+             ,T004_ACC_TYP                   CHAR(1) NOT NULL
+      *.MC.E @UK17598DSO
+           ) END-EXEC.
+       01  SODT004.
+           10 T004-KEY-ENT                 PIC X(4).
+           10 T004-COD-PRODUCT             PIC X(6).
+           10 T004-COD-COM                 PIC X(3).
+           10 T004-FLG-VATCOM              PIC X(1).
+           10 T004-TYP-MARGIN              PIC X(2).
+           10 T004-TXT-PERIOD              PIC X(2).
+           10 T004-TXT-DATE                PIC X(23).
+           10 T004-TYP-COM                 PIC X(1).
+           10 T004-FLG-PAYTYP              PIC X(1).
+           10 T004-TYP-CHAN                PIC X(1).
+           10 T004-FLG-ZONE                PIC X(1).
+           10 T004-FLG-PAYDAT              PIC X(1).
+           10 T004-TYP-PROC                PIC X(2).
+           10 T004-FLG-CNDPROC             PIC X(2).
+           10 T004-COD-CBEPI               PIC X(5).
+           10 T004-COD-COMCPT              PIC X(5).
+           10 T004-COD-VATCOM              PIC X(3).
+           10 T004-FLG-BONIMM              PIC X(1).
+           10 T004-FLG-PRICEBAND           PIC X(1).
+           10 T004-FLG-MANPAY              PIC X(1).
+           10 T004-KEY-OPERBRN             PIC X(4).
+           10 T004-KEY-USER                PIC X(8).
+           10 T004-NUM-TRM                 PIC X(4).
+           10 T004-STP-OPE                 PIC X(26).
+           10 T004-FLG-CREDEB              PIC X(1).
+           10 T004-TYP-POSTING             PIC X(1).
+           10 T004-TYP-FEE                 PIC X(1).
+      *.MC.S @UK16448DSO
+           10 T004-SC-FEE                  PIC X(1).
+      *.MC.E @UK16448DSO
+      *.MC.S @UK17598DSO
+           10 T004-FLG-FASB                PIC X(1).
+           10 T004-FLG-RECOUP              PIC X(1).
+           10 T004-FLG-TAX-RPT             PIC X(1).
+           10 T004-FLG-REG-Z               PIC X(1).
+           10 T004-ACC-TYP                 PIC X(1).
+      *.MC.E @UK17598DSO
+      *

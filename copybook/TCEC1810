@@ -1,0 +1,96 @@
+      *                     MODIFICATIONS LOG                          *
+      ******************************************************************
+      *     CODE       AUTHOR  DATE     DESCRIPTION                    *
+      *     ---------- ------- -------- ------------------------------ *
+      ******************************************************************
+      *B.MF TCEC1810                  TC9C1810 LINK AREA (BATCH        *
+      *B/MF                           INTERFACE MODULE - FOREIGN       *
+      *B/MF                           EXCHANGE)                        *
+      *B.IF INPUT                     INPUT FIELDS                     *
+      *B.IF COD-REQOPTION             REQUESTED OPTION                 *
+      *B/IF                           1 SINGLE CURRENCY CHANGE         *
+      *B/IF                           2 CHANGES UP TO 35 CURRENCY      *
+      *B.IF COD-ENTITY-A              ENTITY CODE                      *
+      *B.IF COD-ENTITY                ENTITY CODE                      *
+      *B.IF FLG-FCCB3                 CURRENCY/BANK NOTE LISTING FLAG  *
+      *B/IF                           (D/B/X)                          *
+      *B.IF DAT-EXCHANGE              CHANGE DATE                      *
+      *B/IF                           IF IT IS NOT INFORMED, THE LAST  *
+      *B/IF                           DATE INTRODUCED IN THE EXCHANGE  *
+      *B/IF                           TABLE IS TAKEN.             *
+      *B.IF COD-SWIFTFCCS             CURRENCY SWIFT CODE              *
+      *B.OF OUTPUT                    OUTPUT FIELDS                    *
+      *B.OF COD-RETURN                RETURN CODE                      *
+      *B/OF                           '00' RETURN OK                   *
+      *B/OF                           '05' INCORRECT OPTION            *
+      *B/OF                           '10' ILLOGICAL OR INCORRECT DATE *
+      *B/OF                           '15' D/B/X INCORRECT FLAG        *
+      *B/OF                           '20' NON-EXISTENT CURRENCY       *
+      *B/OF                           '25' CURRENCY CODE NOT INFORMED  *
+      *B/OF                           '30' ANNULLED CURRENCY           *
+      *B/OF                           '40' PERFORM INQUIRIES INTO      *
+      *B/OF                                CHANGES                     *
+      *B/OF                           '45' NOT AVAILABLE CHANGES       *
+      *B/OF                           '50' NON-EXISTENT CHANGES        *
+      *B/OF                           '55' INCONSISTENT DATA CHANGES   *
+      *B/OF                           '60' CODE ENTITY ERROR           *
+      *B/OF                           '85' ERROR ROUTINE ACCESS        *
+      *B/OF                           '99' WRONG DB2 ACCESS            *
+      *B.OF ERR-DB2                   DB2 ERROR INFORMATION            *
+      *B.OF SQLCODE                   SQL RETURN CODE                  *
+      *B.OF SQLERR                    SQL ERROR MESSAGE                *
+      *B.OF SQLERRMLON                SQL RETURN MESSAGE LENGTH        *
+      *B.OF DTA-SQLERRM               SQL RETURN MESSAGE DATA          *
+      *B.OF DES-TABLE                 DB2 TABLE NAME                   *
+      *B.OF FILLER                    FILLER                           *
+      *B.OF DAT-LSTEXCHANGE           CHANGE DATE (IF IS NOT INFORMED  *
+      *B/OF                           IN THE ENTER AREA ONLY)          *
+      *B.OF TB-FCC                    FOREIGN CURRENCY EXCHANGE TABLE  *
+      *B.OF TB-FCC-CHGELEM-RE         CURRENCY EXCHANGE RATES TABLE    *
+      *B/OF                           ELEMENTS                         *
+      *B.OF TB-FCC-COD-SWIFTC         CURRENCY SWIFT CODE              *
+      *B.OF TB-FCC-DAT-EXCHANGEM      EXCHANGE DATA                    *
+      *B.OF TB-FCC-FLG-QUOTE          QUOTE FLAG                       *
+      *B.OF TB-FCC-EXCHUNIT           EXCHANGE RATE UNIT               *
+      *B.OF TB-FCC-OFFERRATE          OFFER RATE                       *
+      *B.OF TB-FCC-BIDRATE            BUYER CHANGE RATE                *
+      *B.OF TB-FCC-FIXRATE            FIXING CHANGE RATE               *
+      *B.OF TB-FCC-COD-BCC            BASE CURRENCY CODE               *
+      *B.OF TB-FCC-COD-IRF            BASE CURRENCY CODE (REDEFINITION)*
+      *B.OF FILLER                    FILLER                           *
+      ******************************************************************
+       01  TCEC1810.
+         06 TCEC1810-INPUT.
+           11 TCEC1810-COD-REQOPTION        PIC X(1).
+           11 TCEC1810-COD-ENTITY-A.
+             15 TCEC1810-COD-ENTITY         PIC 9(4).
+           11 TCEC1810-FLG-FCCB3            PIC X(1).
+           11 TCEC1810-DAT-EXCHANGE         PIC X(10).
+           11 TCEC1810-COD-SWIFTFCCS        PIC X(3).
+         06 TCEC1810-OUTPUT.
+           11 TCEC1810-COD-RETURN           PIC X(2).
+           11 TCEC1810-ERR-DB2.
+             16 TCEC1810-SQLCODE            PIC S9(9) COMP.
+             16 TCEC1810-SQLERR.
+               21 TCEC1810-SQLERRMLON       PIC S9(4) COMP.
+               21 TCEC1810-DTA-SQLERRM      PIC X(30).
+             16 TCEC1810-DES-TABLE          PIC X(16).
+             16 FILLER                      PIC X(5).
+           11 TCEC1810-DAT-LSTEXCHANGE      PIC X(10).
+           11 TCEC1810-TB-FCC.
+             16 TCEC1810-TB-FCC-CHGELEM-RE
+                            OCCURS 050 TIMES.
+               21 TCEC1810-TB-FCC-COD-SWIFTC                  PIC X(3).
+               21 TCEC1810-TB-FCC-DAT-EXCHANGEM                  PIC
+                   X(10).
+               21 TCEC1810-TB-FCC-FLG-QUOTE PIC X(1).
+               21 TCEC1810-TB-FCC-EXCHUNIT  PIC S9(3) COMP-3.
+               21 TCEC1810-TB-FCC-OFFERRATE PIC S9(4)V9(6) COMP-3.
+               21 TCEC1810-TB-FCC-BIDRATE   PIC S9(4)V9(6) COMP-3.
+               21 TCEC1810-TB-FCC-FIXRATE   PIC S9(4)V9(6) COMP-3.
+               21 TCEC1810-TB-FCC-COD-BCC   PIC X(3).
+               21 TCEC1810-TB-FCC-COD-IRF REDEFINES
+                   TCEC1810-TB-FCC-COD-BCC
+                                            PIC X(3).
+         06 FILLER                          PIC X(378).
+      *

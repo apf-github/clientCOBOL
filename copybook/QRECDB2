@@ -1,0 +1,121 @@
+      ******************************************************************
+      *A.OR.S                                                          *
+      *  TRATAMIENTO DE ERRORES DB2 DESDE BATCH                        *
+      *  AREA DE ENLACE CON LA RUTINA QR4CDB0                          *
+      *A.OR.E                                                          *
+      *B.OR.S                                                          *
+      *  HANDLING ERRORS DB2 FROM BATCH :                              *
+      *  AREA OF LINK WITH THE ROUTINE QR4CDB0                         *
+      *B.OR.E                                                          *
+      ******************************************************************
+      *B.MD @V620603DQA ALNOVA 27-01-05 MODIFY QRECDB2 COMMAREA        *
+      *B.MD @V601102DQA ALNOVA 08-10-08 CUSTOMIZE RETURN-CODE          *
+      ******************************************************************
+      *A.MF QRECDB2                   QRECDB2                          *
+      *A.OF CODERR                    CODIGO DE ERROR                  *
+      *A.IF SQLCA                     SQLCA                            *
+      *A.IF DES-PGM                   NOMBRE DEL PROGRAMA BATCH        *
+      *A.IF OBJECT                    OBJETO DB2 DE LA SENTENCIA SQL   *
+      *A.IF STATEMENT                 CONTENIDO DE LA SENTENCIA SQL    *
+      *A/IF                           EJECUTADA                        *
+      *A.IF ABEND                     INDICADOR PARA PROVOCAR ABEND    *
+      *A.IF ABEND-DB2                 TIPO DE ABEND                    *
+      *A.IF REFERENCE1                IDENTIFICACION DEL ERROR Y       *
+      *A/IF                           PUNTO DEL ERROR                  *
+      *A.MF QR4CDB0                   ABEND EN PROGRAMA QR4CDB0        *
+      *A.IF SW-SQLCA                  INDICADOR DE AREA SQLCA          *
+      *A.FV SW-SQLCA-ALL              INFORMADA AREA SQLCA COMPLETA    *
+      *A.FV SW-SQLCA-PART             INFORMADA PARTE DEL AREA SQLCA   *
+      *A.IF SQLCODE                   SQLCODE                          *
+      *A.IF SQLERRM                   MESAJE DE ERROR DE LA SQLCA      *
+      *.MC.S @V601102DQA                                               *
+      **A.MF FILLER                   FILLER                           *
+      *A.MF RETURN-CODE               RETURN CODE                      *
+      *A.MF FILLER                    FILLER                           *
+      *.MC.E @V601102DQA                                               *
+      *A.OF RE                        QRECDB2                          *
+      *A.IF FILLER                    FILLER                           *
+      *A.IF FILLER                    FILLER                           *
+      *A.IF PGRNAME                   NOMBRE DEL PROGRAMA BATCH        *
+      *A.IF OBJETO                    OBJETO DB2 DE LA SENTENCIA SQL   *
+      *A.IF SENTENCIA                 CONTENIDO DE LA SENTENCIA SQL    *
+      *A.MF FILLER                    FILLER                           *
+      *A.MF FILLER                    FILLER                           *
+      *A.IF REFERENCIA                IDENTIFICACION DEL ERROR Y       *
+      *A/IF                           PUNTO DEL ERROR                  *
+      *A.MF FILLER                    FILLER                           *
+      *A.MF FILLER                    FILLER                           *
+      ******************************************************************
+      ******************************************************************
+      *B.MF QRECDB2                   QRECDB2                          *
+      *B.OF CODERR                    ERROR CODE                       *
+      *B.IF SQLCA                     SQLCA                            *
+      *B.IF DES-PGM                   BATCH PROGRAM NAME               *
+      *B.IF OBJECT                    DB2 OBJECT OF SQL SENTENCE       *
+      *B.IF STATEMENT                 CONTENT OF EXECUTED SQL          *
+      *B/IF                           SENTENCE                         *
+      *B.IF ABEND                     FLAG TO GENERATE ABEND           *
+      *B.IF ABEND-DB2                 ABEND TYPE                       *
+      *B.IF REFERENCE1                ERROR IDENTIFICATION AND ERROR   *
+      *B/IF                           POINT                            *
+      *B.MF QR4CDB0                   ABEND IN PROGRAM QR4CDB0         *
+      *B.IF SW-SQLCA                  SQLCA INDICATOR                  *
+      *B.FV SW-SQLCA-ALL              COMPLETE SQLCA AREA INFORMED     *
+      *B.FV SW-SQLCA-PART             ONLY PART OF SQLCA INFORMED      *
+      *B.IF SQLCODE                   SQLCODE                          *
+      *B.IF SQLERRM                   SQLCA ERROR MESSAGE              *
+      *.MC.S @V601102DQA                                               *
+      **B.MF FILLER                   FILLER                           *
+      *B.MF RETURN-CODE               RETURN CODE                      *
+      *B.MF FILLER                    FILLER                           *
+      *.MC.E @V601102DQA                                               *
+      *B.OF RE                        QRECDB2                          *
+      *B.IF FILLER                    FILLER                           *
+      *B.IF FILLER                    FILLER                           *
+      *B.IF PGRNAME                   BATCH PROGRAM NAME               *
+      *B.IF OBJETO                    DB2 OBJECT FROM SQL SENTENCE     *
+      *B.IF SENTENCIA                 SQL SENTENCE CONTENT             *
+      *B.MF FILLER                    FILLER                           *
+      *B.MF FILLER                    FILLER                           *
+      *B.IF REFERENCIA                ERROR IDENTIFICATION AND         *
+      *B/IF                           ERROR POINT                      *
+      *B.MF FILLER                    FILLER                           *
+      *B.MF FILLER                    FILLER                           *
+      ******************************************************************
+
+       01 QRECDB2.
+          05 DB2-CODERR                    PIC X(7).
+          05 DB2-SQLCA                     PIC X(136).
+          05 DB2-DES-PGM                   PIC X(8).
+          05 DB2-OBJECT                    PIC X(8).
+          05 DB2-STATEMENT                 PIC X(8).
+          05 DB2-ABEND                     PIC X(1).
+          05 DB2-ABEND-DB2                 PIC X(1).
+          05 DB2-REFERENCE1                PIC X(120).
+          05 DB2-QR4CDB0                   PIC X(8) VALUE 'QR4CDB0'.
+      *.MC.S @V620603DQA
+      *   05 FILLER                        PIC X(112).
+          05 DB2-SW-SQLCA                  PIC X(1).
+             88 DB2-SW-SQLCA-ALL                    VALUE '0', ' '.
+             88 DB2-SW-SQLCA-PART                   VALUE '1'.
+          05 DB2-SQLCODE                   PIC S9(9) COMP.
+          05 DB2-SQLERRM                   PIC X(70).
+      *.MC.S @V601102DQA
+      *   05 FILLER                        PIC X(37).
+          05 DB2-RETURN-CODE               PIC S9(04) COMP.
+          05 FILLER                        PIC X(35).
+      *.MC.E @V601102DQA
+      *.MC.E @V620603DQA
+      *$.                                                              *
+       01 QRECDB2-RE REDEFINES QRECDB2.
+          05 FILLER                        PIC X(7).
+          05 FILLER                        PIC X(136).
+          05 DB2-PGRNAME                   PIC X(8).
+          05 DB2-OBJETO                    PIC X(8).
+          05 DB2-SENTENCIA                 PIC X(8).
+          05 FILLER                        PIC X(1).
+          05 FILLER                        PIC X(1).
+          05 DB2-REFERENCIA                PIC X(120).
+          05 FILLER                        PIC X(8).
+          05 FILLER                        PIC X(112).
+

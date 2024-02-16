@@ -1,0 +1,197 @@
+      * SOGV008:  OPERATIONS TABLE                                     *
+      *LENGTH: 604
+      ******************************************************************
+      *                     MODIFICATIONS LOG                          *
+      ******************************************************************
+      *     CODE        AUTHOR  DATE     DESCRIPTION                   *
+      *---------------  ------- -------- ----------------------------- *
+      *B.MF SOVCF008
+      *B.MF KEY-ENT
+      *B.MF NUM-OPE
+      *B.MF COD-PRODUCT
+      *B.MF COD-PLAN
+      *B.MF COD-COM
+      *B.MF COD-FCC
+      *B.MF DAT-OPE
+      *B.MF COD-CHAN
+      *B.MF COD-ZONE
+      *B.MF COD-CUSSEG
+      *B.MF BRN-OPEREG
+      *B.MF ENT-LIABACC
+      *B.MF BRN-LIABACC
+      *B.MF NUM-LIABACC
+      *B.MF FLG-CDKTLP
+      *B.MF FLG-BAONL
+      *B.MF FLG-COMBON
+      *B.MF FLG-AMTUNIT
+      *B.MF FLG-COMANN
+      *B.MF FLG-AFTERBON
+      *B.MF FLG-OPETOJUS
+      *B.MF FLG-LETTER
+      *B.MF FLG-CNDPROC
+      *B.MF NUM-UNITS
+      *B.MF AMT-NOM
+      *B.MF AMT-STD
+      *B.MF AMT-PER
+      *B.MF AMT-IMM
+      *B.MF AMT-BONUS
+      *B.MF PER-BONUS
+      *B.MF FLG-COND
+      *B.MF NUM-CLV
+      *B.MF AMT-ACMBON
+      *B.MF AMT-INIAPPLY
+      *B.MF AMT-ACMAPPLY
+      *B.MF FLG-VATCOM
+      *B.MF TYP-TAX
+      *B.MF PER-VAT
+      *B.MF AMT-OPEVAT
+      *B.MF NUM-REGBILVAT
+      *B.MF NUM-CUSID
+      *B.MF NUM-CUSDOCU
+      *B.MF IDC-CUSSEQ
+      *B.MF CUN
+      *B.MF ENT-CAUSE
+      *B.MF BRN-CAUSECOM
+      *B.MF NUM-ACCCAUSE
+      *B.MF DAT-REGTBL
+      *B.MF DAT-OPEVAL
+      *B.MF TXT-FREE1
+      *B.MF TXT-FREE2
+      *B.MF COD-APP
+      *B.MF COD-COMCPT
+      *B.MF FLG-ANN
+      *B.MF DAT-ANN
+      *B.MF BRN-ANNOPE
+      *B.MF NUM-ANNBILVAT
+      *B.MF NUM-DEPACC
+      *B.MF KEY-USER
+      *B.MF NUM-TRM
+      *B.MF COD-PGMOPE
+      *B.MF STP-OPE
+      *B.MF NUM-OPEREF
+      *B.MF NUM-OPEREF2
+      *B.MF DAT-ACCT
+      *B.MF CEN-ORI
+      *B.MF CEN-DEST
+      *B.MF FLG-AMTPART
+      *B.MF TOT-AMT
+      *B.MF DAT-BILLANN
+      *B.MF FLG-ACCOBJST
+      *B.MF YY-ACCT
+      *B.MF FLG-NONPAY
+      *B.MF FLG-PRLNPAY
+      *B.MF FLAGS
+      *B.MF TYP-POSTING
+      *B.MF TYP-FEE
+      *B.MF DAT-POSTING
+      *B.MF DAT-PEREND
+      *B.MF DAT-PERBEG
+      *B.MF ENT-GROUPACC
+      *B.MF BRN-GROUPACC
+      *B.MF NUM-GROUPACC
+      *B.MF COD-GRADING
+      *B.MF FLG-CANCEL
+      *B.MF DAT-SITU
+      *B.MF DAT-PRENOT
+      *B.MF AMT-FIXED
+      *B.MF AMT-UNITARY
+      *B.MF PER-NORMAL
+      ******************************************************************
+
+       01  SOVCF008.
+           10 V008-KEY-ENT                 PIC X(4).
+           10 V008-NUM-OPE                 PIC X(21).
+           10 V008-COD-PRODUCT             PIC X(6).
+           10 V008-COD-PLAN                PIC X(3).
+           10 V008-COD-COM                 PIC X(3).
+           10 V008-COD-FCC                 PIC X(3).
+           10 V008-DAT-OPE                 PIC X(10).
+           10 V008-COD-CHAN                PIC X(2).
+           10 V008-COD-ZONE                PIC X(4).
+           10 V008-COD-CUSSEG              PIC X(2).
+           10 V008-BRN-OPEREG              PIC X(4).
+           10 V008-ENT-LIABACC             PIC X(4).
+           10 V008-BRN-LIABACC             PIC X(4).
+           10 V008-NUM-LIABACC             PIC X(10).
+           10 V008-FLG-CDKTLP              PIC X(1).
+           10 V008-FLG-BAONL               PIC X(1).
+           10 V008-FLG-COMBON              PIC X(1).
+           10 V008-FLG-AMTUNIT             PIC X(1).
+           10 V008-FLG-COMANN              PIC X(1).
+           10 V008-FLG-AFTERBON            PIC X(1).
+           10 V008-FLG-OPETOJUS            PIC X(1).
+           10 V008-FLG-LETTER              PIC X(1).
+           10 V008-FLG-CNDPROC             PIC X(2).
+           10 V008-NUM-UNITS               PIC S9(6)V USAGE COMP-3.
+           10 V008-AMT-NOM                 PIC S9(13)V9(2) USAGE COMP-3.
+           10 V008-AMT-STD                 PIC S9(13)V9(2) USAGE COMP-3.
+           10 V008-AMT-PER                 PIC S9(13)V9(2) USAGE COMP-3.
+           10 V008-AMT-IMM                 PIC S9(13)V9(2) USAGE COMP-3.
+           10 V008-AMT-BONUS               PIC S9(13)V9(2) USAGE COMP-3.
+           10 V008-PER-BONUS               PIC S9(3)V9(5) USAGE COMP-3.
+           10 V008-FLG-COND                PIC X(1).
+           10 V008-NUM-CLV                 PIC X(8).
+           10 V008-AMT-ACMBON              PIC S9(13)V9(2) USAGE COMP-3.
+           10 V008-AMT-INIAPPLY            PIC S9(13)V9(2) USAGE COMP-3.
+           10 V008-AMT-ACMAPPLY            PIC S9(13)V9(2) USAGE COMP-3.
+           10 V008-FLG-VATCOM              PIC X(1).
+           10 V008-TYP-TAX                 PIC X(1).
+           10 V008-PER-VAT                 PIC S9(2)V9(2) USAGE COMP-3.
+           10 V008-AMT-OPEVAT              PIC S9(13)V9(2) USAGE COMP-3.
+           10 V008-NUM-REGBILVAT           PIC X(15).
+           10 V008-NUM-CUSID               PIC X(1).
+           10 V008-NUM-CUSDOCU             PIC X(15).
+           10 V008-IDC-CUSSEQ              PIC X(2).
+           10 V008-CUN                     PIC X(8).
+           10 V008-ENT-CAUSE               PIC X(4).
+           10 V008-BRN-CAUSECOM            PIC X(4).
+           10 V008-NUM-ACCCAUSE            PIC X(10).
+           10 V008-DAT-REGTBL              PIC X(10).
+           10 V008-DAT-OPEVAL              PIC X(10).
+           10 V008-TXT-FREE1               PIC X(40).
+           10 V008-TXT-FREE2               PIC X(40).
+           10 V008-COD-APP                 PIC X(2).
+           10 V008-COD-COMCPT              PIC X(5).
+           10 V008-FLG-ANN                 PIC X(1).
+           10 V008-DAT-ANN                 PIC X(10).
+           10 V008-BRN-ANNOPE              PIC X(4).
+           10 V008-NUM-ANNBILVAT           PIC X(15).
+           10 V008-NUM-DEPACC              PIC S9(5)V USAGE COMP-3.
+           10 V008-KEY-USER                PIC X(8).
+           10 V008-NUM-TRM                 PIC X(4).
+           10 V008-COD-PGMOPE              PIC X(8).
+           10 V008-STP-OPE                 PIC X(26).
+           10 V008-NUM-OPEREF              PIC S9(9)V USAGE COMP-3.
+           10 V008-NUM-OPEREF2             PIC S9(9)V USAGE COMP-3.
+           10 V008-DAT-ACCT                PIC X(10).
+           10 V008-CEN-ORI                 PIC X(4).
+           10 V008-CEN-DEST                PIC X(4).
+           10 V008-FLG-AMTPART             PIC S9(13)V9(2) USAGE COMP-3.
+           10 V008-TOT-AMT                 PIC S9(13)V9(2) USAGE COMP-3.
+           10 V008-DAT-BILLANN             PIC X(10).
+           10 V008-FLG-ACCOBJST            PIC X(2).
+           10 V008-YY-ACCT                 PIC X(1).
+           10 V008-FLG-NONPAY              PIC X(1).
+           10 V008-FLG-PRLNPAY             PIC X(1).
+           10 V008-FLAGS                   PIC X(20).
+      *MC.S.@BITABLEDSO.XISD941.23-09-2003
+           10 V008-TYP-POSTING             PIC X(1).
+           10 V008-TYP-FEE                 PIC X(1).
+           10 V008-DAT-POSTING             PIC X(10).
+           10 V008-DAT-PEREND              PIC X(10).
+           10 V008-DAT-PERBEG              PIC X(10).
+      *MC.E.@BITABLEDSO.XISD941.23-09-2003
+      *MC.S.@BITABLEDSO.XISD941.02-10-2003
+           10 V008-ENT-GROUPACC            PIC X(4).
+           10 V008-BRN-GROUPACC            PIC X(4).
+           10 V008-NUM-GROUPACC            PIC X(10).
+      *MC.S.@BITABLEDSO.XISD941.02-10-2003
+           10 V008-COD-GRADING             PIC X(3).
+      *MC.E.@BITABLEDSO.XISD941.23-09-2003
+           10 V008-FLG-CANCEL              PIC X(1).
+           10 V008-DAT-SITU                PIC X(10).
+           10 V008-DAT-PRENOT              PIC X(10).
+      *MC.E.@BITABLEDSO.XISD941.02-10-2003
+           10 V008-AMT-FIXED               PIC S9(13)V9(2) USAGE COMP-3.
+           10 V008-AMT-UNITARY             PIC S9(13)V9(2) USAGE COMP-3.
+           10 V008-PER-NORMAL              PIC S9(3)V9(5) USAGE COMP-3.

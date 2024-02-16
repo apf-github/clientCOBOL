@@ -1,0 +1,85 @@
+      * SOEC302:                                                       *
+      ******************************************************************
+      ******************************************************************
+      **                    MODIFICATIONS LOG                          *
+      ******************************************************************
+      * CODE            AUTHOR  DATE     DESCRIPTION                   *
+      *---------------- ------- -------- ------------------------------*
+      ******************************************************************
+      *B.MF SOEC3021           COMMAREA OF SO3C0296                    *
+      *B.MF KEY-ENT            SEARCH KEY                              *
+      *B.MF ENT-LIABACC        LIABILITY ACCOUNT COMPANY               *
+      *B.MF BRN-LIABACC        LIABILITY ACCOUNT OFFICE                *
+      *B.MF NUM-LIABACC        LIABILITY ACCOUNT NUMBER                *
+      *B.MF TYP-FEE            FEE TYPE                                *
+      *B.MF COD-COM            COMMISSION/SETTLEMENT CODE              *
+      *B.MF COD-PRODUCT        PRODUCT CODE                            *
+      *B.MF AMT-STDITEM        STANDARD FEE FOR FEE CODE               *
+      *B.MF PER-STDITEM        STANDARD FEE PRICE PERCENTAGE           *
+      *B.MF DAT-PEREND         END-DATE FOR FEE CHARGING PERIOD        *
+      *B.MF DAT-PERBEG         BEGINNING-DATE FOR FEE CHARGING PERIOD  *
+      *B.MF DAT-POSTING        POSTING DATE                            *
+      *B.MF DAT-PRENOT         PRE-NOTIFICATION DATE                   *
+      *B.MF NUM-ITEM           NUMBER OF ITEM ACCRUED FOR THE SAME     *
+      *B/MF                    FEE CODE                                *
+      *B.MF AMT-ITEM           NOMINAL TOTAL AMOUNT FOR THE SAME FEE   *
+      *B/MF                    CODE                                    *
+      *B.MF AMT-STDSUM         STANDARD FEE AMOUNT                     *
+      *B.MF AMT-ACTSUM         FEE COLLECTED TO CLIENT AFTER APPLY     *
+      *B/MF                    DISCOUNTS                               *
+      *B.MF DAT-FREE           DATE                                    *
+      *B.MF AMT-TOT-GRP        TOTAL GROUP AMOUNT                      *
+      *B.MF AMT-TOTAL          TOTAL AMOUNT                            *
+      *B.MF COD-FCC            CURRENCY CODE                           *
+      *B.MF COD-GRADING        CREDIT GRADE OF THE ACCOUNT             *
+      *B.MF FLG-CANCEL         CANCELLATION OF THE ACCOUNT FLAG        *
+      *B.MF DAT-SITU           SITUATION DATE                          *
+      *B.MF AMT-FLAT           FLAT FEE AMOUNT                         *
+      *B.MF ENT-GROUPACC       GROUP ACCOUNT ENTITY                    *
+      *B.MF BRN-GROUPACC       GROUP ACCOUNT BRANCH                    *
+      *B.MF NUM-GROUPACC       GROUP ACCOUNT NUMBER                    *
+      *B.MF FLG-GROUP          GROUP ACCOUNT FLAG                      *
+      *B.MF KEY-OPERBRN        KEY OF THE OFFICE THAT REALIZES THE     *
+      *B/MF                    OPERATION                               *
+      *B.MF KEY-USER           USER KEY                                *
+      *B.MF NUM-TRM            TERMINAL NUMBER                         *
+      *B.MF STP-OPE            OPERATION TIMESTAMP                     *
+      *B.MF SW-FLATFEE         FLAT FEE SWITCH                         *
+      ******************************************************************
+
+       01  SOEC3021.
+          05 E3021-KEY-ENT           PIC X(4).
+          05 E3021-ENT-LIABACC       PIC X(4).
+          05 E3021-BRN-LIABACC       PIC X(4).
+          05 E3021-NUM-LIABACC       PIC X(10).
+          05 E3021-TYP-FEE           PIC X(1).
+          05 E3021-COD-COM           PIC X(3).
+          05 E3021-COD-PRODUCT       PIC X(6).
+          05 E3021-AMT-STDITEM       PIC S9(13)V9(2) USAGE COMP-3.
+          05 E3021-PER-STDITEM       PIC S9(3)V9(5) USAGE COMP-3.
+          05 E3021-DAT-PEREND        PIC X(10).
+          05 E3021-DAT-PERBEG        PIC X(10).
+          05 E3021-DAT-POSTING       PIC X(10).
+          05 E3021-DAT-PRENOT        PIC X(10).
+          05 E3021-NUM-ITEM          PIC S9(4) USAGE COMP-3.
+          05 E3021-AMT-ITEM          PIC S9(13)V9(2) USAGE COMP-3.
+          05 E3021-AMT-STDSUM        PIC S9(13)V9(2) USAGE COMP-3.
+          05 E3021-AMT-ACTSUM        PIC S9(13)V9(2) USAGE COMP-3.
+          05 E3021-DAT-FREE          PIC X(10).
+          05 E3021-AMT-TOT-GRP       PIC S9(13)V9(2) USAGE COMP-3.
+          05 E3021-AMT-TOTAL         PIC S9(13)V9(2) USAGE COMP-3.
+          05 E3021-COD-FCC           PIC X(3).
+          05 E3021-COD-GRADING       PIC X(3).
+          05 E3021-FLG-CANCEL        PIC X(1).
+          05 E3021-DAT-SITU          PIC X(10).
+          05 E3021-AMT-FLAT          PIC S9(13)V9(2) USAGE COMP-3.
+          05 E3021-ENT-GROUPACC      PIC X(4).
+          05 E3021-BRN-GROUPACC      PIC X(4).
+          05 E3021-NUM-GROUPACC      PIC X(10).
+          05 E3021-FLG-GROUP         PIC X(1).
+          05 E3021-KEY-OPERBRN       PIC X(4).
+          05 E3021-KEY-USER          PIC X(8).
+          05 E3021-NUM-TRM           PIC X(4).
+          05 E3021-STP-OPE           PIC X(26).
+          05 E3021-SW-FLATFEE        PIC X(1).
+      *

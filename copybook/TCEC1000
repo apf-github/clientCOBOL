@@ -1,0 +1,102 @@
+      *                     MODIFICATIONS LOG                          *
+      ******************************************************************
+      *     CODE       AUTHOR  DATE     DESCRIPTION                    *
+      *     ---------- ------- -------- ------------------------------ *
+      ******************************************************************
+      *B.MF TCEC1000                  BATCH INTERFACE ROUTINE WITH     *
+      *B/MF                           GENERAL TABLES LINK AREA         *
+      *B.IF INPUT                     INPUT FIELDS                     *
+      *B.IF COD-REQOPTION             REQUESTED OPTION                 *
+      *B/IF                           '1' RETRIEVES DATA OF THE        *
+      *B/IF                           INFORMED KEY IN THE INPUT FIELDS *
+      *B/IF                           AND IT LEAVES THEM IN CONTOCUR   *
+      *B/IF                           '2' RETRIEVES DATA UNTIL 20      *
+      *B/IF                           OCCURRENCES OF A TABLE AND A     *
+      *B/IF                           DETERMINED ENTITY, BASED ON THE  *
+      *B/IF                           INFORMED KEY IN THE INPUT FIELDS.*
+      *B/IF                           '3' RETRIEVES JUST ONE OCCURRENCE*
+      *B/IF                           BASED ON THE INFORMED KEY.       *
+      *B/IF                           '4' RETRIEVES JUST ONE OCCURRENCE*
+      *B/IF                           BASED ON THE INFORMED KEY, IF    *
+      *B/IF                           EXISTING, OTHERWISE THE NEXT ONE *
+      *B/IF                           IS RETRIEVED.                    *
+      *B/IF                           '9' CLOSE FILES. THE LAST CALL TO*
+      *B/IF                           THE MODULE MUST ALWAYS CLOSE THE *
+      *B/IF                           FILE.                            *
+      *B.IF KEY                       KEY                              *
+      *B.IF COD-TABLE                 TABLE CODE                       *
+      *B.IF COD-ENTITY                ENTITY CODE                      *
+      *B/IF                           IT IS HANDLED IN THE FOLLOWING   *
+      *B/IF                           WAY:                             *
+      *B/IF                           -IF A MULTI-ENTITY TABLE:        *
+      *B/IF                            INFORM ENTITY OR, BY DEFAULT,   *
+      *B/IF                            THE ENTITY OF THE ENVIRONMENT   *
+      *B/IF                            IN WHICH THE PROGRAM RUNS.      *
+      *B/IF                            (GENERAL TABLE: 0168)           *
+      *B/IF                           -IF NOT A MULTI-ENTITY TABLE:    *
+      *B/IF                            THE ENTITY OF THE ENVIRONMENT   *
+      *B/IF                            IN WHICH THE PROGRAM RUNS.      *
+      *B/IF                            (GENERAL TABLE: 0168)           *
+      *B.IF KEY-SEARCH                SEARCH KEY                       *
+      *B.IF COD-BRNLNG                BRANCH LANGUAGE CODE             *
+      *B.IF KEY-CARD                  CARDS KEY                        *
+      *B.IF NUM-KEY                   KEY NUMBER                       *
+      *B.OF OUTPUT                    OUTPUT FIELDS                    *
+      *B.OF COD-RETURN                RETURN CODE                      *
+      *B/OF                           '00' RETURN  OK                  *
+      *B/OF                           '10' NON-EXISTENT RECORD(OPTION1)*
+      *B/OF                           '20' TABLE CODE NOT INFORMED     *
+      *B/OF                           '30' KEY NOT INFORMED            *
+      *B/OF                           '40' WRONG OPTION CODE           *
+      *B/OF                           '60' LANGUAGE CODE NOT VALID     *
+      *B/OF                           '70' RECORD NOT FOUND (DB2) *
+      *B/OF                           '80' WRONG DB2 ACCESS            *
+      *B.OF ERR-DB2                   DB2 ERROR INFORMATION            *
+      *B.OF SQLCODE                   SQL RETURN CODE                  *
+      *B.OF SQLERRM                   SQL ERROR MESSAGE                *
+      *B.OF SQLERRMLON                SQL RETURN MESSAGE LENGTH        *
+      *B.OF DTA-SQLERRM               SQL RETURN MESSAGE DATA          *
+      *B.OF DES-ABLE                  DB2 TABLE NAME                   *
+      *B.OF FILLER                    FILLER                           *
+      *B.OF COD-FILEST                FILE STATUS CODE                 *
+      *B.OF FLG-DATA                  DATA FLAG                        *
+      *B/OF                           '0' - NO MORE DATA               *
+      *B/OF                           '1' - MORE TABLE DATA            *
+      *B.OF NUM-RREC                  RECOVERING RECORD NUMBERS        *
+      *B/OF                           (OPTION 2 ONLY)                  *
+      *B.OF TB-TABLE                  TABLE OF 20 OCCURRENCES WHICH    *
+      *B/OF                           CONTAINS INFORMATION OF THE      *
+      *B/OF                           FOLLOWING RECORDS                *
+      *B/OF                            - KEY                           *
+      *B/OF                            - DATA                          *
+      *B.OF TB-TABLE-RE               DATA TABLE                       *
+      *B.OF TB-TAB-KEY                KEY                              *
+      *B.OF TB-TAB-REC                RECORD CONTENT                   *
+      ******************************************************************
+       01  TCEC1000.
+         06 TCEC1000-INPUT.
+           11 TCEC1000-COD-REQOPTION        PIC X(1).
+           11 TCEC1000-KEY.
+             16 TCEC1000-COD-TABLE          PIC X(4).
+             16 TCEC1000-COD-ENTITY         PIC X(4).
+             16 TCEC1000-KEY-SEARCH.
+               21 TCEC1000-COD-BRNLNG       PIC X(1).
+               21 TCEC1000-KEY-CARD         PIC X(19).
+           11 TCEC1000-NUM-KEY              PIC S9(3) COMP-3.
+         06 TCEC1000-OUTPUT.
+           11 TCEC1000-COD-RETURN           PIC X(2).
+           11 TCEC1000-ERR-DB2.
+             16 TCEC1000-SQLCODE            PIC S9(9) COMP.
+             16 TCEC1000-SQLERRM.
+               21 TCEC1000-SQLERRMLON       PIC S9(4) COMP.
+               21 TCEC1000-DTA-SQLERRM      PIC X(30).
+               21 TCEC1000-DES-ABLE         PIC X(5).
+               21 FILLER                    PIC X(5).
+           11 TCEC1000-COD-FILEST           PIC X(2).
+           11 TCEC1000-FLG-DATA             PIC X(1).
+           11 TCEC1000-NUM-RREC             PIC 9(2).
+           11 TCEC1000-TB-TABLE.
+             16 TCEC1000-TB-TABLE-RE
+                            OCCURS 020 TIMES.
+               21 TCEC1000-TB-TAB-KEY       PIC X(20).
+               21 TCEC1000-TB-TAB-REC       PIC X(250).

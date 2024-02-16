@@ -1,0 +1,210 @@
+      *                     MODIFICATIONS LOG                          *
+      ******************************************************************
+      *     CODE       AUTHOR  DATE     DESCRIPTION                    *
+      *     ---------- ------- -------- ------------------------------ *
+      *B.MD @UK17941DPE UPXDBM4 05-04-11 UPDATE ACCOUNT NUMBER LENGTH  *
+      ******************************************************************
+      *B.MF RECORD                    RECORD                           *
+      *B.IF INPUT                     INPUT FIELDS                     *
+      *B.IF CUN                       CUSTOMER NUMBER                  *
+      *B.IF KEY-ENTITY                OPERATION ENTITY CODE            *
+      *B.IF DOCUMENT                  DOCUMENT                         *
+      *B.IF COD-ID                    IDENTIFICATION CODE              *
+      *B.IF KEY-ID                    INFORMATION KEY                  *
+      *B.IF SEQID                     IDENTIFICATION SEQUENCE          *
+      *B.IF ACTION                    ACTION                           *
+      *B.IF CONTRACT                  CONTRACT                         *
+      *B.IF KEY-ACC                   ACCOUNT KEY                      *
+      *B.IF COD-ENTITY                ENTITY CODE                      *
+      *B.IF BRN-OPEN                  OPENING BRANCH CODE              *
+      *B.IF COD-PRODSERV              PRODUCT OR SERVICE CODE          *
+      *B.IF NUM-ACCOUNT               ACCOUNT NUMBER CODE              *
+      *B.IF PART                      PARTICIPANT                      *
+      *B.IF KEY-PARTIC                PARTICIPATION KEY                *
+      *B.IF PARTSEQ                   PARTICIPATION SEQUENCE           *
+      *B.OF ANSWER                    OUTPUT FIELDS                    *
+      *B.OF COD-RTN                   RETURN CODE                      *
+      *B.OF COD-RTN1                  RETURN CODE                      *
+      *B/OF                           '00'- OK                         *
+      *B/OF                           '01'- OK                         *
+      *B/OF                           '09'- IF THE OK DB2 AND STATUS   *
+      *B/OF                               - FLAG IS 'C' AND THE        *
+      *B/OF                               - PRODUCT CODE IS GREATER    *
+      *B/OF                               - THAN 49 AND LESS THAN 60   *
+      *B/OF                           '20'- DB2 NOT FOUND              *
+      *B/OF                           '30'- RECORD NOT FOUND           *
+      *B/OF                           '80'- INPUT FIELDS NOT INFORMED  *
+      *B/OF                           '99'- SYSTEM ERROR               *
+      *B/OF                           '100'- RECORD NOT FOUND          *
+      *B.OF SQLCODE                   SQL RETURN CODE                  *
+      *B.OF SQLERRMSG                 SQL ERROR MESSAGE                *
+      *B.OF SQLERRMSGLTH              SQL ERROR MESSAGE LENGTH         *
+      *B.OF SQLERRMSG-DATA            SQL ERROR MESSAGE DATA           *
+      *B.OF TBLNAME                   TABLE NAME                       *
+      *B.OF REFERENCE                 REFERENCE                        *
+      *B.OF CDG-DIGID                 IDENTITY TYPE CONTROL DIGIT      *
+      *B.OF SURNAME                   PERSON'S SURNAME                 *
+      *B.OF SCDSURNAME                PERSON'S SECOND SURNAME          *
+      *B.OF NAME                      PERSON'S NAME                    *
+      *B.OF CARDNAME                  REDUCED PERSON'S NAME &          *
+      *B/OF                           SURNAME, FOR APPEARANCE ONTO     *
+      *B/OF                           THE CARD                         *
+      *B.OF MRST                      MARITAL STATUS                   *
+      *B.OF GENDER                    SEX                              *
+      *B.OF KEY-SECTOR                CLASSIFICATION SECTORS KEY       *
+      *B.OF SUBJGRO                   ELEMENT WHICH IS PART OF THE     *
+      *B/OF                           CUSTOMER'S  'PERSON' AND         *
+      *B/OF                           IDENTIFIES THE SECTOR THAT THE   *
+      *B/OF                           PERSON BELONGS TO.               *
+      *B.OF SUBJCPT                   PERSON'S BELONGING CONCEPT. IT   *
+      *B/OF                           IS PART OF THE PERSON'S LAST     *
+      *B/OF                           TWO CHARACTERS COMPOSED.         *
+      *B.OF DAT-BIRTH                 INDIVIDUAL'S BIRTH DATE          *
+      *B.OF NCBA                      NATIONAL CLASSIFIFICATION        *
+      *B/OF                           OF BUSINESS ACTIVITIES           *
+      *B.OF NCO                       NATIONAL JOBS CLASSIFICATION     *
+      *B.OF ACSLEVEL                  INDIVIDUAL ACCESS LEVEL FLAG     *
+      *B.OF COD-LANGUAGE              LANGUAGE CODE                    *
+      *B.OF NUM-LASTADDRESS           LAST NUMBER CONTACT TYPE         *
+      *B.OF NUM-NTFLAST               LAST CUSTOMER REGISTERED         *
+      *B/OF                           NOTIFICATION NUMBER              *
+      *B.OF NUM-CONFLAST              LAST CUSTOMER REGISTERED         *
+      *B/OF                           NOTIFICATION NUMBER              *
+      *B.OF DAT-SNR                   CUSTOMER'S SENIORITY DATE. LACK  *
+      *B/OF                           OF RELATIONSHIP PERIODS ARE      *
+      *B/OF                           ALLOWED AND CAC'S OF A MAXIMUM   *
+      *B/OF                           OF 30 DAYS, TO KEEP SENIORITY.   *
+      *B.OF DAT-LASTANN               DATE IN WHICH LAST ANNULMENT OF  *
+      *B/OF                           RELATIONS BETWEEN CUSTOMER AND   *
+      *B/OF                           ENTITY TOOK PLACE . IT           *
+      *B/OF                           CALCULATES AND UPDATES           *
+      *B/OF                           SENIORITY DATE                   *
+      *B.OF DAT-CUSREG                REGISTRATION DATE OF PEOPLE'S    *
+      *B/OF                           BASIC DATA REGISTER. IT IS ALSO  *
+      *B/OF                           USED AS REGISTRATION DATE OF     *
+      *B/OF                           HIS SUPPLEMENTARY DATA.          *
+      *B.OF BRN-LASTMODP              PERSON'S BASIC DATA FROM THE     *
+      *B/OF                           LAST MODIFICATION BRANCH.        *
+      *B.OF DATE-STP                  TIMESTAMP                        *
+      *B.OF SEGMENT                   PERSON'S ASSIGNED SEGMENT        *
+      *B.OF PREFCHAN                  PREFERRED CHANNEL                *
+      *B.OF CUS-STATUS                CUSTOMER STATUS. IT DETERMINES   *
+      *B/OF                           CLIENT'S RELATION WITH ENTITY.   *
+      *B.OF BRN-REG                   PERSON'S REGISTRATION BRANCH     *
+      *B.OF BONUS                     BONUS ASSIGNED TO A PERSON       *
+      *B.OF REGCHAN                   REGISTRATION CHANNEL             *
+      *B.OF COD-ID2                   SECOND IDENTIFICATION CODE. IT   *
+      *B/OF                           IS PART OF "SECOND               *
+      *B/OF                           IDENTIFICATION CODE", THOUGH     *
+      *B/OF                           IN SPAIN IT IS NOT IMPLEMENTED.  *
+      *B.OF KEY-ID1                   SECOND IDENTIFICATION KEY. IT    *
+      *B/OF                           IS PART OF "SECOND               *
+      *B/OF                           IDENTIFICATION CODE", THOUGH     *
+      *B/OF                           IN SPAIN IT IS NOT IMPLEMENTED.  *
+      *B.OF CDG-SECOND                SECOND CONTROL DIGIT. IT IS      *
+      *B/OF                           PART OF "SECOND IDENTIFICATION   *
+      *B/OF                           CODE", THOUGH IN SPAIN IT IS     *
+      *B/OF                           NOT IMPLEMENTED.                 *
+      *B.OF TYP-CUS                   CUSTOMER TYPE                    *
+      *B.OF FLG-MAINCUS               MAIN CUSTOMER                    *
+      *B.OF DAT-LOSS                  CUSTOMER LOSS DATE               *
+      *B.OF LOSSRSN                   LOSS REASON                      *
+      *B.OF DAT-RTV                   CUSTOMER RETRIEVE DATE           *
+      *B.OF DAT-STATUS                CUSTOMER STATUS DATE             *
+      *B.MF FLG-TYPE                  CUSTOMER TYPE                    *
+      *B.MF CUS-PASS                  CUSTOMER PASSWORD                *
+      *B.MF COD-TITLE                 TITLE CODE                       *
+      *B.MF COD-MNGSCT                MANAGING SECTOR CODE             *
+      *B.MF FLG-FUNDS                 FUNDS FLAG                       *
+      *B.MF COD-RM                    RELATIONSHIP MANAGER CODE        *
+      *B.MF DAT-MOVED                 MOVED DATA                       *
+      *B.MF REGISTER-NUM              REGISTER NUMBER                  *
+      *B.MF ENTITY-TYPE               ENTITY TYPE                      *
+      *B.MF SDI-NUM                   SDI NUMBER OF THE CUSTOMER       *
+      *B.MF DAY-STATE-SYNC            DAY STATE SYNCHRONIZATION        *
+      *B.MF BUS-NAME-LONG             BUSINESS NAME LONG               *
+      *B.MF COD-CUST-CLASS            CUSTOMER CLASS CODE              *
+      ******************************************************************
+       02 E660-RECORD.
+           05 E660-INPUT.
+              10 E660-CUN                  PIC  X(08).
+              10 E660-KEY-ENTITY           PIC  X(04).
+              10 E660-DOCUMENT.
+                 15 E660-COD-ID            PIC  X(01).
+                 15 E660-KEY-ID            PIC  X(15).
+                 15 E660-SEQID             PIC  X(02).
+                 15 E660-ACTION            PIC  X(01).
+              10 E660-CONTRACT.
+                 15 E660-KEY-ACC.
+                    18 E660-COD-ENTITY     PIC  X(04).
+                    18 E660-BRN-OPEN       PIC  X(04).
+                    18 E660-COD-PRODSERV   PIC  X(02).
+      *.MC.S @UK17941DPE
+      *             18 E660-NUM-ACCOUNT    PIC  X(08).
+                    18 E660-NUM-ACCOUNT    PIC  X(10).
+      *.MC.E @UK17941DPE
+                 15 E660-PART.
+                    18 E660-KEY-PARTIC     PIC  X(01).
+                    18 E660-PARTSEQ        PIC  X(02).
+           05 E660-ANSWER.
+              10 E660-COD-RTN.
+                 15 E660-COD-RTN1          PIC  X(02).
+                 15 E660-SQLCODE           PIC S9(09) COMP.
+                 15 E660-SQLERRMSG.
+                    20 E660-SQLERRMSGLTH   PIC S9(04) COMP.
+                    20 E660-SQLERRMSG-DATA PIC  X(70).
+                 15 E660-TBLNAME           PIC  X(16).
+                 15 E660-REFERENCE         PIC  X(20).
+              10 E660-CDG-DIGID            PIC  X(1).
+              10 E660-SURNAME              PIC  X(20).
+              10 E660-SCDSURNAME           PIC  X(20).
+              10 E660-NAME                 PIC  X(20).
+              10 E660-CARDNAME             PIC  X(26).
+              10 E660-MRST                 PIC  X(1).
+              10 E660-GENDER               PIC  X(1).
+              10 E660-KEY-SECTOR.
+                 15 E660-SUBJGRO           PIC  X(1).
+                 15 E660-SUBJCPT           PIC  X(2).
+              10 E660-DAT-BIRTH            PIC  X(10).
+              10 E660-NCBA                 PIC  X(5).
+              10 E660-NCO                  PIC  X(3).
+              10 E660-ACSLEVEL             PIC  X(2).
+              10 E660-COD-LANGUAGE         PIC  X(1).
+              10 E660-NUM-LASTADDRESS      PIC S999V USAGE COMP-3.
+              10 E660-NUM-NTFLAST          PIC S999V USAGE COMP-3.
+              10 E660-NUM-CONFLAST         PIC S999V USAGE COMP-3.
+              10 E660-DAT-SNR              PIC  X(10).
+              10 E660-DAT-LASTANN          PIC  X(10).
+              10 E660-DAT-CUSREG           PIC  X(10).
+              10 E660-BRN-LASTMODP         PIC  X(4).
+              10 E660-DATE-STP             PIC  X(26).
+              10 E660-SEGMENT              PIC  X(02).
+              10 E660-PREFCHAN             PIC  X(02).
+              10 E660-CUS-STATUS           PIC  X(02).
+              10 E660-BRN-REG              PIC  X(04).
+              10 E660-BONUS                PIC  X(01).
+              10 E660-REGCHAN              PIC  X(02).
+              10 E660-COD-ID2              PIC  X(1).
+              10 E660-KEY-ID1              PIC  X(15).
+              10 E660-CDG-SECOND           PIC  X(1).
+      *
+              10 E660-TYP-CUS              PIC  X(1).
+              10 E660-FLG-MAINCUS          PIC  X(1).
+              10 E660-DAT-LOSS             PIC  X(10).
+              10 E660-LOSSRSN              PIC  X(1).
+              10 E660-DAT-RTV              PIC  X(10).
+              10 E660-DAT-STATUS           PIC  X(10).
+              10 E660-FLG-TYPE             PIC  X(01).
+              10 E660-CUS-PASS             PIC  X(08).
+              10 E660-COD-TITLE            PIC  X(02).
+              10 E660-COD-MNGSCT           PIC  X(02).
+              10 E660-FLG-FUNDS            PIC  X(01).
+              10 E660-COD-RM               PIC  X(04).
+              10 E660-DAT-MOVED            PIC  X(10).
+              10 E660-REGISTER-NUM         PIC  X(08).
+              10 E660-ENTITY-TYPE          PIC  X(04).
+              10 E660-SDI-NUM              PIC  X(08).
+              10 E660-DAY-STATE-SYNC       PIC  X(02).
+              10 E660-BUS-NAME-LONG        PIC  X(80).
+              10 E660-COD-CUST-CLASS       PIC  X(02).
+      *

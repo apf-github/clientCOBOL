@@ -1,0 +1,75 @@
+      * SOVCF016: ACCRUED FEES GROUPED                                 *
+      * LENGTH: 206                                                    *
+      ******************************************************************
+      *                     MODIFICATIONS LOG                          *
+      ******************************************************************
+      *     CODE       AUTHOR  DATE     DESCRIPTION                    *
+      *     ---------- ------- -------- ------------------------------ *
+      ******************************************************************
+      ******************************************************************
+      *B.MF SOVCF016
+      *B.MF KEY-ENT
+      *B.MF ENT-LIABACC
+      *B.MF BRN-LIABACC
+      *B.MF NUM-LIABACC
+      *B.MF TYP-FEE
+      *B.MF COD-COM
+      *B.MF COD-PRODUCT
+      *B.MF AMT-STDITEM
+      *B.MF PER-STDITEM
+      *B.MF DAT-PEREND
+      *B.MF DAT-PERBEG
+      *B.MF DAT-POSTING
+      *B.MF DAT-PRENOT
+      *B.MF NUM-ITEM
+      *B.MF AMT-ITEM
+      *B.MF AMT-STDSUM
+      *B.MF AMT-ACTSUM
+      *B.MF DAT-REFUND
+      *B.MF AMT-ACC-REF
+      *B.MF AMT-REFUND
+      *B.MF COD-FCC
+      *B.MF COD-GRADING
+      *B.MF FLG-CANCEL
+      *B.MF DAT-SITU
+      *B.MF AMT-TOTAL
+      *B.MF FLG-GROUP
+      *B.MF KEY-OPERBRN
+      *B.MF KEY-USER
+      *B.MF NUM-TRM
+      *B.MF STP-OPE
+      ******************************************************************
+
+       01  SOVCF016.
+          10 V016-KEY-ENT               PIC X(4).
+          10 V016-ENT-LIABACC           PIC X(4).
+          10 V016-BRN-LIABACC           PIC X(4).
+          10 V016-NUM-LIABACC           PIC X(10).
+          10 V016-TYP-FEE               PIC X(1).
+          10 V016-COD-COM               PIC X(3).
+          10 V016-COD-PRODUCT           PIC X(6).
+          10 V016-AMT-STDITEM           PIC S9(13)V9(2) USAGE COMP-3.
+          10 V016-PER-STDITEM           PIC S9(3)V9(5) USAGE COMP-3.
+          10 V016-DAT-PEREND            PIC X(10).
+          10 V016-DAT-PERBEG            PIC X(10).
+          10 V016-DAT-POSTING           PIC X(10).
+          10 V016-DAT-PRENOT            PIC X(10).
+          10 V016-NUM-ITEM              PIC S9(4)V USAGE COMP-3.
+      *   10 FILLER                     PIC X.
+          10 V016-AMT-ITEM              PIC S9(13)V9(2) USAGE COMP-3.
+          10 V016-AMT-STDSUM            PIC S9(13)V9(2) USAGE COMP-3.
+          10 V016-AMT-ACTSUM            PIC S9(13)V9(2) USAGE COMP-3.
+          10 V016-DAT-REFUND            PIC X(10).
+          10 V016-AMT-ACC-REF           PIC S9(13)V9(2) USAGE COMP-3.
+          10 V016-AMT-REFUND            PIC S9(13)V9(2) USAGE COMP-3.
+          10 V016-COD-FCC               PIC X(3).
+          10 V016-COD-GRADING           PIC X(3).
+          10 V016-FLG-CANCEL            PIC X(1).
+          10 V016-DAT-SITU              PIC X(10).
+          10 V016-AMT-TOTAL             PIC S9(13)V9(2) USAGE COMP-3.
+          10 V016-FLG-GROUP             PIC X(1).
+          10 V016-KEY-OPERBRN           PIC X(4).
+          10 V016-KEY-USER              PIC X(8).
+          10 V016-NUM-TRM               PIC X(4).
+          10 V016-STP-OPE               PIC X(26).
+      *

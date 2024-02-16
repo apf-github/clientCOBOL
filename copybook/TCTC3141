@@ -1,0 +1,28 @@
+      *                     MODIFICATIONS LOG                          *
+      ******************************************************************
+      *     CODE       AUTHOR  DATE     DESCRIPTION                    *
+      *     ---------- ------- -------- ------------------------------ *
+      ******************************************************************
+      *B.MF TCTC3141                                                   *
+      *B.MF KEY                       KEY                              *
+      *B.MF COD-TBL                   TABLE CODE                       *
+      *B.MF COD-ENT                   ENTITY CODE                      *
+      *B.MF KEY-TBL1                  TABLE KEY                        *
+      *B.MF COD-LNG                   LANGUAGE CODE                    *
+      *B.MF KEY-TBL2                  TABLE KEY                        *
+      *B.MF FILLER                    FILLER                           *
+      *B.MF DATA                      DATA                             *
+      *B.MF FLG-FCC                   CURRENCY FLAG IN COMMISSIONS     *
+      *B.MF FILLER                    FILLER                           *
+      ******************************************************************
+       01  TCTC3141.
+         03 TCTC3141-KEY.
+           05 TCTC3141-COD-TBL          PIC X(4).
+           05 TCTC3141-COD-ENT          PIC X(4).
+           05 TCTC3141-KEY-TBL1.
+              07 TCTC3141-COD-LNG       PIC X(1).
+              07 TCTC3141-KEY-TBL2      PIC X(04).
+           05 FILLER                    PIC X(15).
+         03 TCTC3141-DATA.
+           05 TCTC3141-FLG-FCC          PIC X(01).
+           05 FILLER                    PIC X(249).

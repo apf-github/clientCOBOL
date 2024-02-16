@@ -1,0 +1,134 @@
+      *                     MODIFICATIONS LOG                          *
+      ******************************************************************
+      *     CODE       AUTHOR  DATE     DESCRIPTION                    *
+      *     ---------- ------- -------- ------------------------------ *
+      ******************************************************************
+      *B.MF TCEC1200                  TC9C1200 LINK AREA               *
+      *B.IF INPUT                     INPUT FIELDS                     *
+      *B.IF COD-REQOPTION             REQUESTED OPTION                 *
+      *B/IF                           '1' - TO VALIDATE A HOLIDAY DATE *
+      *B/IF                           '2' - TO VALIDATE A HOLIDAY DATE,*
+      *B/IF                           OBTAINING THE SUM OF THE         *
+      *B/IF                           PREVIOUS AND FOLLOWING WORKING   *
+      *B/IF                           DATE, WITH THE RESPECTIVE DAY OF *
+      *B/IF                           THE WEEK.                        *
+      *B/IF                           '3' - ADD/SUBTRACT WORKING DAYS  *
+      *B/IF                           TO A DATE.                       *
+      *B/IF                           '4' - WORKING DAYS BETWEEN TWO   *
+      *B/IF                           DATES.                           *
+      *B/IF                           '5' - FIRST WORKING DATE IN A    *
+      *B/IF                           PERIOD (MONTH-YEAR)              *
+      *B/IF                           '6' - LAST WORKING DATE IN A     *
+      *B/IF                           PERIOD (MONTH-YEAR)              *
+      *B.IF DAT-TREAT1                DATE TO TREAT, DD.MM.YYYY FORMAT *
+      *B.IF DAT-TREATA1               DATE TO TREAT, YYMMDD FORMAT     *
+      *B.IF DAT-TREAT2                SECOND DATE, DD.MM.YYYY FORMAT   *
+      *B.IF DAT-TREATA2               SECOND DATE, YYMMDD FORMAT       *
+      *B.IF NUM-SSWKD                 NUMBER OF WORKING DAYS TO SUM    *
+      *B/IF                           OR SUBTRACT                      *
+      *B.IF DAT-MMYYYY                TERM TO TREAT, MMYYYY FORMAT     *
+      *B.IF TRSATURDAY                TREATMENT OF SATURDAYS           *
+      *B/IF                           '0' ALL ARE WORKING DAYS EXCEPT  *
+      *B/IF                               THE HOLIDAYS (NATIONAL,      *
+      *B/IF                               REGIONAL, ETC.)              *
+      *B/IF                           '1' ALL SATURDAYS OF THE YEAR    *
+      *B/IF                               ARE NON-WORKING DAYS         *
+      *B.IF HDYTRCONSI                TREATMENT OF HOLIDAYS            *
+      *B/IF                           '0' ONLY NATIONAL HOLIDAYS       *
+      *B/IF                               WILL BE CONSIDERED           *
+      *B/IF                           '1' THE NATIONAL, REGIONAL,      *
+      *B/IF                               AND LOCAL HOLIDAYS           *
+      *B/IF                               WILL BE CONSIDERED           *
+      *B/IF                           '2' THE NATIONAL, REGIONAL,      *
+      *B/IF                               LOCAL AND COMPANY HOLIDAYS   *
+      *B/IF                               WILL BE CONSIDERED           *
+      *B/IF                           '3' ONLY NATIONAL AND COMPANY    *
+      *B/IF                               HOLIDAYS WILL BE CONSIDERED  *
+      *B/IF                           '4' THE NATIONAL, REGIONAL,      *
+      *B/IF                               LOCAL AND BY CENTER          *
+      *B/IF                               (BANK+OFFICE) HOLIDAYS       *
+      *B/IF                               WILL BE CONSIDERED           *
+      *B.IF COD-CITY                  POPULATION CITY CODE             *
+      *B.IF COD-CENTER                BRANCH CODE (BANK+BRANCH)        *
+      *B.IF COD-ENTITY2               ENTITY CODE 2                    *
+      *B.IF COD-BRANCH                BRANCH CODE                      *
+      *B.IF COD-ENTITY1               ENTITY CODE 1                    *
+      *B.OF OUTPUT                    OUTPUT FIELDS                    *
+      *B.OF COD-RETURN                RETURN CODE                      *
+      *B/OF                           00 ACCESS OK                     *
+      *B/OF                           05 WRONG OPTION                  *
+      *B/OF                           10 WRONG TREATMENT OF SATURDAYS  *
+      *B/OF                           15 WRONG FORMATTED DATE          *
+      *B/OF                           20 INSUFFICIENT DATA             *
+      *B/OF                           30 ILLOGICAL PERIOD              *
+      *B/OF                           35 WRONG COMPANY CODE            *
+      *B/OF                           40 WRONG CENTER CODE             *
+      *B/OF                           45 WRONG TOWN CODE               *
+      *B/OF                           50 WRONG TREATMENT               *
+      *B/OF                           55 CHAR AND NUMERIC INFORMED     *
+      *B/OF                              DATA                          *
+      *B/OF                           95 ERROR DB2                     *
+      *B.OF COD-FILEST                FILE STATUS                      *
+      *B.OF ERR-DB2                   DB2 ERROR INFORMATION            *
+      *B.OF SQLCODE                   SQL RETURN CODE                  *
+      *B.OF SQLERRM                   SQL ERROR MESSAGE                *
+      *B.OF SQLERRMLON                SQL RETURN MESSAGE LENGTH        *
+      *B.OF DTA-SQLERRM               SQL RETURN MESSAGE DATA          *
+      *B.OF DES-TABLE                 DB2 TABLE NAME                   *
+      *B.OF FILLER                    FILLER                           *
+      *B.OF TYP-DAY                   TYPE OF DAY:                     *
+      *B/OF                           'H' WORKING DAY                  *
+      *B/OF                           'N' NATIONAL HOLIDAY             *
+      *B/OF                           'D' SUNDAY                       *
+      *B/OF                           'A' REGIONAL HOLIDAY             *
+      *B/OF                           'S' NON-WORKING SATURDAY         *
+      *B/OF                           'L' LOCAL HOLIDAY                *
+      *B/OF                           'E' COMPANY HOLIDAY              *
+      *B/OF                           'C' EXCEPTIONAL CENTER HOLIDAY   *
+      *B.OF DAT-WORKING1              WORKING DATE, DD.MM.YYYY FORMAT  *
+      *B.OF DAT-WORKING2              WORKING DATE, YYMMDD FORMAT      *
+      *B.OF COD-WEEKDD                DAY OF THE WEEK                  *
+      *B.OF DAT-WKPRV1                PREVIOUS WORKING DATE,           *
+      *B/OF                           DD.MM.YYYY FORMAT                *
+      *B.OF DAT-WKPRV2                PREVIOUS WORKING DATE, YYMMDD    *
+      *B/OF                           FORMAT                           *
+      *B.OF COD-WEEKDDPRVDAT          DAY OF THE WEEK, FOR PREVIOUS    *
+      *B/OF                           DATE                             *
+      *B.OF NUM-WORKDD                WORKING DAYS BETWEEN TWO DATES   *
+      *B.MF FILLER                    FILLER                           *
+      ******************************************************************
+         01  TCEC1200.
+           08 TCEC1200-INPUT.
+             13 TCEC1200-COD-REQOPTION      PIC X(1).
+             13 TCEC1200-DAT-TREAT1         PIC X(10).
+             13 TCEC1200-DAT-TREATA1        PIC 9(6).
+             13 TCEC1200-DAT-TREAT2         PIC X(10).
+             13 TCEC1200-DAT-TREATA2        PIC 9(6).
+             13 TCEC1200-NUM-SSWKD          PIC S9(5).
+             13 TCEC1200-DAT-MMYYYY         PIC X(6).
+             13 TCEC1200-TRSATURDAY         PIC X(1).
+             13 TCEC1200-HDYTRCONSI         PIC X(1).
+             13 TCEC1200-COD-CITY           PIC X(7).
+             13 TCEC1200-COD-CENTER.
+               18 TCEC1200-COD-ENTITY2      PIC S9(4) COMP-3.
+               18 TCEC1200-COD-BRANCH       PIC S9(4) COMP-3.
+             13 TCEC1200-COD-ENTITY1        PIC X(4).
+           08 TCEC1200-OUTPUT.
+             13 TCEC1200-COD-RETURN         PIC X(2).
+             13 TCEC1200-COD-FILEST         PIC X(2).
+             13 TCEC1200-ERR-DB2.
+               18 TCEC1200-SQLCODE          PIC S9(9) COMP.
+               18 TCEC1200-SQLERRM.
+               23 TCEC1200-SQLERRMLON       PIC S9(4) COMP.
+               23 TCEC1200-DTA-SQLERRM      PIC X(30).
+               18 TCEC1200-DES-TABLE        PIC X(16).
+               18 FILLER                    PIC X(5).
+             13 TCEC1200-TYP-DAY            PIC X(1).
+             13 TCEC1200-DAT-WORKING1       PIC X(10).
+             13 TCEC1200-DAT-WORKING2       PIC 9(6).
+             13 TCEC1200-COD-WEEKDD         PIC X(1).
+             13 TCEC1200-DAT-WKPRV1         PIC X(10).
+             13 TCEC1200-DAT-WKPRV2         PIC X(6).
+             13 TCEC1200-COD-WEEKDDPRVDAT   PIC X(1).
+             13 TCEC1200-NUM-WORKDD         PIC 9(5).
+           08  FILLER                       PIC X(35).

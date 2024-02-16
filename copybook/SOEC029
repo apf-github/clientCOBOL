@@ -1,0 +1,89 @@
+      * SOEC029:  LINK AREA WITH MODULE TO OBTAIN THE PRIVATE          *
+      *           CONDITIONS OF THE CONTRACT                           *
+      ******************************************************************
+      *                     MODIFICATIONS LOG                          *
+      ******************************************************************
+      *     CODE       AUTHOR  DATE     DESCRIPTION                    *
+      *     ---------- ------- -------- ------------------------------ *
+      ******************************************************************
+      *B.IF SOEC029-INP               INPUT FIELDS                     *
+      *B.IF ENT                       ENTITY                           *
+      *B.IF COD-PRODUCT               ALNOVA PRODUCT CODE              *
+      *B.IF NUM-DEPACC                SEQUENCE CODE                    *
+      *B.IF COD-COM                   COMMISSION CODE                  *
+      *B.IF COD-FCC                   CURRENCY CODE                    *
+      *B.IF CHANNEL                   CHANNEL BY WHICH THE OPERATION   *
+      *B/IF                           IS MADE                          *
+      *B.IF DAT-OPERATION             OPERATION DATE                   *
+      *B.IF NUM-CONTRACT              CONTRACT NUMBER                  *
+      *B.IF ENT-CAC                   CONTRACT ENTITY                  *
+      *B.IF BRN-CAC                   CONTRACT BRANCH                  *
+      *B.IF NUM-CONCAC                CONTRACT NUMBER                  *
+      *B.IF CAC-STATUS                ACCOUNT STATUS                   *
+      *B.IF PROGRAM                   PROGRAM THAT LINK TO THE CALL    *
+      *B.OF SOEC029-OUT               OUTPUT FIELDS                    *
+      *B.OF COD-RETURN                RETURN CODE                      *
+      *B/OF                           '00' OK                          *
+      *B/OF                           '10' NO PERSONAL TARIFF          *
+      *B/OF                           '80' WRONG INPUT DATA            *
+      *B/OF                           '99' DB2 ACCESS ERROR            *
+      *B.OF ERR-DB2                   DB2 ERROR                        *
+      *B.OF SQLCODE                   SQL RETURN CODE                  *
+      *B.OF SQLERRM                   SQL ERROR MESSAGE                *
+      *B.OF SQLERRMLTH                SQL ERROR MESSAGE LENGTH         *
+      *B.OF DAT-SQLERRM               SQL RETURN MESSAGE DATA          *
+      *B.OF TABLENAME                 TABLE NAME                       *
+      *B.OF REFERENCE                 REFERENCE                        *
+      *B.OF AMT-FIXEDBON              FIXED AMOUNT BONUS TARIFF        *
+      *B.OF PER-PERSCOLL              PERCENTAGE TO COLLECT AS A       *
+      *B/OF                           PERSONAL TARIFF                  *
+      *B.OF AMT-UNITBON               UNITARY AMOUNT OF THE BONUS      *
+      *B/OF                           TARIFF                           *
+      *B.OF AMT-MINBON                MINIMUM AMOUNT OF THE BONUS      *
+      *B/OF                           TARIFF                           *
+      *B.OF AMT-MAXBON                MAXIMUM AMOUNT OF THE BONUS      *
+      *B/OF                           TARIFF                           *
+      *B.OF CNDPROC                   CONDONATION PROCESS              *
+      *B.OF KEY-USER                  USER KEY                         *
+      *B.OF NUM-TERMINAL              TERMINAL NUMBER                  *
+      ******************************************************************
+      ******************************************************************
+
+           05 E029-SOEC029-INP.
+              10 E029-ENT                  PIC X(4).
+              10 E029-COD-PRODUCT          PIC X(6).
+              10 E029-NUM-DEPACC           PIC S9(5)  USAGE COMP-3.
+              10 E029-COD-COM              PIC X(10).
+              10 E029-COD-FCC              PIC X(3).
+              10 E029-CHANNEL              PIC X(2).
+              10 E029-DAT-OPERATION        PIC X(10).
+              10 E029-NUM-CONTRACT.
+                 15 E029-ENT-CAC           PIC X(4).
+                 15 E029-BRN-CAC           PIC X(4).
+                 15 E029-NUM-CONCAC        PIC X(10).
+              10 E029-CAC-STATUS           PIC X(1).
+              10 E029-PROGRAM              PIC X(8).
+      *
+           05 E029-SOEC029-OUT.
+              10 E029-COD-RETURN           PIC X(02).
+              10 E029-ERR-DB2.
+                 15 E029-SQLCODE           PIC S9(09) COMP.
+                 15 E029-SQLERRM.
+                    20 E029-SQLERRMLTH     PIC S9(04) COMP.
+                    20 E029-DAT-SQLERRM    PIC  X(70).
+                 15 E029-TABLENAME         PIC  X(16).
+                 15 E029-REFERENCE         PIC  X(20).
+              10 E029-AMT-FIXEDBON         PIC S9(11)V9(2)  USAGE
+                  COMP-3.
+              10 E029-PER-PERSCOLL         PIC S9(3)V9(5)   USAGE
+                  COMP-3.
+              10 E029-AMT-UNITBON          PIC S9(11)V9(2)  USAGE
+                  COMP-3.
+              10 E029-AMT-MINBON           PIC S9(11)V9(2)  USAGE
+                  COMP-3.
+              10 E029-AMT-MAXBON           PIC S9(11)V9(2)  USAGE
+                  COMP-3.
+              10 E029-CNDPROC              PIC X(2).
+              10 E029-KEY-USER             PIC X(8).
+              10 E029-NUM-TERMINAL         PIC X(4).
+      *

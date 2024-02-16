@@ -1,0 +1,95 @@
+      * TCEC0040:                                                      *
+      ******************************************************************
+      *                     MODIFICATIONS LOG                          *
+      ******************************************************************
+      *     CODE       AUTHOR  DATE     DESCRIPTION                    *
+      *     ---------- ------- -------- ------------------------------ *
+      ******************************************************************
+      *B.MF GENREC                    GENERAL RECORD                   *
+      *B.IF INPUT                     ROUTINE INPUT FIELDS             *
+      *B.IF FCC-GUCINPUT              CURRENT INPUT                    *
+      *B.IF FCC-OFFRTBDRTINP          BID RATE, OFFER RATE, FIXING     *
+      *B/IF                           INPUT                            *
+      *B.IF AMT-INPUT                 INPUT AMOUNT                     *
+      *B.IF FCC-GUCOUTPUT             CURRENT OUTPUT                   *
+      *B.IF FCC-OFFRTBDRTOUT          BID RATE, OFFER RATE, FIXING     *
+      *B/IF                           OUTPUT                           *
+      *B.IF ENTITY                    ENTITY                           *
+      *B.IF DAT-PROCESS               PROCESS DATE                     *
+      *B.IF PROGRAM                   PROGRAM                          *
+      *B.IF GUCENOLN                  BRANCH/ENTITY (TRADE FINANCE     *
+      *B/IF                           TREATMENT)                       *
+      *B.IF GUNCTALN                  ACCOUNT NUMBER (TRADE FINANCE    *
+      *B/IF                           TREATMENT)                       *
+      *B.IF EXCHBONUS                 EXCHANGE BONUS                   *
+      *B.IF FLG-BKNFCC                CURRENCY BANK NOTE FLAG          *
+      *B.IF FLG-OUTBKNFCC             OUTPUT CURRENCY BANK NOTE FLAG   *
+      *B.IF FCC-INPUTEXCHU            INPUT EXCHANGE UNIT              *
+      *B.IF INPEXCH                   INPUT EXCHANGE                   *
+      *B.IF FLG-INPEXCH               INPUT EXCHANGE FLAG              *
+      *B.OF OUTPUT1                   OUTPUT DATA                      *
+      *B.OF COD-RETURN                RETURN CODE                      *
+      *B.OF ERR-DB2                   ERROR DB2                        *
+      *B.OF SQLCODE                   SQL RETURN CODE                  *
+      *B.OF ERR-SQLCODE               SQLCODE ERROR                    *
+      *B.OF COD-SQLCODELTH            SQLCODE CODE LENGTH              *
+      *B.OF DES-SQLCODE               SQLCODE DESCRIPTION              *
+      *B.OF DES-ERRTBL                ERROR TABLE NAME                 *
+      *B.OF ERR-CICS                  CICS ERROR                       *
+      *B.OF GUEIBCD                   ERROR CODES                      *
+      *B.OF GUCEIBFN                  ERROR CODES                      *
+      *B.OF GUCEIBSR                  ERROR CODES                      *
+      *B.OF OUTPUT2                   ROUTINE OUTPUT FIELDS            *
+      *B.OF AMT-OUTEXCH               OUTPUT EXCHANGE AMOUNT           *
+      *B.OF OUTEXCH                   OUTPUT EXCHANGE                  *
+      *B.OF FLG-OUTEXCH               OUTPUT EXCHANGE FLAG             *
+      *B.OF FCC-OUTEXCHU              OUTPUT EXCHANGE UNIT             *
+      *B.OF INTERMEXCH                INTERMEDIATE EXCHANGE            *
+      *B.OF ERR-OUT                   OUTPUT ERROR                     *
+      *B.OF COD-ERROR                 ERROR CODE                       *
+      *B.OF DES-ERROR                 ERROR DESCRIPTION                *
+      *B.OF REFERENCE                 REFERENCE                        *
+      ******************************************************************
+      ******************************************************************
+
+       02  TCEC0040-GENREC.
+           07  TCEC0040-INPUT.
+               12  TCEC0040-FCC-GUCINPUT    PIC X(3).
+               12  TCEC0040-FCC-OFFRTBDRTINP            PIC X.
+               12  TCEC0040-AMT-INPUT       PIC S9(13)V9(2)  COMP-3.
+               12  TCEC0040-FCC-GUCOUTPUT   PIC X(3).
+               12  TCEC0040-FCC-OFFRTBDRTOUT           PIC X.
+               12  TCEC0040-ENTITY          PIC X(4).
+               12  TCEC0040-DAT-PROCESS     PIC X(10).
+               12  TCEC0040-PROGRAM         PIC X(8).
+               12  TCEC0040-GUCENOLN        PIC X(8).
+               12  TCEC0040-GUNCTALN        PIC X(10).
+               12  TCEC0040-EXCHBONUS       PIC S9(3)V9(5).
+               12  TCEC0040-FLG-BKNFCC      PIC X.
+               12  TCEC0040-FLG-OUTBKNFCC   PIC X.
+               12  TCEC0040-FCC-INPUTEXCHU  PIC S9(3)        COMP-3.
+               12  TCEC0040-INPEXCH         PIC S9(4)V9(6)   COMP-3.
+               12  TCEC0040-FLG-INPEXCH     PIC X.
+           07  TCEC0040-OUTPUT1.
+               12  TCEC0040-COD-RETURN      PIC X(2).
+               12  TCEC0040-ERR-DB2.
+                   17  TCEC0040-SQLCODE     PIC S9(9)     COMP.
+                   17  TCEC0040-ERR-SQLCODE.
+                       22  TCEC0040-COD-SQLCODELTH   PIC S9(4)     COMP.
+                       22  TCEC0040-DES-SQLCODE   PIC X(40).
+                   17  TCEC0040-DES-ERRTBL  PIC X(8).
+               12  TCEC0040-ERR-CICS.
+                   17  TCEC0040-GUEIBCD     PIC X(6).
+                   17  TCEC0040-GUCEIBFN    PIC X(2).
+                   17  TCEC0040-GUCEIBSR    PIC X(8).
+           07  TCEC0040-OUTPUT2.
+               12  TCEC0040-AMT-OUTEXCH     PIC S9(13)V9(2)  COMP-3.
+               12  TCEC0040-OUTEXCH         PIC S9(4)V9(6)  COMP-3.
+               12  TCEC0040-FLG-OUTEXCH     PIC X.
+               12  TCEC0040-FCC-OUTEXCHU    PIC S9(3)     COMP-3.
+               12  TCEC0040-INTERMEXCH      PIC S9(4)V9(6)  COMP-3.
+               12  TCEC0040-ERR-OUT.
+                   17  TCEC0040-COD-ERROR   PIC X(7).
+                   17  TCEC0040-DES-ERROR   PIC X(20).
+               12  TCEC0040-REFERENCE       PIC X(50).
+      *

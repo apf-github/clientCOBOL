@@ -1,0 +1,687 @@
+      ******************************************************************
+      *A.OR.S                                                          *
+      *    QGECFEC - RECUPERA LA FECHA CONTABLE DE LA TABLA SWA        *
+      *A.OR.E                                                          *
+      *B.OR.S                                                          *
+      *    QGECFEC - RETRIEVE THE ACCOUNTING DATE OF THE SWA TABLE     *
+      *B.OR.E                                                          *
+      ******************************************************************
+      ******************************************************************
+      *              M O D I F I C A T I O N S    L O G                *
+      *              -------------------------    -----                *
+      *  CODIGO         USUARIO FECHA    DESCRIPCION                   *
+      * --------------- ------- -------- ---------------------------   *
+      *B.MD @V620736DQA ALNOVA 16-01-06 ADDITION OF LEVEL 88 RETCODES  *
+      ******************************************************************
+      *A.MF QGECFEC                   QGECFEC                          *
+      *A.IF DTA-INP                   DATOS DE ENTRADA                 *
+      *A.IF ENT-RTV                   ENTIDAD RECUPERADA DE LA TABLA   *
+      *A.OF DTAOUT                    DATOS DE SALIDA                  *
+      *A.OF DAT-A                     FECHA CONTABLE RECUPERADA DE LA  *
+      *A/OF                           TABLA                            *
+      *A.OF DATE-NEXT                 FECHA SIGUIENTE                  *
+      *A.OF FLG-LOCK                  INDICADOR DE BLOQUEO             *
+      *A.OF SW-ACVTYPES               INDICADOR DE TABLA DE TECLEOS    *
+      *A/OF                           ACTIVA                           *
+      *A.FV   SW-ACV-TYPTABLEA        OPCION <'A'>                     *
+      *A/FV                           'A'                              *
+      *A.FV   SW-ACV-TYPTABLEB        OPCION <'B'>                     *
+      *A/FV                           'B'                              *
+      *A.OF SW-ACVAUTHO               INDICADOR DE TABLA DE            *
+      *A/OF                           AUTORIZACIONES ACTIVA            *
+      *A.FV   SW-ACV-AUTTABLEA        OPCION <'A'>                     *
+      *A/FV                           'A'                              *
+      *A.FV   SW-ACV-AUTTABLEB        OPCION <'B'>                     *
+      *A/FV                           'B'                              *
+      *A.OF SW-ACVTOTAL               INDICADOR DE TABLA DE TOTALES    *
+      *A/OF                           ACTIVA                           *
+      *A.FV   SW-ACV-TOTTABLEA        OPCION <'A'>                     *
+      *A/FV                           'A'                              *
+      *A.FV   SW-ACV-TOTTABLEB        OPCION <'B'>                     *
+      *A/FV                           'B'                              *
+      *A.FV   SW-ACV-TOTTABLEC        OPCION <'C'>                     *
+      *A/FV                           'C'                              *
+      *A.OF SW-ACVJOURN               INDICADOR DE TABLA DE JOURNAL    *
+      *A/OF                           ACTIVA                           *
+      *A.FV   SW-ACV-JOUTABLEA        OPCION <'A'>                     *
+      *A/FV                           'A'                              *
+      *A.FV   SW-ACV-JOUTABLEB        OPCION <'B'>                     *
+      *A/FV                           'B'                              *
+      *A.FV   SW-ACV-JOUTABLEC        OPCION <'C'>                     *
+      *A/FV                           'C'                              *
+      *A.OF SW-YDAYTOTAL              INDICADOR DE TABLA DE TOTALES    *
+      *A/OF                           DE AYER                          *
+      *A.FV   SW-YDA-TOTALTABLA       OPCION <'A'>                     *
+      *A/FV                           'A'                              *
+      *A.FV   SW-YDA-TOTALTABLB       OPCION <'B'>                     *
+      *A/FV                           'B'                              *
+      *A.FV   SW-YDA-TOTALTABLC       OPCION <'C'>                     *
+      *A/FV                           'C'                              *
+      *A.OF SW-YDAYJOURN              INDICADOR DE TABLA DE JOURNAL    *
+      *A/OF                           DE AYER                          *
+      *A.FV   SW-YDA-JOURTABLEA       OPCION <'A'>                     *
+      *A/FV                           'A'                              *
+      *A.FV   SW-YDA-JOURTABLEB       OPCION <'B'>                     *
+      *A/FV                           'B'                              *
+      *A.FV   SW-YDA-JOURTABLEC       OPCION <'C'>                     *
+      *A/FV                           'C'                              *
+      *A.OF SW-EMPTYTYPES             INDICADOR DE TABLA DE TECLEOS    *
+      *A/OF                           VACIA                            *
+      *A.FV   SW-EMPTY-TYPES-TBA      OPCION <'A'>                     *
+      *A/FV                           'A'                              *
+      *A.FV   SW-EMPTY-TYPES-TBB      OPCION <'B'>                     *
+      *A/FV                           'B'                              *
+      *A.OF SW-EMPTYAUTHO             INDICADOR DE TABLA DE            *
+      *A/OF                           AUTORIZACIONES VACIA             *
+      *A.FV   SW-EMPTY-AUTHO-TBA      OPCION <'A'>                     *
+      *A/FV                           'A'                              *
+      *A.FV   SW-EMPTY-AUTHO-TBB      OPCION <'B'>                     *
+      *A/FV                           'B'                              *
+      *A.OF SW-EMPTYTOTAL             INDICADOR DE TABLA DE TOTALES    *
+      *A/OF                           VACIA                            *
+      *A.FV   SW-EMPT-TOT-TABLEA      OPCION <'A'>                     *
+      *A/FV                           'A'                              *
+      *A.FV   SW-EMPT-TOT-TABLEB      OPCION <'B'>                     *
+      *A/FV                           'B'                              *
+      *A.FV   SW-EMPT-TOT-TABLEC      OPCION <'C'>                     *
+      *A/FV                           'C'                              *
+      *A.OF SW-EMPTYJOURN             INDICADOR DE TABLA DE JOURNAL    *
+      *A/OF                           VACIA                            *
+      *A.FV   SW-EMPT-JOU-TABLEA      OPCION <'A'>                     *
+      *A/FV                           'A'                              *
+      *A.FV   SW-EMPT-JOU-TABLEB      OPCION <'B'>                     *
+      *A/FV                           'B'                              *
+      *A.FV   SW-EMPT-JOU-TABLEC      OPCION <'C'>                     *
+      *A/FV                           'C'                              *
+      *A.OF FRONTSYSTID               IDENTIFICADOR DE SISTEMA FRONT   *
+      *A.OF COD-FRONTPAGTR            CODIGO DE TRANSACCION DE PAGINA  *
+      *A/OF                           FRONT                            *
+      *A.OF TB-OTHCICS                CICS                             *
+      *A.OF TB-RE-OTHCIC              CICS                             *
+      *A.OF TB-OTH-SYSI               IDENTIFICADOR DE OTROS SISTEMAS  *
+      *A.OF SW-ENVI                   ENTORNO DE TRABAJO DE TABLA DE   *
+      *A/OF                           CONTROL                          *
+      *A.FV   SW-ENV-DEVELOPM         DE DESARROLLO                    *
+      *A/FV                           'D'                              *
+      *A.FV   SW-ENV-FORMATIO         DE FORMACION                     *
+      *A/FV                           'F'                              *
+      *A.FV   SW-ENV-TESTWORK         DE TEST                          *
+      *A/FV                           'T'                              *
+      *A.FV   SW-ENV-PRODUCTI         DE PRODUCCION                    *
+      *A/FV                           'P'                              *
+      *A.OF SW-TYP-SECUR              TIPO DE SEGURIDAD                *
+      *A.FV   SW-SEC-INTERNA          INTERNA                          *
+      *A/FV                           'I'                              *
+      *A.FV   SW-SEC-EXTERNA          EXTERNA                          *
+      *A/FV                           'E'                              *
+      *A.OF STP-STARTIN               TIMESTAMP DE INICIO              *
+      *A.OF STP-ENDING                TIMESTAMP FINAL                  *
+      *A.OF USERID                    IDENTIFICADOR DE USUARIO         *
+      *A.OF CUST-CODE                 CODIGO DEL CLIENTE               *
+      *A.OF SYSTEM-LANG               IDIOMA DEL SISTEMA               *
+      *A.OF FORMAT-DATE               FORMATO DE FECHA                 *
+      *A.OF NUM-FORMAT                FORMATO DE NUMERO                *
+      *A.OF FIELD1                    CAMPO 1                          *
+      *A.OF FIELD2                    CAMPO 2                          *
+      *A.OF FLG-FREE-4                INDICADOR LIBRE 4                *
+      *A.OF FLG-FREE-5                INDICADOR LIBRE 5                *
+      *A.OF FLG-FREE-6                INDICADOR LIBRE 6                *
+      *A.OF FLG-FREE-7                INDICADOR LIBRE 7                *
+      *A.OF TB-CICS-REGIO             REGIONES CICS                    *
+      *A.OF TB-RE-CICS-R              REGIONES CICS                    *
+      *A.OF TB-CIC-SY                 IDENTIFICADOR DE SISTEMA         *
+      *A.OF TB-CIC-T                  TIPO                             *
+      *A.OF COD-OUT                   CODIGOS DE SALIDA                *
+      *A.OF RETURN                    CODIGO DE RETORNO                *
+      *A.FV   SW-COD-RETURN-OK        OPERACION OK                     *
+      *A/FV                            00                              *
+      *A.FV   SW-COD-RETURN-NOT-FOUND INFORMACION NO ENCONTRADA        *
+      *A/FV                            01                              *
+      *A.FV   SW-COD-RETURN-ERR-DB2 ERROR BASE DE DATOS                *
+      *A/FV                            99                              *
+      *A.OF SQLCODE                   SQLCODE                          *
+      *A.OF SQLERRM                   MENSAJE DE ERROR DE LA SQLCA     *
+      *A.OF LSQLERRM                  LONGITUD DEL MENSAJE DE ERROR    *
+      *A/OF                           DE LA SQLCA                      *
+      *A.OF TSQLERRM                  TEXTO DE MENSAJE DE ERROR DE LA  *
+      *A/OF                           SQLCA                            *
+      *A.OF TABLE                     CODIGO DE LA TABLA               *
+      *A.MF RE                        QGECFEC                          *
+      *A.IF ENTRADA                   DATOS DE ENTRADA                 *
+      *A.IF ENTIDAD                   ENTIDAD RECUPERADA DE LA TABLA   *
+      *A.OF SALIDA                    DATOS DE SALIDA                  *
+      *A.OF FECHA                     FECHA CONTABLE RECUPERADA DE LA  *
+      *A/OF                           TABLA                            *
+      *A.OF FECHA-SIG                 FECHA SIGUIENTE                  *
+      *A.OF IND-BLOQ                  INDICADOR DE BLOQUEO             *
+      *A.OF TECLEOS-ACT               INDICADOR DE TABLA DE TECLEOS    *
+      *A/OF                           ACTIVA                           *
+      *A.FV   88-TECLEOS-ACT-A        OPCION <'A'>                     *
+      *A/FV                           'A'                              *
+      *A.FV   88-TECLEOS-ACT-B        OPCION <'B'>                     *
+      *A/FV                           'B'                              *
+      *A.OF AUTORIZ-ACT               INDICADOR DE TABLA DE            *
+      *A/OF                           AUTORIZACIONES ACTIVA            *
+      *A.FV   88-AUTORIZ-ACT-A        OPCION <'A'>                     *
+      *A/FV                           'A'                              *
+      *A.FV   88-AUTORIZ-ACT-B        OPCION <'B'>                     *
+      *A/FV                           'B'                              *
+      *A.OF TOTALES-ACT               INDICADOR DE TABLA DE TOTALES    *
+      *A/OF                           ACTIVA                           *
+      *A.FV   88-TOTALES-ACT-A        OPCION <'A'>                     *
+      *A/FV                           'A'                              *
+      *A.FV   88-TOTALES-ACT-B        OPCION <'B'>                     *
+      *A/FV                           'B'                              *
+      *A.FV   88-TOTALES-ACT-C        OPCION <'C'>                     *
+      *A/FV                           'C'                              *
+      *A.OF JOURNAL-ACT               INDICADOR DE TABLA DE JOURNAL    *
+      *A/OF                           ACTIVA                           *
+      *A.FV   88-JOURNAL-ACT-A        OPCION <'A'>                     *
+      *A/FV                           'A'                              *
+      *A.FV   88-JOURNAL-ACT-B        OPCION <'B'>                     *
+      *A/FV                           'B'                              *
+      *A.FV   88-JOURNAL-ACT-C        OPCION <'C'>                     *
+      *A/FV                           'C'                              *
+      *A.OF TOTALES-AYER              INDICADOR DE TABLA DE TOTALES    *
+      *A/OF                           DE AYER                          *
+      *A.FV   88-TOTALES-AYER-A       OPCION <'A'>                     *
+      *A/FV                           'A'                              *
+      *A.FV   88-TOTALES-AYER-B       OPCION <'B'>                     *
+      *A/FV                           'B'                              *
+      *A.FV   88-TOTALES-AYER-C       OPCION <'C'>                     *
+      *A/FV                           'C'                              *
+      *A.OF JOURNAL-AYER              INDICADOR DE TABLA DE JOURNAL    *
+      *A/OF                           DE AYER                          *
+      *A.FV   88-JOURNAL-AYER-A       OPCION <'A'>                     *
+      *A/FV                           'A'                              *
+      *A.FV   88-JOURNAL-AYER-B       OPCION <'B'>                     *
+      *A/FV                           'B'                              *
+      *A.FV   88-JOURNAL-AYER-C       OPCION <'C'>                     *
+      *A/FV                           'C'                              *
+      *A.OF TECLEOS-VACIA             INDICADOR DE TABLA DE TECLEOS    *
+      *A/OF                           VACIA                            *
+      *A.FV   88-TECLEOS-VACIA-A      OPCION <'A'>                     *
+      *A/FV                           'A'                              *
+      *A.FV   88-TECLEOS-VACIA-B      OPCION <'B'>                     *
+      *A/FV                           'B'                              *
+      *A.OF AUTORIZ-VACIA             INDICADOR DE TABLA DE AUTORIZA-  *
+      *A/OF                           CIONES VACIA                     *
+      *A.FV   88-AUTORIZ-VACIA-A      OPCION <'A'>                     *
+      *A/FV                           'A'                              *
+      *A.FV   88-AUTORIZ-VACIA-B      OPCION <'B'>                     *
+      *A/FV                           'B'                              *
+      *A.OF TOTALES-VACIA             INDICADOR DE TABLA DE TOTALES    *
+      *A/OF                           VACIA                            *
+      *A.FV   88-TOTALES-VACIA-A      OPCION <'A'>                     *
+      *A/FV                           'A'                              *
+      *A.FV   88-TOTALES-VACIA-B      OPCION <'B'>                     *
+      *A/FV                           'B'                              *
+      *A.FV   88-TOTALES-VACIA-C      OPCION <'C'>                     *
+      *A/FV                           'C'                              *
+      *A.OF JOURNAL-VACIA             INDICADOR DE TABLA DE JOURNAL    *
+      *A/OF                           VACIA                            *
+      *A.FV   88-JOURNAL-VACIA-A      OPCION <'A'>                     *
+      *A/FV                           'A'                              *
+      *A.FV   88-JOURNAL-VACIA-B      OPCION <'B'>                     *
+      *A/FV                           'B'                              *
+      *A.FV   88-JOURNAL-VACIA-C      OPCION <'C'>                     *
+      *A/FV                           'C'                              *
+      *A.OF SYSID-FRONT               IDENTIFICADOR DE SISTEMA FRONT   *
+      *A.OF CODTRAN-PAGFRO            CODIGO DE TRANSACCION DE PAGINA  *
+      *A/OF                           FRONT                            *
+      *A.OF CICS-OTROS                CICS                             *
+      *A.OF CICS-OTROS-O              CICS                             *
+      *A.OF SYSID-OTROS               IDENTIFICADOR DE OTROS SISTEMAS  *
+      *A.OF ENTORNO                   ENTORNO DE TRABAJO DE TABLA DE   *
+      *A/OF                           CONTROL                          *
+      *A.FV   88-ENTORNO-DESA         DE DESARROLLO                    *
+      *A/FV                           'D'                              *
+      *A.FV   88-ENTORNO-FORM         DE FORMACION                     *
+      *A/FV                           'F'                              *
+      *A.FV   88-ENTORNO-TEST         DE TEST                          *
+      *A/FV                           'T'                              *
+      *A.FV   88-ENTORNO-PROD         DE PRODUCCION                    *
+      *A/FV                           'P'                              *
+      *A.OF SEGURIDAD-IE              TIPO DE SEGURIDAD                *
+      *A.FV   88-SEGURIDAD-I          INTERNA                          *
+      *A/FV                           'I'                              *
+      *A.FV   88-SEGURIDAD-E          EXTERNA                          *
+      *A/FV                           'E'                              *
+      *A.OF TIMEST-INIC               TIMESTAMP DE INICIO              *
+      *A.OF TIMEST-FIN                TIMESTAMP FINAL                  *
+      *A.OF FILLER                    FILLER                           *
+      *A.OF FILLER                    FILLER                           *
+      *A.OF IDIOMA-SIST               IDIOMA DEL SISTEMA               *
+      *A.OF DATE-FORMAT               FORMATO DE FECHA                 *
+      *A.OF FILLER                    FORMATO DE NUMERO                *
+      *A.OF CAMPO1                    CAMPO 1                          *
+      *A.OF CAMPO2                    CAMPO 2                          *
+      *A.OF IND-LIBRE4                INDICADOR LIBRE 4                *
+      *A.OF IND-LIBRE5                INDICADOR LIBRE 5                *
+      *A.OF IND-LIBRE6                INDICADOR LIBRE 6                *
+      *A.OF IND-LIBRE7                INDICADOR LIBRE 7                *
+      *A.OF REGIONES-CICS             REGIONES CICS                    *
+      *A.OF MRO-REGION-O              REGIONES CICS                    *
+      *A.OF MRO-SYSID                 IDENTIFICADOR DE SISTEMA         *
+      *A.OF MRO-TIPO                  TIPO                             *
+      *A.OF CODIGOS                   CODIGOS DE SALIDA                *
+      *A.OF FILLER                    CODIGO DE RETORNO                *
+      *A.OF FILLER                    SQLCODE                          *
+      *A.OF FILLER                    MENSAJE DE ERROR DE LA SQLCA     *
+      *A.OF SQLERRML                  LONGITUD DEL MENSAJE DE ERROR    *
+      *A/OF                           DE LA SQLCA                      *
+      *A.OF SQLERRMC                  TEXTO DE MENSAJE DE ERROR DE LA  *
+      *A/OF                           SQLCA                            *
+      *A.OF TABLA                     CODIGO DE LA TABLA               *
+      ******************************************************************
+      *B.MF QGECFEC                   QGECFEC                          *
+      *B.IF DTA-INP                   INPUT DATA                       *
+      *B.IF ENT-RTV                   RETRIEVED ENTITY FROM TABLE      *
+      *B.OF DTAOUT                    OUTPUT DATA                      *
+      *B.OF DAT-A                     RETRIEVED ACCOUNTING DATE FROM   *
+      *B/OF                           TABLE                            *
+      *B.OF DATE-NEXT                 NEXT DATE                        *
+      *B.OF FLG-LOCK                  LOCK FLAG                        *
+      *B.OF SW-ACVTYPES               FLAG OF ACTIVE KEYS TABLE        *
+      *B.FV   SW-ACV-TYPTABLEA        OPTION <'A'>                     *
+      *B/FV                           'A'                              *
+      *B.FV   SW-ACV-TYPTABLEB        OPTION <'B'>                     *
+      *B/FV                           'B'                              *
+      *B.OF SW-ACVAUTHO               FLAG OF ACTIVE AUTHORIZATIONS    *
+      *B/OF                           TABLE                            *
+      *B.FV   SW-ACV-AUTTABLEA        OPTION <'A'>                     *
+      *B/FV                           'A'                              *
+      *B.FV   SW-ACV-AUTTABLEB        OPTION <'B'>                     *
+      *B/FV                           'B'                              *
+      *B.OF SW-ACVTOTAL               FLAG OF ACTIVE TOTALS TABLE      *
+      *B.FV   SW-ACV-TOTTABLEA        OPTION <'A'>                     *
+      *B/FV                           'A'                              *
+      *B.FV   SW-ACV-TOTTABLEB        OPTION <'B'>                     *
+      *B/FV                           'B'                              *
+      *B.FV   SW-ACV-TOTTABLEC        OPTION <'C'>                     *
+      *B/FV                           'C'                              *
+      *B.OF SW-ACVJOURN               FLAG OF ACTIVE JOURNAL TABLE     *
+      *B.FV   SW-ACV-JOUTABLEA        OPTION <'A'>                     *
+      *B/FV                           'A'                              *
+      *B.FV   SW-ACV-JOUTABLEB        OPTION <'B'>                     *
+      *B/FV                           'B'                              *
+      *B.FV   SW-ACV-JOUTABLEC        OPTION <'C'>                     *
+      *B/FV                           'C'                              *
+      *B.OF SW-YDAYTOTAL              FLAG OF YESTERDAY TOTALS TABLE   *
+      *B.FV   SW-YDA-TOTALTABLA       OPTION <'A'>                     *
+      *B/FV                           'A'                              *
+      *B.FV   SW-YDA-TOTALTABLB       OPTION <'B'>                     *
+      *B/FV                           'B'                              *
+      *B.FV   SW-YDA-TOTALTABLC       OPTION <'C'>                     *
+      *B/FV                           'C'                              *
+      *B.OF SW-YDAYJOURN              FLAG OF YESTERDAY JOURNAL TABLE  *
+      *B.FV   SW-YDA-JOURTABLEA       OPTION <'A'>                     *
+      *B/FV                           'A'                              *
+      *B.FV   SW-YDA-JOURTABLEB       OPTION <'B'>                     *
+      *B/FV                           'B'                              *
+      *B.FV   SW-YDA-JOURTABLEC       OPTION <'C'>                     *
+      *B/FV                           'C'                              *
+      *B.OF SW-EMPTYTYPES             FLAG OF EMPTY KEYS TABLE         *
+      *B.FV   SW-EMPTY-TYPES-TBA      OPTION <'A'>                     *
+      *B/FV                           'A'                              *
+      *B.FV   SW-EMPTY-TYPES-TBB      OPTION <'B'>                     *
+      *B/FV                           'B'                              *
+      *B.OF SW-EMPTYAUTHO             FLAG OF EMPTY AUTHORIZATIONS     *
+      *B/OF                           TABLE                            *
+      *B.FV   SW-EMPTY-AUTHO-TBA      OPTION <'A'>                     *
+      *B/FV                           'A'                              *
+      *B.FV   SW-EMPTY-AUTHO-TBB      OPTION <'B'>                     *
+      *B/FV                           'B'                              *
+      *B.OF SW-EMPTYTOTAL             FLAG OF EMPTY TOTALS TABLE       *
+      *B.FV   SW-EMPT-TOT-TABLEA      OPTION <'A'>                     *
+      *B/FV                           'A'                              *
+      *B.FV   SW-EMPT-TOT-TABLEB      OPTION <'B'>                     *
+      *B/FV                           'B'                              *
+      *B.FV   SW-EMPT-TOT-TABLEC      OPTION <'C'>                     *
+      *B/FV                           'C'                              *
+      *B.OF SW-EMPTYJOURN             FLAG OF EMPTY JOURNAL TABLE      *
+      *B.FV   SW-EMPT-JOU-TABLEA      OPTION <'A'>                     *
+      *B/FV                           'A'                              *
+      *B.FV   SW-EMPT-JOU-TABLEB      OPTION <'B'>                     *
+      *B/FV                           'B'                              *
+      *B.FV   SW-EMPT-JOU-TABLEC      OPTION <'C'>                     *
+      *B/FV                           'C'                              *
+      *B.OF FRONTSYSTID               FRONT SYSTEM IDENTIFIER          *
+      *B.OF COD-FRONTPAGTR            TRANSACTION CODE OF FRONT PAGE   *
+      *B.OF TB-OTHCICS                CICS                             *
+      *B.OF TB-RE-OTHCIC              CICS                             *
+      *B.OF TB-OTH-SYSI               OTHER SYSTEM IDENTIFIERS         *
+      *B.OF SW-ENVI                   WORK ENVIRONMENT OF CONTROL      *
+      *B/OF                           TABLE                            *
+      *B.FV   SW-ENV-DEVELOPM         DEVELOPMENT                      *
+      *B/FV                           'D'                              *
+      *B.FV   SW-ENV-FORMATIO         FORMATION                        *
+      *B/FV                           'F'                              *
+      *B.FV   SW-ENV-TESTWORK         TEST                             *
+      *B/FV                           'T'                              *
+      *B.FV   SW-ENV-PRODUCTI         PRODUCTION                       *
+      *B/FV                           'P'                              *
+      *B.OF SW-TYP-SECUR              SECURITY TYPE                    *
+      *B.FV   SW-SEC-INTERNA          INTERNAL                         *
+      *B/FV                           'I'                              *
+      *B.FV   SW-SEC-EXTERNA          EXTERNAL                         *
+      *B/FV                           'E'                              *
+      *B.OF STP-STARTIN               STARTING TIMESTAMP               *
+      *B.OF STP-ENDING                ENDING TIMESTAMP                 *
+      *B.OF USERID                    USER IDENTIFIER                  *
+      *B.OF CUST-CODE                 CUSTOMER CODE                    *
+      *B.OF SYSTEM-LANG               SYSTEM LANGUAGE                  *
+      *B.OF FORMAT-DATE               DATE FORMAT                      *
+      *B.OF NUM-FORMAT                NUMBER FORMAT                    *
+      *B.OF FIELD1                    FIELD1                           *
+      *B.OF FIELD2                    FIELD2                           *
+      *B.OF FLG-FREE-4                FREE FLAG 4                      *
+      *B.OF FLG-FREE-5                FREE FLAG 5                      *
+      *B.OF FLG-FREE-6                FREE FLAG 6                      *
+      *B.OF FLG-FREE-7                FREE FLAG 7                      *
+      *B.OF TB-CICS-REGIO             CICS ZONES                       *
+      *B.OF TB-RE-CICS-R              CICS ZONES                       *
+      *B.OF TB-CIC-SY                 SYSTEM IDENTIFIER                *
+      *B.OF TB-CIC-T                  TYPE                             *
+      *B.OF COD-OUT                   OUTPUT CODES                     *
+      *B.OF RETURN                    RETURN CODE                      *
+      *B.FV   SW-COD-RETURN-OK        OPERATION FINISHED OK            *
+      *B/FV                            00                              *
+      *B.FV   SW-COD-RETURN-NOT-FOUND INFORMATION WAS NOT FOUND        *
+      *B/FV                            01                              *
+      *B.FV   SW-COD-RETURN-ERR-DB2   DATABASE ERROR                   *
+      *B/FV                            99                              *
+      *B.OF SQLCODE                   SQLCODE                          *
+      *B.OF SQLERRM                   SQLCA ERROR MESSAGE              *
+      *B.OF LSQLERRM                  LENGTH OF SQLCA ERROR MESSAGE    *
+      *B.OF TSQLERRM                  MESSAGE OF SQLCA ERROR MESSAGE   *
+      *B.OF TABLE                     TABLE CODE                       *
+      *B.MF RE                        QGECFEC                          *
+      *B.IF ENTRADA                   INPUT DATA                       *
+      *B.IF ENTIDAD                   RETRIEVED ENTITY FROM TABLE      *
+      *B.OF SALIDA                    OUTPUT DATA                      *
+      *B.OF FECHA                     RETRIEVED ACCOUNTING DATE FROMA  *
+      *B/OF                           TABLE                            *
+      *B.OF FECHA-SIG                 NEXT DATE                        *
+      *B.OF IND-BLOQ                  LOCK FLAG                        *
+      *B.OF TECLEOS-ACT               FLAG OF ACTIVE KEYS TABLE        *
+      *B.FV   88-TECLEOS-ACT-A        OPTION <'A'>                     *
+      *B/FV                           'A'                              *
+      *B.FV   88-TECLEOS-ACT-B        OPTION <'B'>                     *
+      *B/FV                           'B'                              *
+      *B.OF AUTORIZ-ACT               FLAG OF ACTIVE AUTHORIZATIONS    *
+      *B/OF                           TABLE                            *
+      *B.FV   88-AUTORIZ-ACT-A        OPTION <'A'>                     *
+      *B/FV                           'A'                              *
+      *B.FV   88-AUTORIZ-ACT-B        OPTION <'B'>                     *
+      *B/FV                           'B'                              *
+      *B.OF TOTALES-ACT               FLAG OF ACTIVE TOTALS TABLE      *
+      *B.FV   88-TOTALES-ACT-A        OPTION <'A'>                     *
+      *B/FV                           'A'                              *
+      *B.FV   88-TOTALES-ACT-B        OPTION <'B'>                     *
+      *B/FV                           'B'                              *
+      *B.FV   88-TOTALES-ACT-C        OPTION <'C'>                     *
+      *B/FV                           'C'                              *
+      *B.OF JOURNAL-ACT               FLAG OF ACTIVE JOURNAL TABLE     *
+      *B.FV   88-JOURNAL-ACT-A        OPTION <'A'>                     *
+      *B/FV                           'A'                              *
+      *B.FV   88-JOURNAL-ACT-B        OPTION <'B'>                     *
+      *B/FV                           'B'                              *
+      *B.FV   88-JOURNAL-ACT-C        OPTION <'C'>                     *
+      *B/FV                           'C'                              *
+      *B.OF TOTALES-AYER              FLAG OF YESTERDAY TOTALS TABLE   *
+      *B.FV   88-TOTALES-AYER-A       OPTION <'A'>                     *
+      *B/FV                           'A'                              *
+      *B.FV   88-TOTALES-AYER-B       OPTION <'B'>                     *
+      *B/FV                           'B'                              *
+      *B.FV   88-TOTALES-AYER-C       OPTION <'C'>                     *
+      *B/FV                           'C'                              *
+      *B.OF JOURNAL-AYER              FLAG OF YESTERDAY JOURNAL TABLE  *
+      *B.FV   88-JOURNAL-AYER-A       OPTION <'A'>                     *
+      *B/FV                           'A'                              *
+      *B.FV   88-JOURNAL-AYER-B       OPTION <'B'>                     *
+      *B/FV                           'B'                              *
+      *B.FV   88-JOURNAL-AYER-C       OPTION <'C'>                     *
+      *B/FV                           'C'                              *
+      *B.OF TECLEOS-VACIA             FLAG OF EMPTY TAPS TABLE         *
+      *B.FV   88-TECLEOS-VACIA-A      OPTION <'A'>                     *
+      *B/FV                           'A'                              *
+      *B.FV   88-TECLEOS-VACIA-B      OPTION <'B'>                     *
+      *B/FV                           'B'                              *
+      *B.OF AUTORIZ-VACIA             FLAG OF EMPTY AUTHORIZATION TABLE*
+      *B.FV   88-AUTORIZ-VACIA-A      OPTION <'A'>                     *
+      *B/FV                           'A'                              *
+      *B.FV   88-AUTORIZ-VACIA-B      OPTION <'B'>                     *
+      *B/FV                           'B'                              *
+      *B.OF TOTALES-VACIA             FLAG OF EMPTY TOTALS TABLE       *
+      *B.FV   88-TOTALES-VACIA-A      OPTION <'A'>                     *
+      *B/FV                           'A'                              *
+      *B.FV   88-TOTALES-VACIA-B      OPTION <'B'>                     *
+      *B/FV                           'B'                              *
+      *B.FV   88-TOTALES-VACIA-C      OPTION <'C'>                     *
+      *B/FV                           'C'                              *
+      *B.OF JOURNAL-VACIA             FLAG OF EMPTY JOURNAL TABLE      *
+      *B.FV   88-JOURNAL-VACIA-A      OPTION <'A'>                     *
+      *B/FV                           'A'                              *
+      *B.FV   88-JOURNAL-VACIA-B      OPTION <'B'>                     *
+      *B/FV                           'B'                              *
+      *B.FV   88-JOURNAL-VACIA-C      OPTION <'C'>                     *
+      *B/FV                           'C'                              *
+      *B.OF SYSID-FRONT               FRONT SYSTEM IDENTIFIER          *
+      *B.OF CODTRAN-PAGFRO            TRANSACTION CODE OF FRONT PAGE   *
+      *B.OF CICS-OTROS                CICS                             *
+      *B.OF CICS-OTROS-O              CICS                             *
+      *B.OF SYSID-OTROS               OTHER SYSTEM IDENTIFIERS         *
+      *B.OF ENTORNO                   WORK ENVIRONMENT OF CONTROL      *
+      *B/OF                           TABLE                            *
+      *B.FV   88-ENTORNO-DESA         DEVELOPMENT                      *
+      *B/FV                           'D'                              *
+      *B.FV   88-ENTORNO-FORM         FORMATION                        *
+      *B/FV                           'F'                              *
+      *B.FV   88-ENTORNO-TEST         TEST                             *
+      *B/FV                           'T'                              *
+      *B.FV   88-ENTORNO-PROD         PRODUCTION                       *
+      *B/FV                           'P'                              *
+      *B.OF SEGURIDAD-IE              SECURITY TYPE                    *
+      *B.FV   88-SEGURIDAD-I          INTERNAL                         *
+      *B/FV                           'I'                              *
+      *B.FV   88-SEGURIDAD-E          EXTERNAL                         *
+      *B/FV                           'E'                              *
+      *B.OF TIMEST-INIC               STARTING TIMESTAMPO              *
+      *B.OF TIMEST-FIN                ENDING TIMESTAMP                 *
+      *B.OF FILLER                    FILLER                           *
+      *B.OF FILLER                    FILLER                           *
+      *B.OF IDIOMA-SIST               SYSTEM LANGUAGE                  *
+      *B.OF DATE-FORMAT               DATE FORMAT                      *
+      *B.OF FILLER                    NUMBER FORMAT                    *
+      *B.OF CAMPO1                    FIELD1                           *
+      *B.OF CAMPO2                    FIELD2                           *
+      *B.OF IND-LIBRE4                FREE FLAG 4                      *
+      *B.OF IND-LIBRE5                FREE FLAG 5                      *
+      *B.OF IND-LIBRE6                FREE FLAG 6                      *
+      *B.OF IND-LIBRE7                FREE FLAG 7                      *
+      *B.OF REGIONES-CICS             CICS ZONES                       *
+      *B.OF MRO-REGION-O REDE         CICS ZONES                       *
+      *B.OF MRO-SYSID                 SYSTEM IDENTIFIER                *
+      *B.OF MRO-TIPO                  TYPE                             *
+      *B.OF CODIGOS                   OUTPUT CODES                     *
+      *B.OF FILLER                    FILLER                           *
+      *B.OF FILLER                    FILLER                           *
+      *B.OF FILLER                    FILLER                           *
+      *B.OF SQLERRML                  LENGTH OF SQLCA ERROR MESSAGE    *
+      *B.OF SQLERRMC                  MESSAGE OF SQLCA ERROR MESSAGE   *
+      *B.OF TABLA                     TABLE CODE                       *
+      ******************************************************************
+
+       01  QGECFEC.
+           03  FEC-DTA-INP.
+               05 FEC-ENT-RTV              PIC X(4).
+
+           03  FEC-DTAOUT.
+               05 FEC-DAT-A                PIC X(10).
+               05 FEC-DATE-NEXT            PIC X(10).
+               05 FEC-FLG-LOCK             PIC X(1).
+               05 FEC-SW-ACVTYPES          PIC X(1).
+                      88 FEC-SW-ACV-TYPTABLEA          VALUE 'A'.
+                      88 FEC-SW-ACV-TYPTABLEB          VALUE 'B'.
+               05 FEC-SW-ACVAUTHO          PIC X(1).
+                      88 FEC-SW-ACV-AUTTABLEA          VALUE 'A'.
+                      88 FEC-SW-ACV-AUTTABLEB          VALUE 'B'.
+               05 FEC-SW-ACVTOTAL          PIC X(1).
+                      88 FEC-SW-ACV-TOTTABLEA          VALUE 'A'.
+                      88 FEC-SW-ACV-TOTTABLEB          VALUE 'B'.
+                      88 FEC-SW-ACV-TOTTABLEC          VALUE 'C'.
+               05 FEC-SW-ACVJOURN          PIC X(1).
+                      88 FEC-SW-ACV-JOUTABLEA          VALUE 'A'.
+                      88 FEC-SW-ACV-JOUTABLEB          VALUE 'B'.
+                      88 FEC-SW-ACV-JOUTABLEC          VALUE 'C'.
+               05 FEC-SW-YDAYTOTAL         PIC X(1).
+                      88 FEC-SW-YDA-TOTALTABLA         VALUE 'A'.
+                      88 FEC-SW-YDA-TOTALTABLB         VALUE 'B'.
+                      88 FEC-SW-YDA-TOTALTABLC         VALUE 'C'.
+               05 FEC-SW-YDAYJOURN         PIC X(1).
+                      88 FEC-SW-YDA-JOURTABLEA         VALUE 'A'.
+                      88 FEC-SW-YDA-JOURTABLEB         VALUE 'B'.
+                      88 FEC-SW-YDA-JOURTABLEC         VALUE 'C'.
+               05 FEC-SW-EMPTYTYPES        PIC X(1).
+                      88 FEC-SW-EMPTY-TYPES-TBA        VALUE 'A'.
+                      88 FEC-SW-EMPTY-TYPES-TBB        VALUE 'B'.
+               05 FEC-SW-EMPTYAUTHO        PIC X(1).
+                      88 FEC-SW-EMPTY-AUTHO-TBA        VALUE 'A'.
+                      88 FEC-SW-EMPTY-AUTHO-TBB        VALUE 'B'.
+               05 FEC-SW-EMPTYTOTAL        PIC X(1).
+                      88 FEC-SW-EMPT-TOT-TABLEA        VALUE 'A'.
+                      88 FEC-SW-EMPT-TOT-TABLEB        VALUE 'B'.
+                      88 FEC-SW-EMPT-TOT-TABLEC        VALUE 'C'.
+               05 FEC-SW-EMPTYJOURN        PIC X(1).
+                      88 FEC-SW-EMPT-JOU-TABLEA        VALUE 'A'.
+                      88 FEC-SW-EMPT-JOU-TABLEB        VALUE 'B'.
+                      88 FEC-SW-EMPT-JOU-TABLEC        VALUE 'C'.
+               05 FEC-FRONTSYSTID          PIC X(4).
+               05 FEC-COD-FRONTPAGTR       PIC X(4).
+               05 FEC-TB-OTHCICS           PIC X(80).
+               05 FEC-TB-RE-OTHCIC REDEFINES FEC-TB-OTHCICS
+                                     OCCURS 20 TIMES.
+                  10 FEC-TB-OTH-SYSI       PIC X(4).
+               05 FEC-SW-ENVI              PIC X(1).
+                      88 FEC-SW-ENV-DEVELOPM           VALUE 'D'.
+                      88 FEC-SW-ENV-FORMATIO           VALUE 'F'.
+                      88 FEC-SW-ENV-TESTWORK           VALUE 'T'.
+                      88 FEC-SW-ENV-PRODUCTI           VALUE 'P'.
+               05 FEC-SW-TYP-SECUR         PIC X(1).
+                      88 FEC-SW-SEC-INTERNA            VALUE 'I'.
+                      88 FEC-SW-SEC-EXTERNA            VALUE 'E'.
+               05 FEC-STP-STARTIN          PIC X(26).
+               05 FEC-STP-ENDING           PIC X(26).
+               05 FEC-USERID               PIC X(8).
+               05 FEC-CUST-CODE            PIC X(2).
+               05 FEC-SYSTEM-LANG          PIC X(1).
+               05 FEC-FORMAT-DATE          PIC X(1).
+               05 FEC-NUM-FORMAT           PIC X(1).
+               05 FEC-FIELD1               PIC X(5).
+               05 FEC-FIELD2               PIC X(10).
+               05 FEC-FLG-FREE-4           PIC X(1).
+               05 FEC-FLG-FREE-5           PIC X(1).
+               05 FEC-FLG-FREE-6           PIC X(1).
+               05 FEC-FLG-FREE-7           PIC X(1).
+               05 FEC-TB-CICS-REGIO        PIC X(200).
+               05 FEC-TB-RE-CICS-R REDEFINES FEC-TB-CICS-REGIO
+                                OCCURS 40 TIMES.
+                  10 FEC-TB-CIC-SY         PIC X(4).
+                  10 FEC-TB-CIC-T          PIC X(1).
+               05 FEC-COD-OUT.
+                  10 FEC-RETURN            PIC 99.
+      *.MC.S @V620736DQA
+                    88 FEC-SW-COD-RETURN-OK        VALUE 00.
+                    88 FEC-SW-COD-RETURN-NOT-FOUND VALUE 01.
+                    88 FEC-SW-COD-RETURN-ERR-DB2   VALUE 99.
+      *.MC.E @V620736DQA
+                  10 FEC-SQLCODE           PIC S9(9)  COMP.
+                  10 FEC-SQLERRM.
+                     15 FEC-LSQLERRM       PIC S9(04) COMP.
+                     15 FEC-TSQLERRM       PIC  X(70).
+               05 FEC-TABLE                PIC  X(07).
+      *$.                                                              *
+       01  QGECFEC-RE REDEFINES QGECFEC.
+           03  FEC-ENTRADA.
+               05 FEC-ENTIDAD              PIC X(4).
+
+           03  FEC-SALIDA.
+               05 FEC-FECHA                PIC X(10).
+               05 FEC-FECHA-SIG            PIC X(10).
+               05 FEC-IND-BLOQ             PIC X(1).
+               05 FEC-TECLEOS-ACT          PIC X(1).
+                      88 FEC-88-TECLEOS-ACT-A          VALUE 'A'.
+                      88 FEC-88-TECLEOS-ACT-B          VALUE 'B'.
+               05 FEC-AUTORIZ-ACT          PIC X(1).
+                      88 FEC-88-AUTORIZ-ACT-A          VALUE 'A'.
+                      88 FEC-88-AUTORIZ-ACT-B          VALUE 'B'.
+               05 FEC-TOTALES-ACT          PIC X(1).
+                      88 FEC-88-TOTALES-ACT-A          VALUE 'A'.
+                      88 FEC-88-TOTALES-ACT-B          VALUE 'B'.
+                      88 FEC-88-TOTALES-ACT-C          VALUE 'C'.
+               05 FEC-JOURNAL-ACT          PIC X(1).
+                      88 FEC-88-JOURNAL-ACT-A          VALUE 'A'.
+                      88 FEC-88-JOURNAL-ACT-B          VALUE 'B'.
+                      88 FEC-88-JOURNAL-ACT-C          VALUE 'C'.
+               05 FEC-TOTALES-AYER         PIC X(1).
+                      88 FEC-88-TOTALES-AYER-A         VALUE 'A'.
+                      88 FEC-88-TOTALES-AYER-B         VALUE 'B'.
+                      88 FEC-88-TOTALES-AYER-C         VALUE 'C'.
+               05 FEC-JOURNAL-AYER         PIC X(1).
+                      88 FEC-88-JOURNAL-AYER-A         VALUE 'A'.
+                      88 FEC-88-JOURNAL-AYER-B         VALUE 'B'.
+                      88 FEC-88-JOURNAL-AYER-C         VALUE 'C'.
+               05 FEC-TECLEOS-VACIA        PIC X(1).
+                      88 FEC-88-TECLEOS-VACIA-A        VALUE 'A'.
+                      88 FEC-88-TECLEOS-VACIA-B        VALUE 'B'.
+               05 FEC-AUTORIZ-VACIA        PIC X(1).
+                      88 FEC-88-AUTORIZ-VACIA-A        VALUE 'A'.
+                      88 FEC-88-AUTORIZ-VACIA-B        VALUE 'B'.
+               05 FEC-TOTALES-VACIA        PIC X(1).
+                      88 FEC-88-TOTALES-VACIA-A        VALUE 'A'.
+                      88 FEC-88-TOTALES-VACIA-B        VALUE 'B'.
+                      88 FEC-88-TOTALES-VACIA-C        VALUE 'C'.
+               05 FEC-JOURNAL-VACIA        PIC X(1).
+                      88 FEC-88-JOURNAL-VACIA-A        VALUE 'A'.
+                      88 FEC-88-JOURNAL-VACIA-B        VALUE 'B'.
+                      88 FEC-88-JOURNAL-VACIA-C        VALUE 'C'.
+               05 FEC-SYSID-FRONT          PIC X(4).
+               05 FEC-CODTRAN-PAGFRO       PIC X(4).
+               05 FEC-CICS-OTROS           PIC X(80).
+               05 FEC-CICS-OTROS-O REDEFINES FEC-CICS-OTROS
+                                     OCCURS 20 TIMES.
+                  10 FEC-SYSID-OTROS       PIC X(4).
+               05 FEC-ENTORNO              PIC X(1).
+                      88 FEC-88-ENTORNO-DESA           VALUE 'D'.
+                      88 FEC-88-ENTORNO-FORM           VALUE 'F'.
+                      88 FEC-88-ENTORNO-TEST           VALUE 'T'.
+                      88 FEC-88-ENTORNO-PROD           VALUE 'P'.
+               05 FEC-SEGURIDAD-IE         PIC X(1).
+                      88 FEC-88-SEGURIDAD-I            VALUE 'I'.
+                      88 FEC-88-SEGURIDAD-E            VALUE 'E'.
+               05 FEC-TIMEST-INIC          PIC X(26).
+               05 FEC-TIMEST-FIN           PIC X(26).
+               05 FILLER                   PIC X(8).
+               05 FILLER                   PIC X(2).
+               05 FEC-IDIOMA-SIST          PIC X(1).
+               05 FEC-DATE-FORMAT          PIC X(1).
+               05 FILLER                   PIC X(1).
+               05 FEC-CAMPO1               PIC X(5).
+               05 FEC-CAMPO2               PIC X(10).
+               05 FEC-IND-LIBRE4           PIC X(1).
+               05 FEC-IND-LIBRE5           PIC X(1).
+               05 FEC-IND-LIBRE6           PIC X(1).
+               05 FEC-IND-LIBRE7           PIC X(1).
+               05 FEC-REGIONES-CICS        PIC X(200).
+               05 FEC-MRO-REGION-O REDEFINES FEC-REGIONES-CICS
+                                OCCURS 40 TIMES.
+                  10 FEC-MRO-SYSID         PIC X(4).
+                  10 FEC-MRO-TIPO          PIC X(1).
+               05 FEC-CODIGOS.
+                  10 FILLER                PIC 99.
+                  10 FILLER                PIC S9(9)  COMP.
+                  10 FILLER.
+                     15 FEC-SQLERRML       PIC S9(04) COMP.
+                     15 FEC-SQLERRMC       PIC  X(70).
+               05 FEC-TABLA                PIC  X(07).

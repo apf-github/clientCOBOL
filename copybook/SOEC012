@@ -1,0 +1,131 @@
+      * SOEC012:  LINK AREA WITH THE MODULE TO OBTAIN A STANDARD FEE   *
+      ******************************************************************
+      *                     MODIFICATIONS LOG                          *
+      ******************************************************************
+      *     CODE       AUTHOR  DATE     DESCRIPTION                    *
+      *     ---------- ------- -------- ------------------------------ *
+      ******************************************************************
+      *B.IF SOEC012-INP               INPUT FIELDS                     *
+      *B.IF ENT                       ENVIRONMENT ENTITY KEY           *
+      *B.IF COD-PRODUCT               ALNOVA PRODUCT CODE              *
+      *B.IF DAT-OPERATION             COMMISSION COLLECTION DATE       *
+      *B.IF COD-PLAN                  COMMISSION PLAN CODE APPLIED TO  *
+      *B/IF                           THE CONTRACT                     *
+      *B.IF COD-COM                   COMMISSION CODE TO COLLECT       *
+      *B.IF COD-FCC                   CURRENCY IN WHICH THE OPERATION  *
+      *B/IF                           WAS MADE                         *
+      *B.IF AMT-NOMINAL               OPERATION NOMINAL AMOUNT         *
+      *B.IF NUM-UNITS                 COLLECTION UNITS NUMBER          *
+      *B.IF CHANNEL                   CHANNEL BY WHICH THE OPERATION   *
+      *B/IF                           IS MADE                          *
+      *B.IF BRN-REGISTRATION          REGISTRATION BRANCH              *
+      *B.IF SEGMENT                   SEGMENT TO WHICH THE PERSON      *
+      *B/IF                           BELONGS TO                       *
+      *B.IF PROGRAM                   PROGRAM THAT MAKES THE CALL TO   *
+      *B/IF                           THE ROUTINE                      *
+      *B.OF SOEC012-OUT               OUTPUT FIELDS                    *
+      *B.OF COD-RETURN                RETURN CODE                      *
+      *B/OF                           '00' OK                          *
+      *B/OF                           '80' WRONG INPUT DATA            *
+      *B/OF                           '99' DB2 ACCESS ERROR            *
+      *B.OF ERROR                     ERROR                            *
+      *B.OF ERR-DB2                   DB2 ERROR                        *
+      *B.OF SQLCODE                   SQL RETURN CODE                  *
+      *B.OF SQLERRM                   SQL ERROR MESSAGE                *
+      *B.OF SQLERRMLTH                SQL ERROR MESSAGE LENGTH         *
+      *B.OF DAT-SQLERRM               SQL RETURN MESSAGE DATA          *
+      *B.OF TABLENAME                 TABLE NAME                       *
+      *B.OF REFERENCE                 REFERENCE                        *
+      *B.OF FLG-VATCOM                INDICATOR OF THE OPERATION WITH  *
+      *B/OF                           TAX ('S'/'N')                    *
+      *B.OF FLG-CNDPROC               CONDONATION PROCESS:             *
+      *B/OF                           'GE' COMMISSION LOAD AND THEN    *
+      *B/OF                                BONUS                       *
+      *B/OF                           'EX' COMMISSION LOAD LESS NET    *
+      *B/OF                                BONUS                       *
+      *B.OF AMT-FIXED                 FIXED AMOUNT COMMISSION TARIFF   *
+      *B.OF PER-NORMAL                NORMAL PERCENTAGE OF A COMMISSION*
+      *B/OF                           TO TARIF.                        *
+      *B.OF AMT-UNITARY               UNITARY AMOUNT OF THE COMMISSION *
+      *B/OF                           TARIFF                           *
+      *B.OF AMT-MINIMUM               MINIMUM AMOUNT COMMISSION TARIFF *
+      *B.OF AMT-MAXIMUM               MAXIMUM AMOUNT COMMISSION TARIFF *
+      *B.OF AMT-MINBON                MINIMUM AMOUNT APPLIED TO AN     *
+      *B/OF                           IMMEDIATE BONUS TARIFF           *
+      *B.OF PER-BONMIN                MINIMUM PERCENTAGE TO APPLY      *
+      *B/OF                           IMMEDIATE BONUS                  *
+      *B.OF AMT-UNITBON               UNITARY MINIMUM AMOUNT BONUS     *
+      *B/OF                           TARIFF                           *
+      *B.OF AMT-MINAMTBON             MINIMUM AMOUNT. AMOUNT TO APPLY  *
+      *B/OF                           BONUS TARIFF                     *
+      *B.OF AMT-MINMAXBON             MINIMUM AMOUNT. MAXIMUM AMOUNT TO*
+      *B/OF                           APPLY BONUS TARIFF               *
+      *B.OF COD-COMCPT                COMMISSION CODE IN RELATION WITH *
+      *B/OF                           BOOK-KEEPING ACCOUNT             *
+      *B.OF COD-VATCOM                VAT FLAG                         *
+      *B.OF SCOPE1                    SCOPE                            *
+      *B.OF SCOPE2                    SCOPE                            *
+      *B.OF FLG-BONIMM                BONUS INDICATOR FOR COMMISSIONS  *
+      *B.OF AMT-ZONESCO               AMOUNT ZONE SCOPE                *
+      *B.OF PER-ZONESCO               PERCENTAGE ZONE SCOPE            *
+      *B.OF FLG-ZONEVAR               VARIATION WAY FLAG ('0'/'1').    *
+      *B/OF                           ZONE                             *
+      *B.OF AMT-SEGSCO                AMOUNT SEGMENT SCOPE             *
+      *B.OF PER-SEGSCO                PERCENTAGE SEGMENT SCOPE         *
+      *B.OF FLG-SEGVAR                VARIATION WAY FLAG ('0'/'1').    *
+      *B/OF                           SEGMENT                          *
+      *B.OF AMT-FREE1                 FREE AMOUNT 1                    *
+      *B.OF AMT-FREE2                 FREE AMOUNT 2                    *
+      ******************************************************************
+
+            05 E012-SOEC012-INP.
+      *
+               10 E012-ENT                 PIC X(4).
+               10 E012-COD-PRODUCT         PIC X(6).
+               10 E012-DAT-OPERATION       PIC X(10).
+               10 E012-COD-PLAN            PIC X(3).
+               10 E012-COD-COM             PIC X(10).
+               10 E012-COD-FCC             PIC X(3).
+               10 E012-AMT-NOMINAL         PIC S9(13)V9(2) COMP-3.
+               10 E012-NUM-UNITS           PIC S9(6) COMP-3.
+               10 E012-CHANNEL             PIC X(2).
+               10 E012-BRN-REGISTRATION    PIC X(4).
+               10 E012-SEGMENT             PIC X(2).
+               10 E012-PROGRAM             PIC X(8).
+      *
+            05 E012-SOEC012-OUT.
+      *
+               10  E012-COD-RETURN         PIC X(2).
+               10  E012-ERROR              PIC X(10).
+               10  E012-ERR-DB2.
+                   15 E012-SQLCODE         PIC S9(9)  COMP.
+                   15 E012-SQLERRM.
+                      20 E012-SQLERRMLTH   PIC S9(04) COMP.
+                      20 E012-DAT-SQLERRM  PIC  X(70).
+                   15 E012-TABLENAME       PIC X(8).
+                   15 E012-REFERENCE       PIC X(20).
+               10 E012-FLG-VATCOM          PIC X(1).
+               10 E012-FLG-CNDPROC         PIC X(2).
+               10 E012-AMT-FIXED           PIC S9(13)V9(2) USAGE COMP-3.
+               10 E012-PER-NORMAL          PIC S9(3)V9(5) USAGE COMP-3.
+               10 E012-AMT-UNITARY         PIC S9(13)V9(2) USAGE COMP-3.
+               10 E012-AMT-MINIMUM         PIC S9(13)V9(2) USAGE COMP-3.
+               10 E012-AMT-MAXIMUM         PIC S9(13)V9(2) USAGE COMP-3.
+               10 E012-AMT-MINBON          PIC S9(13)V9(2) USAGE COMP-3.
+               10 E012-PER-BONMIN          PIC S9(13)V9(3) USAGE COMP-3.
+               10 E012-AMT-UNITBON         PIC S9(13)V9(2) USAGE COMP-3.
+               10 E012-AMT-MINAMTBON       PIC S9(13)V9(2) USAGE COMP-3.
+               10 E012-AMT-MINMAXBON       PIC S9(13)V9(2) USAGE COMP-3.
+               10 E012-COD-COMCPT          PIC X(5).
+               10 E012-COD-VATCOM          PIC X(3).
+               10 E012-SCOPE1              PIC X(2).
+               10 E012-SCOPE2              PIC X(4).
+               10 E012-FLG-BONIMM          PIC X(1).
+               10 E012-AMT-ZONESCO         PIC S9(13)V9(2) USAGE COMP-3.
+               10 E012-PER-ZONESCO         PIC S9(3)V9(5) USAGE COMP-3.
+               10 E012-FLG-ZONEVAR         PIC X(1).
+               10 E012-AMT-SEGSCO          PIC S9(13)V9(2) USAGE COMP-3.
+               10 E012-PER-SEGSCO          PIC S9(3)V9(5) USAGE COMP-3.
+               10 E012-FLG-SEGVAR          PIC X(1).
+               10 E012-AMT-FREE1           PIC S9(13)V9(2) USAGE COMP-3.
+               10 E012-AMT-FREE2           PIC S9(13)V9(2) USAGE COMP-3.

@@ -1,0 +1,138 @@
+      *                     MODIFICATIONS LOG                          *
+      ******************************************************************
+      *     CODE       AUTHOR  DATE     DESCRIPTION                    *
+      *     ---------- ------- -------- ------------------------------ *
+      ******************************************************************
+      *B.MF BGEC571                   COMMAREA MODULE                  *
+      *B/MF                           INTERFACE OF CONTROL ACCOUNTS    *
+      *B/MF                           DATES, (BG9C5710)                *
+      *B.IF OPT                       OPTION                           *
+      *B/IF                           " " IT OBTAINS DATA FROM THE     *
+      *B/IF                               CONTROL DATE TABLE           *
+      *B/IF                           "1" IT OBTAINS DATA FROM THE     *
+      *B/IF                               CONTROL DATE TABLE AND       *
+      *B/IF                               INCREMENTS IN ONE THE COUNTER*
+      *B/IF                               OF TOURISM OPERATIONS        *
+      *B.IF KEY                       ACCOUNT KEY                      *
+      *B.IF ENT                       ENTITY                           *
+      *B.OF ANSWER                    ANSWER                           *
+      *B.OF DAT-ENDMM                 LAST CLOSED MONTH DATE           *
+      *B.OF DAT-CLOSING               CLOSING DATE                     *
+      *B.OF DAT-ACCT                  ACCOUNTING DATE                  *
+      *B.OF DAT-SESCHG                SESSION LAST CHANGE DATE         *
+      *B.OF TIME-SESCHG               SESSION LAST CHANGE HOUR         *
+      *B.OF SW-KEYING                 ACTIVE DATABASE                  *
+      *B/OF                           '1' FUNCTION KEYS BASE M01       *
+      *B/OF                           '2' FUNCTION KEYS BASE M02       *
+      *B.FV   SW-KEY-1                '1' KEYING1                      *
+      *B.FV   SW-KEY-2                '2' KEYING2                      *
+      *B.OF YY4-LASTCLO               LAST YEAR CLOSED IN OPERATION    *
+      *B/OF                           TAPE                             *
+      *B.OF YY4-LASTCLO-9             LAST YEAR CLOSED IN OPERATION    *
+      *B/OF                           TAPE REDEFINES                   *
+      *B.OF DAT-FSTCRR                CURRENT MOVEMENTS FIRST DATE IN  *
+      *B/OF                           STRIP                            *
+      *B.OF DAT-FSTCRRM               FIRST DATE IN STRIP OF THE       *
+      *B/OF                           CURRENT MONTH                    *
+      *B.OF OPSAPP                    APP-OPS                          *
+      *B.OF OPSAPPO                   APP-OPS                          *
+      *B.OF COD-OPSAPP                APPLICATION CODE                 *
+      *B.OF NUM-OPSFIC                IMPUT FILE LAST NUMBER           *
+      *B.OF OPMAPP                    APP-OPM                          *
+      *B.OF OPMAPPO                   APP-OPM                          *
+      *B.OF COD-OPMAPP                APPLICATION CODE                 *
+      *B.OF NUM-OPMFIC                FILE NUMBER OF APPLICATION DAY   *
+      *B.OF NUM-LASTOPE               LAST NUMBER OF THE LAST          *
+      *B/OF                           PROCESSED OPERATION              *
+      *B.OF NUM-LASTITRTRF            LAST NUMBER OF THE LAST          *
+      *B/OF                           PROCESSED TRANFER                *
+      *B.OF NUM-LASTITRTRFAPP         LAST NUMBER OF THE LAST          *
+      *B/OF                           TRANSF.PROCES.BY BG              *
+      *B.OF NUM-LASTCHK               LAST CHEQUE NUMBER               *
+      *B.OF FLG-CHGSTBG               CHANGE STATUS BG FLAG            *
+      *B.OF FLD-FREE1                 FREE FIELD 1                     *
+      *B.OF FLD-FREE2                 FREE FIELD 2                     *
+      *B.OF DAT-LASTAPPR              COMMUNICATION OF CONCESSIONS     *
+      *B/OF                           LAST DATE                        *
+      *B.OF DAT-LASTMAT               LAST DATE MATURITIES             *
+      *B/OF                           COMMUNICATION                    *
+      *B.OF STP                       TIMESTAMP (DATE AND TIME)        *
+      *B.OF ENT-UMO                   LAST MODIFICATION ENTITY         *
+      *B.OF CEN-UMO                   LAST MODIFICATION CENTER         *
+      *B.OF USER-UMO                  LAST MODIFICATION USER           *
+      *B.OF NETNAME-UMO               LAST MODIFICATION TERMINAL       *
+      *B.OF STP-UMO                   LAST MODIFICATION DATE AND TIME  *
+      *B.OF CONTRN                    TOURISM COUNTER                  *
+      *B.OF ERR-OUT                   ERRORS OUTPUT                    *
+      *B.OF COD-RETURN                RETURN CODE                      *
+      *B/OF                           '00' RETRUN OK                   *
+      *B/OF                           '10' IT DOESN'T INFORM           *
+      *B/OF                                CORRECTLY TO ACCESS CODE    *
+      *B/OF                                INTO TABLE                  *
+      *B/OF                           '20' INFORMATION NOT FOUND IN THE*
+      *B/OF                                BGDT013 TABLE WITH THE      *
+      *B/OF                                INFORMED CODE               *
+      *B/OF                           '99' ERROR DB2                   *
+      *B.OF SQLCODE                   SQLCODE                          *
+      *B.OF SQLERRM                   LENGTH AND DESCRIPTION OF THE    *
+      *B/OF                           MESSAGE                          *
+      *B.OF SQLERRM-L                 SQLERROR LENGTH                  *
+      *B.OF SQLERRM-DTA               SQLERROR DATA                    *
+      *B.OF DES-TABLE                 TABLENAME                        *
+      *B.OF REFERENCE                 REFERENCE                        *
+      ******************************************************************
+       01  BGEC571.
+      *
+         05 E571-OPT                       PIC X(1).
+         05 E571-KEY                       PIC X(5).
+         05 E571-ENT                       PIC X(4).
+      *
+         05 E571-ANSWER.
+            10 E571-DAT-ENDMM              PIC X(10).
+            10 E571-DAT-CLOSING            PIC X(10).
+            10 E571-DAT-ACCT               PIC X(10).
+            10 E571-DAT-SESCHG             PIC X(10).
+            10 E571-TIME-SESCHG            PIC X(8).
+            10 E571-SW-KEYING              PIC X(1).
+               88 E571-SW-KEY-1                        VALUE '1'.
+               88 E571-SW-KEY-2                        VALUE '2'.
+            10 E571-YY4-LASTCLO            PIC X(4).
+            10 E571-YY4-LASTCLO-9        REDEFINES E571-YY4-LASTCLO
+                                           PIC 9(4).
+            10 E571-DAT-FSTCRR             PIC X(10).
+            10 E571-DAT-FSTCRRM            PIC X(10).
+            10 E571-OPSAPP                 PIC X(150).
+            10 E571-OPSAPPO          REDEFINES E571-OPSAPP
+                                       OCCURS 15 TIMES.
+               15 E571-COD-OPSAPP          PIC X(02).
+               15 E571-NUM-OPSFIC          PIC X(08).
+            10 E571-OPMAPP                 PIC X(0100).
+            10 E571-OPMAPPO          REDEFINES E571-OPMAPP
+                                       OCCURS 10 TIMES.
+               15 E571-COD-OPMAPP          PIC X(02).
+               15 E571-NUM-OPMFIC          PIC X(08).
+            10 E571-NUM-LASTOPE            PIC S9(07) COMP-3.
+            10 E571-NUM-LASTITRTRF         PIC S9(07) COMP-3.
+            10 E571-NUM-LASTITRTRFAPP      PIC S9(07) COMP-3.
+            10 E571-NUM-LASTCHK            PIC S9(07) COMP-3.
+            10 E571-FLG-CHGSTBG            PIC S9(07) COMP-3.
+            10 E571-FLD-FREE1              PIC S9(07) COMP-3.
+            10 E571-FLD-FREE2              PIC S9(07) COMP-3.
+            10 E571-DAT-LASTAPPR           PIC X(10).
+            10 E571-DAT-LASTMAT            PIC X(10).
+            10 E571-STP.
+               15 E571-ENT-UMO             PIC X(04).
+               15 E571-CEN-UMO             PIC X(04).
+               15 E571-USER-UMO            PIC X(08).
+               15 E571-NETNAME-UMO         PIC X(08).
+               15 E571-STP-UMO             PIC X(26).
+               15 E571-CONTRN              PIC S9(9) COMP-3.
+      *
+            10 E571-ERR-OUT.
+               15 E571-COD-RETURN          PIC X(2).
+               15 E571-SQLCODE             PIC S9(09) COMP.
+               15 E571-SQLERRM.
+                  20 E571-SQLERRM-L        PIC S9(04) COMP.
+                  20 E571-SQLERRM-DTA      PIC X(70).
+               15 E571-DES-TABLE           PIC X(16).
+               15 E571-REFERENCE           PIC X(20).

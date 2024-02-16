@@ -1,0 +1,130 @@
+      *                     MODIFICATIONS LOG                          *
+      ******************************************************************
+      *     CODE       AUTHOR  DATE     DESCRIPTION                    *
+      *     ---------- ------- -------- ------------------------------ *
+      ******************************************************************
+      *B.MF TCEC1800                  TC9C1800 LINK AREA (BATCH        *
+      *B/MF                           INTERFACE MODULE - FOREIGN       *
+      *B/MF                           EXCHANGE DATA)                   *
+      *B.IF TCEC1800I                 INPUT FIELDS                     *
+      *B.IF COD-OPTION                OPTION CODE                      *
+      *B.IF COD-SWIFTFCCS             CURRENCY SWIFT CODE              *
+      *B.IF COD-FCCCB                 NATIONAL BANK CURRENCY CODE      *
+      *B.IF COD-OTHERFCC              OTHER FOREIGN CURRENCY CODE      *
+      *B.OF TCEC1800O                 OUTPUT FIELDS                    *
+      *B.OF COD-RETURN                RETURN CODE                      *
+      *B/OF                           '00' ACCESS OK                   *
+      *B/OF                           '10' INVALID OPTION              *
+      *B/OF                           '20' NON-EXISTENT CURRENCY CODE  *
+      *B/OF                           '30' NON-EXISTENT INFORMED       *
+      *B/OF                                CURRENCY CODE               *
+      *B/OF                           '40' MULTIPLE INFORMED CURRENCY  *
+      *B/OF                                CODE                        *
+      *B/OF                           '50' ANNULLED CURRENCY           *
+      *B/OF                                (OPTION 1 ONLY)             *
+      *B/OF                           '60' INFORM ONLY SWIFT CURRENCY  *
+      *B/OF                                CODE IF OPTION 2 (OPTION 2  *
+      *B/OF                                ONLY)                       *
+      *B/OF                           '99' DB2 ERROR                   *
+      *B.OF ERR-DB2                   DB2 ERROR INFORMATION            *
+      *B.OF SQLCODE                   SQL RETURN CODE                  *
+      *B.OF SQLERRM                   SQL ERROR MESSAGE                *
+      *B.OF SQLERRMLON                SQL RETURN MESSAGE LENGTH        *
+      *B.OF DTA-SQLERRM               SQL RETURN MESSAGE DATA          *
+      *B.OF DES-TABLE                 DB2 TABLE NAME                   *
+      *B.OF FILLER                    FILLER                           *
+      *B.OF FLG-MOREFCC               ADDITIONAL FOREIGN CURRENCIES    *
+      *B/OF                           FLAG                             *
+      *B.OF TB-DATA                   TABLE DATA                       *
+      *B.OF TB-DATA-DTA-FCC-RE        CURRENT DATA                     *
+      *B.OF TB-DATA-COD-SWIFTFCCC     CURRENCY SWIFT CODE              *
+      *B.OF TB-DATA-COD-OTHERFCC      OTHER FOREIGN CURRENCY CODE      *
+      *B.OF TB-DATA-COD-FCCCBC        NATIONAL BANK CURRENCY CODE      *
+      *B.OF TB-DATA-DAT-CONTRACT      CONTRACT DATE                    *
+      *B.OF TB-DATA-DAT-VALUE         VALUE DATE                       *
+      *B.OF TB-DATA-COD-COUNTRY       COUNTRY CODE                     *
+      *B.OF TB-DATA-DES-SPAFCC        CURRENCY NAME                    *
+      *B.OF TB-DATA-DES-ORIFCC        CURRENCY VERNACULAR NAME         *
+      *B.OF TB-DATA-EXCHUNIT          EXCHANGE RATE UNIT               *
+      *B.OF TB-DATA-DES-MINBKN        MINIMUM BANK NOTE DENOMINATION   *
+      *B.OF TB-DATA-FCC-EXCHORDER     CURRENCY EXCHANGE ORDER          *
+      *B.OF TB-DATA-FLG-FCCQUOTE      CURRENCY QUOTE FLAG              *
+      *B.OF TB-DATA-FLG-BKNQUOTE      BILLS QUOTE FLAG                 *
+      *B.OF TB-DATA-FLG-DECIMAL       DECIMALS FLAG                    *
+      *B.OF TB-DATA-CHKPREFCORR       CHECK PREFERENTIAL CORRESPONDENT *
+      *B.OF TB-DATA-REMPREFCORR       REMITTANCE PREFERENTIAL          *
+      *B/OF                           CORRESPONDENT                    *
+      *B.OF TB-DATA-TRFPREFCORR       TRANSFERS PREFERENTIAL           *
+      *B/OF                           CORRESPONDENT                    *
+      *B.OF TB-DATA-DAT-ANN           ANNULMENT DATE                   *
+      *B/OF                           (DD.MM.YYYY FORMAT)              *
+      *B.OF TB-DATA-FLG-BLGEMU        BELONGS TO EMU FLAG              *
+      *B.OF TB-DATA-EMUEXCHVA         EXCHANGE RATE                    *
+      *B.OF TB-DATA-DAT-EMUENTR       DATE OF EMU ADMISSION            *
+      *B.OF TB-DATA-TCFINUEM          DATE OF EMU ADMISSION            *
+      *B/OF                           (REDEFINITION)                   *
+      *B.OF FILLER                    FILLER                           *
+      ******************************************************************
+       01  TCEC1800.
+         06 TCEC1800-TCEC1800I.
+           11 TCEC1800-COD-OPTION           PIC S9(1) COMP-3.
+           11 TCEC1800-COD-SWIFTFCCS        PIC X(3).
+           11 TCEC1800-COD-FCCCB            PIC S9(3) COMP-3.
+           11 TCEC1800-COD-OTHERFCC         PIC X(2).
+         06 TCEC1800-TCEC1800O.
+           11 TCEC1800-COD-RETURN           PIC X(2).
+           11 TCEC1800-ERR-DB2.
+             16 TCEC1800-SQLCODE            PIC S9(9) COMP.
+             16 TCEC1800-SQLERRM.
+               21 TCEC1800-SQLERRMLON       PIC S9(4) COMP.
+               21 TCEC1800-DTA-SQLERRM      PIC X(30).
+             16 TCEC1800-DES-TABLE          PIC X(16).
+             16 FILLER                      PIC X(5).
+           11 TCEC1800-FLG-MOREFCC          PIC S9(1) COMP-3.
+           11 TCEC1800-TB-DATA.
+             16 TCEC1800-TB-DATA-DTA-FCC-RE
+                            OCCURS 020 TIMES.
+               21 TCEC1800-TB-DATA-COD-SWIFTFCCC                  PIC
+                   X(3).
+               21 TCEC1800-TB-DATA-COD-OTHERFCC                  PIC
+                   X(2).
+               21 TCEC1800-TB-DATA-COD-FCCCBC                  PIC S9(3)
+                   COMP-3.
+               21 TCEC1800-TB-DATA-DAT-CONTRACT                  PIC
+                   X(10).
+               21 TCEC1800-TB-DATA-DAT-VALUE                   PIC
+                   X(10).
+               21 TCEC1800-TB-DATA-COD-COUNTRY                   PIC
+                   X(3).
+               21 TCEC1800-TB-DATA-DES-SPAFCC                   PIC
+                   X(20).
+               21 TCEC1800-TB-DATA-DES-ORIFCC                   PIC
+                   X(20).
+               21 TCEC1800-TB-DATA-EXCHUNIT PIC S9(3) COMP-3.
+               21 TCEC1800-TB-DATA-DES-MINBKN                  PIC S9(6)
+                   COMP-3.
+               21 TCEC1800-TB-DATA-FCC-EXCHORDER                  PIC
+                   X(2).
+               21 TCEC1800-TB-DATA-FLG-FCCQUOTE                  PIC
+                   X(1).
+               21 TCEC1800-TB-DATA-FLG-BKNQUOTE                  PIC
+                   X(1).
+               21 TCEC1800-TB-DATA-FLG-DECIMAL                  PIC
+                   X(1).
+               21 TCEC1800-TB-DATA-CHKPREFCORR                  PIC
+                   X(11).
+               21 TCEC1800-TB-DATA-REMPREFCORR                  PIC
+                   X(11).
+               21 TCEC1800-TB-DATA-TRFPREFCORR                  PIC
+                   X(11).
+               21 TCEC1800-TB-DATA-DAT-ANN  PIC X(10).
+               21  TCEC1800-TB-DATA-FLG-BLGEMU                 PIC X(3).
+               21  TCEC1800-TB-DATA-EMUEXCHVA                 PIC
+                   S9(4)V9(6) COMP-3.
+               21  TCEC1800-TB-DATA-DAT-EMUENTR                 PIC
+                   X(10).
+               21  TCEC1800-TB-DATA-TCFINUEM REDEFINES
+                   TCEC1800-TB-DATA-DAT-EMUENTR
+                                            PIC X(10).
+         06 FILLER                          PIC X(313).
+      *

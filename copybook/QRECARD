@@ -1,0 +1,68 @@
+      ******************************************************************
+      *A.OR.S                                                          *
+      *   COPY DEL MODULO PARA REALIZAR EL REDONDEO O NO DE DECIMALES  *
+      *   Y LA VALIDACION DE LOS DECIMALES DE UN NUMERO EN FORMATO     *
+      *   9(15),9(3)                                                   *
+      *A.OR.E                                                          *
+      *B.OR.S                                                          *
+      *   COPY OF MODULE TO PERFORM OR NOT THE ROUND OF DECIMALS AND   *
+      *   THE VALIDATION OF THE DECIMALS OF A NUMBER IN THE FORMAT     *
+      *   9(15),9(3)                                                   *
+      *B.OR.E                                                          *
+      ******************************************************************
+      *A.MF QRECARD                   QRECARD                          *
+      *A.IF DTA-INP                   CAMPOS DE ENTRADA                *
+      *A.IF QRAMOUNT                  IMPORTE A TRATAR POR EL MODULO   *
+      *A.IF QRCURREN                  CODIGO DE MONEDA                 *
+      *A.IF QRFLGHND                  INDICADOR DE TRATAMIENTO         *
+      *A.OF DTA-OUT                   CAMPOS DE SALIDA                 *
+      *A.OF QRRNDAMT                  IMPORTE REDONDEADO               *
+      *A.OF QRCRETUR                  CODIGO DE RETORNO DEL MODULO     *
+      *A.MF RE                        QRECARD                          *
+      *A.IF ENTRADA                   CAMPOS DE ENTRADA                *
+      *A.IF QRIMPORT                  IMPORTE A TRATAR POR EL MODULO   *
+      *A.IF QRCMONED                  CODIGO DE MONEDA                 *
+      *A.IF QRTRACTA                  INDICADOR DE TRATAMIENTO         *
+      *A.OF SORTIDA                   CAMPOS DE SALIDA                 *
+      *A.OF QRIARDNT                  IMPORTE REDONDEADO               *
+      *A.OF QRCRETOR                  CODIGO DE RETORNO DEL MODULO     *
+      ******************************************************************
+      ******************************************************************
+      *B.MF QRECARD                   QRECARD                          *
+      *B.IF DTA-INP                   INPUT FIELDS                     *
+      *B.IF QRAMOUNT                  AMOUNT TO BE HANDLE BY THE       *
+      *B/IF                           MODULE                           *
+      *B.IF QRCURREN                  CURRENCY CODE                    *
+      *B.IF QRFLGHND                  HANDLING FLAG                    *
+      *B.OF DTA-OUT                   OUTPUT FIELDS                    *
+      *B.OF QRRNDAMT                  ROUNDED AMOUNT                   *
+      *B.OF QRCRETUR                  MODULE RETURN CODE               *
+      *B.MF RE                        QRECARD                          *
+      *B.IF ENTRADA                   INPUT FIELDS                     *
+      *B.IF QRIMPORT                  AMOUNT TO BE HANDLE BY THE       *
+      *B/IF                           MODULE                           *
+      *B.IF QRCMONED                  CURRENCY CODE                    *
+      *B.IF QRTRACTA                  HANDLING FLAG                    *
+      *B.OF SORTIDA                   OUTPUT FIELDS                    *
+      *B.OF QRIARDNT                  ROUNDED AMOUNT                   *
+      *B.OF QRCRETOR                  MODULE RETURN CODE               *
+      ******************************************************************
+       01 QRECARD.
+          10 WARD-DTA-INP.
+             20 WARD-QRAMOUNT              PIC S9(15)V9(3) COMP-3.
+             20 WARD-QRCURREN              PIC X(3).
+             20 WARD-QRFLGHND              PIC X(1).
+
+          10 WARD-DTA-OUT.
+             20 WARD-QRRNDAMT              PIC S9(15)V9(2) COMP-3.
+             20 WARD-QRCRETUR              PIC X(2).
+      *$.                                                              *
+       01 QRECARD-RE REDEFINES QRECARD.
+          10 WARD-ENTRADA.
+             20 WARD-QRIMPORT              PIC S9(15)V9(3) COMP-3.
+             20 WARD-QRCMONED              PIC X(3).
+             20 WARD-QRTRACTA              PIC X(1).
+
+          10 WARD-SORTIDA.
+             20 WARD-QRIARDNT              PIC S9(15)V9(2) COMP-3.
+             20 WARD-QRCRETOR              PIC X(2).

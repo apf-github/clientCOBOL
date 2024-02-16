@@ -1,0 +1,224 @@
+      ******************************************************************
+      *A.OR.S                                                          *
+      * QBEC9900 : COPY DE COMMAREA PARA LA RUTINA QB8C9900 CON LOS    *
+      *            DATOS ESTRUCTURALES DE LA ENTIDAD PARA EL FICHERO.  *
+      *A.OR.E                                                          *
+      *B.OR.S                                                          *
+      * QBEC9900 : COMMAREA COPY OF THE ROUTINE QB8C9900 THAT RETRIEVE *
+      *            ENTITY STRUCTURE DATA FROM A FILE.                  *
+      *B.OR.E                                                          *
+      ******************************************************************
+      *                     MODIFICATIONS LOG                          *
+      ******************************************************************
+      *     CODE            AUTHOR  DATE     DESCRIPTION               *
+      *     --------------- ------- -------- ------------------------- *
+      *A.MD $AS00119APE0002 UHKDB11 30-06-04 MODIFICACION EN TCDT099   *
+      *B.MD $AS00119APE0002 UHKDB11 30-06-04 MODIFICATION IN TCDT099   *
+      ******************************************************************
+      *A.MF QBEC9900                  QBEC9900                         *
+      *A.MF OUTPUTFLD                 CAMPOS DE SALIDA                 *
+      *A.MF DATA-PARAM                DATOS DE PARAMETROS              *
+      *A.MF COD-ENTITY                ENTIDAD                          *
+      *A.MF LNG-DATA                  IDIOMA, EN ESTE CASO, EL MISMO   *
+      *A/MF                           QUE EL DE LNG-OFDATA             *
+      *A.MF COD-SHORT                 CODIGO BREVE                     *
+      *A.MF COD-NB                    CODIGO DEL BANCO NACIONAL        *
+      *A.MF COD-NATCC                 CODIGO DE LA DIVISA NACIONAL     *
+      *A.MF COD-NATCCSHORT            CODIGO BREVE DE DIVISA NACIONAL  *
+      *A.MF COD-OCCCTRY               CODIGO DE LA DIVISA DEL PAIS ORI *
+      *A/MF                           EN IDIOMA OFICIAL LNG-OFDATA     *
+      *A.MF COD-OFCCSHORT             CODIGO BREVE DE LA DIVISA DE ORI *
+      *A/MF                           EN IDIOMA OFICIAL LNG-OFDATA     *
+      *A.MF COD-RCC                   CODIGO DE DIVISA DE REFERENCIA   *
+      *A.MF COD-RFCCSHORT             CODIGO BREVE DE DIVISA DE REF.   *
+      *A/MF                           EN IDIOMA OFICIAL LNG-OFDATA     *
+      *A.MF COD-NRESFCC               CODIGO DE DIVISA NO RESIDENTE    *
+      *A.MF COD-NATCTRY               CODIGO DEL PAIS NACIONAL         *
+      *A.MF FLG-EURCTRY               FLAG DE PAIS EURO                *
+      *A.FV   88-FLGYESEURCTRY        PAIS EURO                        *
+      *A/FV                           'S'                              *
+      *A.FV   88-FLGNONEURCTRY        AVISO DE PAIS NO EURO            *
+      *A/FV                           'N'                              *
+      *A.MF FLG-EXCHANGE              CAMBIO APLICABLE                 *
+      *A.FV   88-FLGDIRCHG            FLAG CAMBIO DE DIVISA DIRECTO    *
+      *A/FV                           'D'                              *
+      *A.FV   88-FLGINDIRCHG          FLAG CAMBIO DE DIVISA INVERSO    *
+      *A/FV                           'I'                              *
+      *A.MF LNG-OFDATA                IDIOMA OFICIAL                   *
+      *A.MF FLG-OFCACC                FLAG DE CUENTA OFICIAL           *
+      *A.MF FCCCOEXC                  COEXISTENCIA DE DIVISA           *
+      *A.MF FLG-LNG1                  INDICADOR DE LENGUAJE PRINCIPAL 1*
+      *A.MF FLG-LNG2                  INDICADOR DE LENGUAJE PRINCIPAL 2*
+      *A.MF FREE                      FILLER                           *
+      *A.MF DATA-DESCRIP              DATOS DE DESCRIPCIONES           *
+      *A/MF                           EN IDIOMA OFICIAL LNG-OFDATA     *
+      *A.MF DES-ENTITY                DESCRIPCION DE LA ENTIDAD        *
+      *A.MF DES-NB                    DESCRIPCION DEL BANCO NACIONAL   *
+      *A.MF DES-NATCC                 DESCRIPCION DE DIVISA NACIONAL   *
+      *A.MF SDE-FCC                   DESCRIP. BREVE DE DIVISA NACIONA *
+      *A.MF DES-OCC                   DESCRIPCION DE DIVISA DE ORIGEN  *
+      *A.MF SDES-ORIFCC               DESCRIP. BREVE DE DIVISA DE ORIG *
+      *A.MF DES-REFFCC                DESCRIP. DE LA DIVISA DE REFEREN *
+      *A.MF DES-NRESFCC               DESCRIP. DE DIVISA NO RESIDENTE  *
+      *A.MF DES-NATCTRY               DESCRIP. DEL PAIS NACIONAL       *
+      *A.MF SDE-ENTITY                BREVE DESCRIPCION DE LA ENTIDAD  *
+      *A.MF FLD-DES-LNGS              DESCRIP. DE LOS CAMPOS EN IDIOMA *
+      *A/MF                           NO OFICIALES (3 OCCURS)          *
+      *A.MF LNG-DATA-0                IDIOMA DE DATOS, EN ESTE CASO    *
+      *A/MF                           DISTINTO DE LGN-OFDATA           *
+      *A.MF DATA-DESCRIP-0            DATOS DE DESCRIP.-IDIOMA DE DATO *
+      *A.MF DES-ENTITY-0              DESCRIPCION DE LA ENTIDAD        *
+      *A.MF DES-NB-0                  DESCRIPCION DEL BANCO NACIONAL   *
+      *A.MF DES-NATCC-0               DESCRIPCION DE DIVISA NACIONAL   *
+      *A.MF SDE-FCC-0                 DESCRIP. BREVE DE DIVISA NACIONA *
+      *A.MF DES-OCC-0                 DESCRIP. DE DIVISA DE ORIGEN     *
+      *A.MF SDES-ORIFCC-0             DESCRIP. BREVE DE DIVISA DE ORIG *
+      *A.MF DES-REFFCC-0              DESCRIP. DE LA DIVISA DE REFEREN *
+      *A.MF DES-NRESFCC-0             DESCRIP. DE DIVISA NO RESIDENTE  *
+      *A.MF DES-NATCTRY-0             DESCRIPCION DEL PAIS NACIONAL    *
+      *A.MF SDE-ENTITY-0              BREVE DESCRIPCION DE LA ENTIDAD  *
+      *A.MF RETURN-DATA               DATOS DE SALIDA                  *
+      *A.MF COD-RETURN                CODIGO DE RETORNO                *
+      *A.FV   88-COD-RETURN-OK        CODIGO DE RETORNO OK             *
+      *A/FV                           '00'                             *
+      *A.FV   88-COD-RETURN-NOTFND    COD DE RETORNO NO ENCONTRADO     *
+      *A/FV                           '10'                             *
+      *A.FV   88-COD-RETURN-OTHERS    COD DE RETORNO NO ENCONTRADO     *
+      *A/FV                           '99'                             *
+      *A.MF FILE-STATUS               ESTADO DEL FICHERO               *
+      ******************************************************************
+      ******************************************************************
+      *B.MF QBEC9900                  QBEC9900                         *
+      *B.MF OUTPUTFLD                 OUTPUT FIELDS                    *
+      *B.MF DATA-PARAM                DATA OF PARAMETER                *
+      *B.MF COD-ENTITY                ENTITY CODE                      *
+      *B.MF LNG-DATA                  DATA LANGUAGE. IN THIS CASE,     *
+      *B/MF                           THE SAME AS LNG-OFDATA           *
+      *B.MF COD-SHORT                 SHORT CODE                       *
+      *B.MF COD-NB                    NATIONAL BANK CODE               *
+      *B.MF COD-NATCC                 NATIONAL CURRENCY CODE           *
+      *B.MF COD-NATCCSHORT            SHORT NATIONAL CURRENCY CODE     *
+      *B.MF COD-OCCCTRY               COUNTRY ORIGIN CURRENCY CODE     *
+      *B/MF                           IN OFFICIAL LANGUAGE LNG-OFDATA  *
+      *B.MF COD-OFCCSHORT             SHORT ORIGIN CURRENCY CODE       *
+      *B/MF                           IN OFFICIAL LANGUAGE LNG-OFDATA  *
+      *B.MF COD-RCC                   REFERENCE CURRENCY CODE          *
+      *B.MF COD-RFCCSHORT             SHORT REFERENCE CURRENCY CODE    *
+      *B/MF                           IN OFFICIAL LANGUAGE LNG-OFDATA  *
+      *B.MF COD-NRESFCC               NON RESIDENT CURRENCY CODE       *
+      *B.MF COD-NATCTRY               NATIONAL COUNTRY CODE            *
+      *B.MF FLG-EURCTRY               COUNTRY EURO FLAG                *
+      *B.FV   88-FLGYESEURCTRY        COUNTRY EURO                     *
+      *B/FV                           'S'                              *
+      *B.FV   88-FLGNONEURCTRY        COUNTRY NON EURO WARNING         *
+      *B/FV                           'N'                              *
+      *B.MF FLG-EXCHANGE              APPLICABLE CHANGE                *
+      *B.FV   88-FLGDIRCHG            CURRENCY CHANGE FLAG DIRECT CHAN *
+      *B/FV                           'D'                              *
+      *B.FV   88-FLGINDIRCHG          CURRENCY CHANGE FLAG INVERSE CHN *
+      *B/FV                           'I'                              *
+      *B.MF LNG-OFDATA                OFFICIAL LANGUAGE                *
+      *B.MF FLG-OFCACC                OFFICIAL ACCOUNT FLAG            *
+      *B.MF FCCCOEXC                  CURRENCIES COEXISTENCE           *
+      *B.MF FLG-LNG1                  FLAG LANGUAGE 1 MAIN             *
+      *B.MF FLG-LNG2                  FLAG LANGUAGE 2 MAIN             *
+      *B.MF FREE                      FILLER                           *
+      *B.MF DATA-DESCRIP              DATA OF DESCRIPTIONS             *
+      *B/MF                           IN OFFICIAL LANGUAGE LNG-OFDATA  *
+      *B.MF DES-ENTITY                ENTITY DESCRIPTION               *
+      *B.MF DES-NB                    NATIONAL BANK DESCRIPTION        *
+      *B.MF DES-NATCC                 NATIONAL CURRENCY DESCRIPTION    *
+      *B.MF SDE-FCC                   NATIONAL CURRENCY SHORT DESCRIP. *
+      *B.MF DES-OCC                   ORIGIN CURRENCY DESCRIPTION      *
+      *B.MF SDES-ORIFCC               ORIGIN CURRENCY SHORT DESCRIPTIO *
+      *B.MF DES-REFFCC                REFERENCE CURRENCY DESCRIPTION   *
+      *B.MF DES-NRESFCC               NON RESIDENT CURRENCY DESCRIPTIO *
+      *B.MF DES-NATCTRY               NATIONAL COUNTRY DESCRIPTION     *
+      *B.MF SDE-ENTITY                SHORT DESCRIPTION OF ENTITY      *
+      *B.MF FLD-DES-LNGS              FIELD DESCRIPTION IN NON-OFFICIA *
+      *B/MF                           LANGUAGES (3 OCCURS)             *
+      *B.MF LNG-DATA-0                DATA LANG. IN THIS CASE, DISTINT *
+      *B/MF                           FROM LGN-OFDATA                  *
+      *B.MF DATA-DESCRIP-0            DATA OF DESCRIP-IN DATA LANGUAGE *
+      *B.MF DES-ENTITY-0              ENTITY DESCRIPTION               *
+      *B.MF DES-NB-0                  NATIONAL BANK DESCRIPTION        *
+      *B.MF DES-NATCC-0               NATIONAL CURRENCY DESCRIPTION    *
+      *B.MF SDE-FCC-0                 NATIONAL CURRENCY SHORT DESCRIP. *
+      *B.MF DES-OCC-0                 ORIGIN CURRENCY DESCRIPTION      *
+      *B.MF SDES-ORIFCC-0             ORIGIN CURRENCY SHORT DESCRIPTIO *
+      *B.MF DES-REFFCC-0              REFERENCE CURRENCY DESCRIPTION   *
+      *B.MF DES-NRESFCC-0             NON RESIDENT CURRENCY DESCRIPTIO *
+      *B.MF DES-NATCTRY-0             NATIONAL COUNTRY DESCRIPTION     *
+      *B.MF SDE-ENTITY-0              SHORT DESCRIPTION OF ENTITY      *
+      *B.MF RETURN-DATA               RETURN DATA                      *
+      *B.MF COD-RETURN                RETURN CODE                      *
+      *B.FV   88-COD-RETURN-OK        RETURN CODE OK                   *
+      *B/FV                           '00'                             *
+      *B.FV   88-COD-RETURN-NOTFND    RETURN CODE NOTFOUND             *
+      *B/FV                           '10'                             *
+      *B.FV   88-COD-RETURN-OTHERS    RETURN CODE NOTFOUND             *
+      *B/FV                           '99'                             *
+      *B.MF FILE-STATUS               FILE STATUS                      *
+      ******************************************************************
+
+       02 QBEC9900.
+          05 QBEC9900-OUTPUTFLD.
+             10 QBEC9900-DATA-PARAM.
+                15 QBEC9900-COD-ENTITY               PIC X(04).
+                15 QBEC9900-LNG-DATA                 PIC X(01).
+                15 QBEC9900-COD-SHORT                PIC X(02).
+                15 QBEC9900-COD-NB                   PIC X(04).
+                15 QBEC9900-COD-NATCC                PIC X(03).
+                15 QBEC9900-COD-NATCCSHORT           PIC X(01).
+                15 QBEC9900-COD-OCCCTRY              PIC X(03).
+                15 QBEC9900-COD-OFCCSHORT            PIC X(01).
+                15 QBEC9900-COD-RCC                  PIC X(03).
+                15 QBEC9900-COD-RFCCSHORT            PIC X(01).
+                15 QBEC9900-COD-NRESFCC              PIC X(03).
+                15 QBEC9900-COD-NATCTRY              PIC X(03).
+                15 QBEC9900-FLG-EURCTRY              PIC X(01).
+                   88 QBEC9900-88-FLGYESEURCTRY      VALUE 'S'.
+                   88 QBEC9900-88-FLGNONEURCTRY      VALUE 'N'.
+                15 QBEC9900-FLG-EXCHANGE             PIC X(01).
+                   88 QBEC9900-88-FLGDIRCHG          VALUE 'D'.
+                   88 QBEC9900-88-FLGINDIRCHG        VALUE 'I'.
+                15 QBEC9900-LNG-OFDATA               PIC X(01).
+                15 QBEC9900-FLG-OFCACC               PIC X(01).
+                15 QBEC9900-FCCCOEXC                 PIC X(01).
+      *.MC.S $AS00119APE0002
+      *         15 QBEC9900-FREE                     PIC X(16).
+                15 QBEC9900-FLG-LNG1                 PIC X(01).
+                15 QBEC9900-FLG-LNG2                 PIC X(01).
+                15 QBEC9900-FREE                     PIC X(14).
+      *.MC.E $AS00119APE0002
+             10 QBEC9900-DATA-DESCRIP.
+                15 QBEC9900-DES-ENTITY               PIC X(40).
+                15 QBEC9900-DES-NB                   PIC X(40).
+                15 QBEC9900-DES-NATCC                PIC X(20).
+                15 QBEC9900-SDE-FCC                  PIC X(03).
+                15 QBEC9900-DES-OCC                  PIC X(20).
+                15 QBEC9900-SDES-ORIFCC              PIC X(03).
+                15 QBEC9900-DES-REFFCC               PIC X(20).
+                15 QBEC9900-DES-NRESFCC              PIC X(20).
+                15 QBEC9900-DES-NATCTRY              PIC X(40).
+                15 QBEC9900-SDE-ENTITY               PIC X(10).
+             10 QBEC9900-FLD-DES-LNGS                OCCURS 3 TIMES.
+                15 QBEC9900-LNG-DATA-0               PIC X(01).
+                15 QBEC9900-DATA-DESCRIP-0.
+                   20 QBEC9900-DES-ENTITY-0          PIC X(40).
+                   20 QBEC9900-DES-NB-0              PIC X(40).
+                   20 QBEC9900-DES-NATCC-0           PIC X(20).
+                   20 QBEC9900-SDE-FCC-0             PIC X(03).
+                   20 QBEC9900-DES-OCC-0             PIC X(20).
+                   20 QBEC9900-SDES-ORIFCC-0         PIC X(03).
+                   20 QBEC9900-DES-REFFCC-0          PIC X(20).
+                   20 QBEC9900-DES-NRESFCC-0         PIC X(20).
+                   20 QBEC9900-DES-NATCTRY-0         PIC X(40).
+                   20 QBEC9900-SDE-ENTITY-0          PIC X(10).
+          05 QBEC9900-RETURN-DATA.
+             10 QBEC9900-COD-RETURN                  PIC X(02).
+                88 QBEC9900-88-COD-RETURN-OK         VALUE '00'.
+                88 QBEC9900-88-COD-RETURN-NOTFND     VALUE '10'.
+                88 QBEC9900-88-COD-RETURN-OTHERS     VALUE '99'.
+             10 QBEC9900-FILE-STATUS                 PIC X(02).
+

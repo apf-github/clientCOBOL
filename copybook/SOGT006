@@ -1,0 +1,34 @@
+      *                     MODIFICATIONS LOG                          *
+      ******************************************************************
+      *     CODE       AUTHOR  DATE     DESCRIPTION                    *
+      *     ---------- ------- -------- ------------------------------ *
+      ******************************************************************
+      ******************************************************************
+           EXEC SQL DECLARE SODT006 TABLE
+           ( T006_KEY_ENT                   CHAR(4) NOT NULL,
+             T006_COD_COM                   CHAR(3) NOT NULL,
+             T006_COD_LNG                   CHAR(1) NOT NULL,
+             T006_FLG_TYP1                  CHAR(1) NOT NULL,
+             T006_FLG_TYP2                  CHAR(1) NOT NULL,
+             T006_TXT_COM                   CHAR(60) NOT NULL,
+             T006_TXT_SHORT                   CHAR(13) NOT NULL,
+             T006_TXT_BCAL                  CHAR(40) NOT NULL,
+             T006_KEY_OPERBRN                   CHAR(4) NOT NULL,
+             T006_KEY_USER                   CHAR(8) NOT NULL,
+             T006_NUM_TRM                   CHAR(4) NOT NULL,
+             T006_STP_OPE                   TIMESTAMP NOT NULL
+           ) END-EXEC.
+       01  SODT006.
+           10 T006-KEY-ENT                 PIC X(4).
+           10 T006-COD-COM                 PIC X(3).
+           10 T006-COD-LNG                 PIC X(1).
+           10 T006-FLG-TYP1                PIC X(1).
+           10 T006-FLG-TYP2                PIC X(1).
+           10 T006-TXT-COM                 PIC X(60).
+           10 T006-TXT-SHORT               PIC X(13).
+           10 T006-TXT-BCAL                PIC X(40).
+           10 T006-KEY-OPERBRN             PIC X(4).
+           10 T006-KEY-USER                PIC X(8).
+           10 T006-NUM-TRM                 PIC X(4).
+           10 T006-STP-OPE                 PIC X(26).
+      *

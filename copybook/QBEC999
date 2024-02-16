@@ -1,0 +1,122 @@
+      ******************************************************************
+      *A.OR.S                                                          *
+      *  QBEC999: COMMAREA CON DATOS DE ENTIDAD PARA COMUNICACION CON  *
+      *           LOS MODULOS.                                         *
+      *A.OR.E                                                          *
+      *B.OR.S                                                          *
+      *  QBEC999: COMMAREA WITH ENTITY DATA FOR COMMUNICATION AMONG    *
+      *           MODULES                                              *
+      *B.OR.E                                                          *
+      ******************************************************************
+      *                     MODIFICATIONS LOG                          *
+      ******************************************************************
+      *     CODE            AUTHOR  DATE     DESCRIPTION               *
+      *     --------------- ------- -------- ------------------------- *
+      *A.MD $AS00119APE0002 UHKDB11 30-06-04 MODIFICACION EN TCDT099   *
+      *B.MD $AS00119APE0002 UHKDB11 30-06-04 MODIFICATION IN TCDT099   *
+      ******************************************************************
+      *A.MF QBEC999                   QBEC999                          *
+      *A.MF DATA-PARAM                DATOS                            *
+      *A.MF COD-ENTITY                ENTIDAD                          *
+      *A.MF ENTITY-DATA               DATOS DE ENTIDAD                 *
+      *A.MF LNG-DATA                  DATOS DE IDIOMA. EN ESTE CASO,   *
+      *A/MF                           EL MISMO QUE LNG-OFDATA.         *
+      *A.MF COD-SHORT                 CODIGO BREVE                     *
+      *A.MF COD-NB                    CODIGO DEL BANCO NACIONAL        *
+      *A.MF COD-NATCC                 CODIGO DE DIVISA NACIONAL        *
+      *A.MF COD-NATCCSHORT            CODIGO BREVE DE DIVISA NACIONAL  *
+      *A.MF COD-OCCCTRY               CODIGO DE DIVISA DEL PAIS ORIGEN *
+      *A/MF                           EN IDIOMA OFICIAL LNG-OFDATA.    *
+      *A.MF COD-OFCCSHORT             CODIGO BREVE DE DIVISA DEL PAIS  *
+      *A/MF                           ORIGEN, EN IDIOMA DE LNG-OFDATA. *
+      *A.MF COD-RCC                   CODIGO DE DIVISA DE REFERENCIA   *
+      *A.MF COD-RFCCSHORT             CODIGO BREVE DE DIVISA DE REFER. *
+      *A/MF                           EN IDIOMA OFICIAL LNG-OFDATA.    *
+      *A.MF COD-NRESFCC               CODIGO DE DIVISA NO RESIDENTE    *
+      *A.MF COD-NATCTRY               CODIGO DEL PAIS NACIONAL         *
+      *A.MF FLG-EURCTRY               FLAG DE PAIS EURO                *
+      *A.FV   88-FLGYESEURCTRY       PAIS EURO                         *
+      *A/FV                           'S'                              *
+      *A.FV   88-FLGNONEURCTRY       AVISO DE PAIS NO EURO             *
+      *A/FV                           'N'                              *
+      *A.MF FLG-EXCHANGE              CAMBIO APLICABLE                 *
+      *A.FV   88-FLGDIRCHG            FLAG DE CAMBIO DE DIVISA DIRECTO *
+      *A/FV                           'D'                              *
+      *A.FV   88-FLGINDIRCHG          FLAG DE CAMBIO DE DIVISA INVERSO *
+      *A/FV                           'I'                              *
+      *A.MF LNG-OFDATA                IDIOMA OFICIAL                   *
+      *A.MF FLG-OFCACC                FLAG DE CUENTA OFICIAL           *
+      *A.MF FCCCOEXC                  COEXISTENCIA DE DIVISAS          *
+      *A.MF FLG-LNG1                  INDICADOR DE LENGUAJE PRINCIPAL 1*
+      *A.MF FLG-LNG2                  INDICADOR DE LENGUAJE PRINCIPAL 2*
+      *A.MF FREE                      FILLER                           *
+      ******************************************************************
+      *B.MF QBEC999                   QBEC999                          *
+      *B.MF DATA-PARAM                DATA                             *
+      *B.MF COD-ENTITY                ENTITY CODE                      *
+      *B.MF ENTITY-DATA               ENTITY DATA                      *
+      *B.MF LNG-DATA                  DATA LANGUAGE. IN THIS CASE,     *
+      *B/MF                           THE SAME AS LNG-OFDATA.          *
+      *B.MF COD-SHORT                 SHORT CODE.                      *
+      *B.MF COD-NB                    NATIONAL BANK CODE               *
+      *B.MF COD-NATCC                 NATIONAL CURRENCY CODE           *
+      *B.MF COD-NATCCSHORT            SHORT NATIONAL CURRENCY CODE     *
+      *B.MF COD-OCCCTRY               COUNTRY ORIGIN CURRENCY CODE     *
+      *B/MF                           IN OFFICIAL LANGUAGE LNG-OFDATA. *
+      *B.MF COD-OFCCSHORT             COUNTRY ORIGIN CURRENCY CODE     *
+      *B/MF                           IN OFFICIAL LANGUAGE LNG-OFDATA. *
+      *B.MF COD-RCC                   REFERENCE CURRENCY CODE          *
+      *B.MF COD-RFCCSHORT             SHORT REFERENCE CURRENCY CODE    *
+      *B/MF                           IN OFFICIAL LANGUAGE LNG-OFDATA. *
+      *B.MF COD-NRESFCC               NON RESIDENT CURRENCY CODE       *
+      *B.MF COD-NATCTRY               NATIONAL COUNTRY CODE            *
+      *B.MF FLG-EURCTRY               COUNTRY EURO FLAG                *
+      *B.FV   88-FLGYESEURCTRY       COUNTRY EURO                      *
+      *B/FV                           'S'                              *
+      *B.FV   88-FLGNONEURCTRY       COUNTRY NON EURO WARNING          *
+      *B/FV                           'N'                              *
+      *B.MF FLG-EXCHANGE              APPLICABLE CHANGE                *
+      *B.FV   88-FLGDIRCHG            CURRENCY CHANGE FLAG DIRECT CHNG *
+      *B/FV                           'D'                              *
+      *B.FV   88-FLGINDIRCHG          CURRENCY CHANGE FLAG INVERSE CNG *
+      *B/FV                           'I'                              *
+      *B.MF LNG-OFDATA                OFFICIAL LANGUAGE                *
+      *B.MF FLG-OFCACC                OFFICIAL ACCOUNT FLAG            *
+      *B.MF FCCCOEXC                  CURRENCIES COEXISTENCE           *
+      *B.MF FLG-LNG1                  FLAG LANGUAGE 1 MAIN             *
+      *B.MF FLG-LNG2                  FLAG LANGUAGE 2 MAIN             *
+      *B.MF FREE                      FILLER                           *
+      ******************************************************************
+
+
+       02 QBEC999.
+          05 QBEC999-DATA-PARAM.
+             10 QBEC999-COD-ENTITY                   PIC X(04).
+             10 QBEC999-ENTITY-DATA.
+                15 QBEC999-LNG-DATA                  PIC X(01).
+                15 QBEC999-COD-SHORT                 PIC X(02).
+                15 QBEC999-COD-NB                    PIC X(04).
+                15 QBEC999-COD-NATCC                 PIC X(03).
+                15 QBEC999-COD-NATCCSHORT            PIC X(01).
+                15 QBEC999-COD-OCCCTRY               PIC X(03).
+                15 QBEC999-COD-OFCCSHORT             PIC X(01).
+                15 QBEC999-COD-RCC                   PIC X(03).
+                15 QBEC999-COD-RFCCSHORT             PIC X(01).
+                15 QBEC999-COD-NRESFCC               PIC X(03).
+                15 QBEC999-COD-NATCTRY               PIC X(03).
+                15 QBEC999-FLG-EURCTRY               PIC X(01).
+                   88 QBEC999-88-FLGYESEURCTRY       VALUE 'S'.
+                   88 QBEC999-88-FLGNONEURCTRY       VALUE 'N'.
+                15 QBEC999-FLG-EXCHANGE              PIC X(01).
+                   88 QBEC999-88-FLGDIRCHG           VALUE 'D'.
+                   88 QBEC999-88-FLGINDIRCHG         VALUE 'I'.
+                15 QBEC999-LNG-OFDATA                PIC X(01).
+                15 QBEC999-FLG-OFCACC                PIC X(01).
+                15 QBEC999-FCCCOEXC                  PIC X(01).
+      *.MC.S $AS00119APE0002
+      *         15 QBEC999-FREE                      PIC X(16).
+                15 QBEC999-FLG-LNG1                  PIC X(01).
+                15 QBEC999-FLG-LNG2                  PIC X(01).
+                15 QBEC999-FREE                      PIC X(14).
+      *.MC.E $AS00119APE0002
+

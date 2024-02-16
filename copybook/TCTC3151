@@ -1,0 +1,32 @@
+      *                     MODIFICATIONS LOG                          *
+      ******************************************************************
+      *     CODE       AUTHOR  DATE     DESCRIPTION                    *
+      *     ---------- ------- -------- ------------------------------ *
+      ******************************************************************
+      *B.MF TCTC3151                                                   *
+      *B.MF KEY                       KEY                              *
+      *B.MF COD-TBL                   TABLE CODE                       *
+      *B.MF COD-ENT                   ENTITY CODE                      *
+      *B.MF KEY-TBL                   TABLE KEY                        *
+      *B.MF COD-LNG                   LANGUAGE CODE                    *
+      *B.MF MNMCOM                    MNEMONIC OF COMMISSIONS          *
+      *B.MF FILLER                    FILLER                           *
+      *B.MF DATA                      DATA                             *
+      *B.MF COD-COM                   COMMISSION CODE                  *
+      *B.MF TYP-COMM                  COMMISSION TYPE                  *
+      *B.MF DES-COMM                  COMMISSION DESCRIPTION           *
+      *B.MF FILLER                    FILLER                           *
+      ******************************************************************
+       01  TCTC3151.
+         03 TCTC3151-KEY.
+           05 TCTC3151-COD-TBL          PIC X(4).
+           05 TCTC3151-COD-ENT          PIC X(4).
+           05 TCTC3151-KEY-TBL.
+              07 TCTC3151-COD-LNG       PIC X(1).
+              07 TCTC3151-MNMCOM        PIC X(10).
+           05 FILLER                    PIC X(09).
+         03 TCTC3151-DATA.
+           05 TCTC3151-COD-COM          PIC X(03).
+           05 TCTC3151-TYP-COMM         PIC X(01).
+           05 TCTC3151-DES-COMM         PIC X(40).
+           05 FILLER                    PIC X(206).

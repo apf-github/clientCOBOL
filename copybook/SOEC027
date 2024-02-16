@@ -1,0 +1,73 @@
+      * SOEC027:  LINK AREA WITH MODULE FOR SO9C0040 TO ANNUL THE      *
+      *           FEES COLLECTED BY PGM. FROM OTHER APP. THAT ARE NOT  *
+      *           SESSIONS                                             *
+      ******************************************************************
+      *                     MODIFICATIONS LOG                          *
+      ******************************************************************
+      *     CODE       AUTHOR  DATE     DESCRIPTION                    *
+      *     ---------- ------- -------- ------------------------------ *
+      ******************************************************************
+      *B.IF SOEC027-INP               INPUT FIELDS                     *
+      *B.IF ENT                       ENVIRONMENT ENTITY KEY.          *
+      *B.IF COD-FSTHLD                FIRST HOLDER ACCOUNT CODE        *
+      *B.IF FLG-SPCCOND               BONUS SPECIFIC CONDITIONS FLAG   *
+      *B/IF                           '1' CONDITIONS BY PERSON         *
+      *B/IF                           '2' CONDITIONS BY COLLECTIVE     *
+      *B/IF                           '3' BOTH                         *
+      *B.IF COD-PRODUCT               ALNOVA PRODUCT CODE              *
+      *B.IF FLG-BONUS                 SETTELMENT/COMMISSION FLAG       *
+      *B.IF TYP-COMMISSION            COMMISSION TYPE                  *
+      *B.IF COD-PROD                  SUBPRODUCT OF CONTRACT           *
+      *B.IF COD-COM                   COMMISSION CODE                  *
+      *B.IF DAT-OPERATION             OPERATION DATE                   *
+      *B.IF PROGRAM                   SUSPENSE PROGRAM                 *
+      *B.IF FLG-BONIF                 FLAG TO APPLICATION BONUS        *
+      *B.IF COLLECTIVE                COLLECTIVE THAT WILL BE USE TO   *
+      *B/IF                           BONUS.                           *
+      *B.IF FILLER                    FILLER.                          *
+      *B.OF SOEC027-OUT               OUTPUT FIELDS                    *
+      *B.OF COD-RETURN                RETURN CODE                      *
+      *B/OF                           '00' OK                          *
+      *B/OF                           '10' RECORD NOT FOUND            *
+      *B/OF                           '80' WRONG INPUT DATA            *
+      *B/OF                           '99' DB2 ACCESS ERROR            *
+      *B.OF WARNMSG                   WARNING MESSAGE                  *
+      *B.OF ERR-DB2                   OCCURRED DB2 ERROR INFORMATION   *
+      *B.OF SQLCODE                   SQL RETURN CODE                  *
+      *B.OF SQLERRM                   SQL ERROR MESSAGE                *
+      *B.OF SQLERRMLTH                SQL ERROR MESSAGE LENGTH         *
+      *B.OF DAT-SQLERRM               SQL RETURN MESSAGE DATA          *
+      *B.OF TABLENAME                 TABLE NAME                       *
+      *B.OF REFERENCE                 REFERENCE                        *
+      *B.OF PER-BONUS                 BONUS PERCENTAGE.                *
+      *B.OF TYP-BONUS                 BONUS TYPE                       *
+      *B.OF BONCLV                    BONUS COLLECTIVE                 *
+      ******************************************************************
+
+           05 E027-SOEC027-INP.
+              10 E027-ENT                  PIC X(4).
+              10 E027-COD-FSTHLD           PIC X(8).
+              10 E027-FLG-SPCCOND          PIC X(1).
+              10 E027-COD-PRODUCT          PIC X(6).
+              10 E027-FLG-BONUS            PIC X(1).
+              10 E027-TYP-COMMISSION       PIC X(1).
+              10 E027-COD-PROD             PIC X(4).
+              10 E027-COD-COM              PIC X(10).
+              10 E027-DAT-OPERATION        PIC X(10).
+              10 E027-PROGRAM              PIC X(8).
+              10 E027-FLG-BONIF            PIC X(1).
+              10 E027-COLLECTIVE           PIC X(8).
+              10 FILLER                    PIC X(50).
+           05 E027-SOEC027-OUT.
+              10 E027-COD-RETURN           PIC X(02).
+              10 E027-WARNMSG              PIC X(7).
+              10 E027-ERR-DB2.
+                 15 E027-SQLCODE           PIC S9(09) COMP.
+                 15 E027-SQLERRM.
+                    20 E027-SQLERRMLTH     PIC S9(04) COMP.
+                    20 E027-DAT-SQLERRM    PIC X(70).
+                 15 E027-TABLENAME         PIC X(16).
+                 15 E027-REFERENCE         PIC X(20).
+              10 E027-PER-BONUS            PIC S9(3)V9(5)  USAGE COMP-3.
+              10 E027-TYP-BONUS            PIC X(1).
+              10 E027-BONCLV               PIC X(8).

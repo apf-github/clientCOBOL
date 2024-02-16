@@ -1,0 +1,41 @@
+      *                     MODIFICATIONS LOG                          *
+      ******************************************************************
+      *     CODE       AUTHOR  DATE     DESCRIPTION                    *
+      *     ---------- ------- -------- ------------------------------ *
+      ******************************************************************
+      *B.MF TCWC0080                  COPY WITH USED FIELDS IN THE     *
+      *B/MF                           LITERAL SEARCHING.THIS COPY IS   *
+      *B/MF                           CREATED IN ORDER TO PROGRAMMES   *
+      *B/MF                           DONÀT HAVE TO CREATE VARIABLES   *
+      *B/MF                           IN WORKING                       *
+      *B/MF                                                            *
+      *B.MF TC9C0980                  ROUTINE CODE TC9C0980            *
+      *B.MF FLAG                      FLAG                             *
+      *B.MF SEARCHED                  SEARCHED                         *
+      *B.MF TXT                       LITERAL                          *
+      *B.MF START                     START                            *
+      *B.MF END                       END                              *
+      *B.MF SW-FOUND                  SWITCH FOUND                     *
+      *B.FV   SW-FOU-FOUND            FOUND SWITCH                     *
+      *B/FV                           '1'                              *
+      *B.FV   SW-FOU-NOTFOUND         NOT FOUND                        *
+      *B/FV                           '0'                              *
+      *B.FV   SW-FOU-ERROR            ERROR CODE                       *
+      *B/FV                           'Y'                              *
+      *B.MF CONTROL                   CONTROL                          *
+      *
+      ******************************************************************
+       01 TCWC0080.
+      *
+          05 TCWC0080-TC9C0980              PIC X(8)  VALUE 'TC9C0980'.
+          05 TCWC0080-FLAG                  PIC 9(3)  VALUE 0.
+          05 TCWC0080-SEARCHED              PIC X(5)  VALUE SPACES.
+          05 TCWC0080-TXT                   PIC X(80) VALUE SPACES.
+          05 TCWC0080-START                 PIC 9(3)  VALUE 0.
+          05 TCWC0080-END                   PIC 9(3)  VALUE 0.
+          05 TCWC0080-SW-FOUND              PIC X     VALUE '0'.
+             88 TCWC0080-SW-FOU-FOUND               VALUE '1'.
+             88 TCWC0080-SW-FOU-NOTFOUND            VALUE '0'.
+             88 TCWC0080-SW-FOU-ERROR                    VALUE 'Y'.
+          05 TCWC0080-CONTROL               PIC 9(3)  VALUE 0.
+      *

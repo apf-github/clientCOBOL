@@ -1,0 +1,233 @@
+      * SOEC006:  LINK AREA WITH MODULE SO9C0060 THAT CALCULATES FEE   *
+      *           VALUES THAT SHOULD BE COLECTECT BY PGM FROM OTHER    *
+      *           APPLICATIONS                                         *
+      ******************************************************************
+      ******************************************************************
+      *                     MODIFICATIONS LOG                          *
+      ******************************************************************
+      *CODE             AUTHOR  DATE     DESCRIPTION                   *
+      *---------------- ------- -------- ------------------------------*
+      *MC.S.@BI00006DSO XISD941 03-09-03 THE MODULE MUST RETURN        *
+      *                                  TYP_POSTING PARAMETER
+      ******************************************************************
+      *B.IF SOEC006-INP               INPUT FIELDS                     *
+      *B.IF ENT                       ENTITY                           *
+      *B.IF COD-COM                   COMMISSION CODE                  *
+      *B.IF NUM-CONTRACT              LIABILITY CONTRACT               *
+      *B.IF ENT-CAC                   ENTITY OF THE LIABILITY ACCOUNT  *
+      *B.IF BRN-CAC                   BRANCH OF THE LIABILITY ACCOUNT  *
+      *B.IF NUM-CAC                   LIABILITY ACCOUNT NUMBER         *
+      *B.IF NUM-DEPACC                SEQUENCE NUMBER, FOR TERM        *
+      *B/IF                           ACCOUNTS                         *
+      *B.IF CAC-STATUS                CONTRACT STATUS                  *
+      *B.IF COD-PROD                  CONTRACT SUBPRODUCT              *
+      *B.IF COD-FCC                   CURRENCY                         *
+      *B.IF HNDCHAN                   HANDLING CHANNEL BY WHICH THE    *
+      *B/IF                           CONTRACT WAS REGISTERED          *
+      *B.IF OPECHAN                   CHANNEL THAT REALIZES THE        *
+      *B/IF                           OPERATION                        *
+      *B.IF BRN-REGISTRATION          BRANCH THAT CREATED THE CONTRACT *
+      *B.IF BRN-OPERATION             BRANCH THAT REALIZES THE         *
+      *B/IF                           OPERATION                        *
+      *B.IF DAT-OPERATION             OPERATION DATE                   *
+      *B.IF DAT-CONREG                CONTRACT REGISTRATION DATE       *
+      *B.IF COD-PLAN                  COMMISSION PLAN APPLIED TO THE   *
+      *B/IF                           CONTRACT                         *
+      *B.IF AMT-NOMINAL               OPERATION NOMINAL AMOUNT         *
+      *B.IF NUM-UNITS                 UNITS NUMBER                     *
+      *B.IF SEGMENT                   SEGMENT TO WHICH THE CUSTOMER    *
+      *B/IF                           BELONGS TO                       *
+      *B.IF CUN-INPUT                 CUSTOMER NUMBER                  *
+      *B.IF FLG-COMMISSION            COMMISSION APPLICATION FLAG      *
+      *B.IF FLG-CONDIND               INDICATOR OF THE CUSTOMER        *
+      *B/IF                           BONUS PARTICULAR CONDITIONS      *
+      *B.IF NUM-ID                    CUSTOMER IDENTIFICATION CODE     *
+      *B.IF NUM-CUSID                 CUSTOMER IDENTITY TYPE           *
+      *B.IF NUM-CUSDOCU               CUSTOMER DOCUMENT NUMBER         *
+      *B.IF IDC-CUSSEQ                SEQUENCE OF THE CUSTOMER         *
+      *B/IF                           IDENTIFICATION CODE              *
+      *B.IF AMT-NET                   NET AMOUNT TO IMMEDIATELY COLLECT*
+      *B.IF PER-COLLECTION            PERCENTAGE TO IMMEDIATELY COLLECT*
+      *B/IF                           OVER THE STANDARD TARIFF         *
+      *B.IF PROGRAM                   PROGRAM THAT REALIZES THE CALL   *
+      *
+      *B.IF FLG-PERF-RULE             FLAG WITH INFORMATION ABOUT      *
+      *B/IF                           ACCOUNT AFFECTED BY PERFORMANCE  *
+      *B/IF                           RULE                             *
+      *B/IF                           'Y' PERFORMANCE RULE             *
+      *B/IF                           'N' NOT PERFORMANCE RULE         *
+      *B.IF FLG-BONIF                 FLAG TO APPLICATION BONUS        *
+      *B.IF COLLECTIVE                COLLECTIVE THAT WILL BE USE TO   *
+      *B/IF                           BONUS.                           *
+      *B.IF FILLER                    FILLER.                          *
+      *B.OF SW-EXCEPTION-APL          APPLICATION EXCEPTION SWITCH     *
+      *B.OF SW-EXCEPTION-GP           FOREIGN APPLICATION EXCEPTION    *
+      *B./OF                          SWITCH                           *
+      *B.OF SOEC006-OUT               OUTPUT FIELDS                    *
+      *B.OF COD-RETURN                RETURN CODE                      *
+      *B/OF                           '00' OK                          *
+      *B/OF                           '11' COMMISSION CODE NON-EXISTENT*
+      *B/OF                           '20' NOT OK                      *
+      *B/OF                           '70' ERROR IN CALLING ROUTINES   *
+      *B/OF                                FOR APPLICATIONS OTHER      *
+      *B/OF                                THAN SO                     *
+      *B/OF                           '80' WRONG INPUT DATA            *
+      *B/OF                           '90' ACCESS ERROR IN STANDARD    *
+      *B/OF                                TARIFF                      *
+      *B/OF                           '91' ACCESS ERROR IN PERSONAL    *
+      *B/OF                                TARIFF                      *
+      *B/OF                           '92' ACCESS ERROR TO   SO9CBFC   *
+      *B/OF                           '99' DB2 ACCESS ERROR            *
+      *B.OF ERROR                     ERROR                            *
+      *B.OF NOTIFICATIONS             NOTIFICATIONS                    *
+      *B.OF ERR-DB2                   DB2 ERROR INFORMATION            *
+      *B.OF SQLCODE                   SQL RETURN CODE                  *
+      *B.OF SQLERRM                   SQL ERROR MESSAGE                *
+      *B.OF SQLERRMLTH                SQL ERROR MESSAGE LENGTH         *
+      *B.OF DAT-SQLERRM               SQL RETURN MESSAGE DATA          *
+      *B.OF TABLENAME                 TABLE NAME                       *
+      *B.OF REFERENCE                 REFERENCE                        *
+      *B.OF ERR-PROGRAM               PROGRAM WHERE THE ERROR          *
+      *B/0F                           ORIGINATED                       *
+      *B.OF AMT-COMMISSION            COMMISSION CODE WHERE THE AMOUNT *
+      *B/OF                           ORIGINATED.                      *
+      *B.OF AMT-STANDARD              COMMISSION STANDARD AMOUNT       *
+      *B.OF AMT-SPECIFIC              AMOUNT BY PARTICULAR CONDITIONS  *
+      *B.OF AMT-IMMEDIATE             INDICATOR TO SAVE THE            *
+      *B/OF                           COMMISSION OPERATION             *
+      *B/OF                           '1' TO SAVE                      *
+      *B/OF                           '0' NOT TO SAVE                  *
+      *B.OF AMT-APPLY                 AMOUNT APPLIED TO THE CUSTOMER   *
+      *B.OF AMT-BONUS                 BONUS AMOUNT                     *
+      *B.OF AMT-MAXIMUM               MAXIMUM AMOUNT ALLOWED           *
+      *B.OF AMT-MINIMUM               MINIMUM AMOUNT ALLOWED           *
+      *B.OF DAT-CONDITIONS            DATE OF THE APPLICATION          *
+      *B/OF                           CONDITIONS                       *
+      *B.OF CNDPROC                   CONDONATION PROCESS:             *
+      *B/OF                           'GE' COMMISSION LOAD AND THE     *
+      *B/OF                                BONUS                       *
+      *B/OF                           'EX' COMMISSION LOAD LESS NET    *
+      *B/OF                                BONUS                       *
+      *B.OF AMBZONE                   ZONE SCOPE                       *
+      *B.OF AMBSEG                    SEGMENT SCOPE                    *
+      *B.OF CUN-OUTPUT                CUSTOMER NUMBER                  *
+      *B.OF PER-BONUS                 BONUS PERCENTAGE                 *
+      *B.OF TYP-BONUS                 BONUS TYPE                       *
+      *B.OF BONCLV                    BONUS COLLECTIVE                 *
+      *B.OF BRANCH                    BRANCH THAT REALIZED THE         *
+      *B/OF                           OPERATION                        *
+      *B.OF CHANNEL                   CHANNEL BY WHICH THE OPERATION WA*
+      *B/OF                           WAS MADE                         *
+      *B.OF SDE-COMCOD                COMMISSION SHORT DESCRIPTION     *
+      *B.OF FLG-VATCOM                OPERATION WITH TAX FLAG          *
+      *B.OF PER-VAT                   AMOUNT PERCENTAGE                *
+      *B.OF AMT-OPEVAT                TAX AMOUNT                       *
+      *B.OF TAXRT                     TAX RATE                         *
+      *B.OF COD-COMCPT                COMMISSION CONCEPT BY WHICH THE  *
+      *B/OF                           TAX IS APPLIED                   *
+      *B.OF COD-VATCOM                TAX PERCENTAGE                   *
+      *B.OF PER-NORMAL                DISCOUNT PERCENTAGE              *
+      *B.OF AMT-FREE1                 FREE AMOUNT 1                    *
+      *B.OF AMT-FREE2                 FREE AMOUNT 2                    *
+      *B.OF FLG-PAYTYP                PAYMENT TYPE INDICATOR           *
+      *B.OF FLG-MANPAY                MANUAL PAYMENT PERMISSION        *
+      *B/OF                           INDICATOR                        *
+      *B.MF FILLER                    FILLER                           *
+      *B.OF TYP-POSTING               TYPE OF FEE                      *
+      ******************************************************************
+
+           05 E006-SOEC006-INP.
+              10 E006-ENT                  PIC X(4).
+              10 E006-COD-COM              PIC X(10).
+              10 E006-NUM-CONTRACT.
+                 15 E006-ENT-CAC           PIC X(4).
+                 15 E006-BRN-CAC           PIC X(4).
+                 15 E006-NUM-CAC           PIC X(10).
+              10 E006-NUM-DEPACC           PIC S9(5)       USAGE COMP-3.
+              10 E006-CAC-STATUS           PIC X(1).
+              10 E006-COD-PROD             PIC X(4).
+              10 E006-COD-FCC              PIC X(3).
+              10 E006-HNDCHAN              PIC X(2).
+              10 E006-OPECHAN              PIC X(2).
+              10 E006-BRN-REGISTRATION     PIC X(4).
+              10 E006-BRN-OPERATION        PIC X(4).
+              10 E006-DAT-OPERATION        PIC X(10).
+              10 E006-DAT-CONREG           PIC X(10).
+              10 E006-COD-PLAN             PIC X(3).
+              10 E006-AMT-NOMINAL          PIC S9(11)V9(2) USAGE COMP-3.
+              10 E006-NUM-UNITS            PIC S9(6)       USAGE COMP-3.
+              10 E006-SEGMENT              PIC X(2).
+              10 E006-CUN-INPUT            PIC X(8).
+              10 E006-FLG-COMMISSION       PIC X(1).
+              10 E006-FLG-CONDIND          PIC X(1).
+              10 E006-NUM-ID.
+                 15 E006-NUM-CUSID         PIC X(1).
+                 15 E006-NUM-CUSDOCU       PIC X(15).
+                 15 E006-IDC-CUSSEQ        PIC X(2).
+              10 E006-AMT-NET              PIC S9(11)V9(2) USAGE COMP-3.
+              10 E006-PER-COLLECTION       PIC S9(3)       USAGE COMP-3.
+              10 E006-PROGRAM              PIC X(8).
+      *
+              10 E006-FLG-PERF-RULE        PIC X(1).
+              10 E006-FLG-BONIF            PIC X(1).
+              10 E006-COLLECTIVE           PIC X(8).
+      *
+              10 FILLER                    PIC X(48).
+              10 E006-SW-EXCEPTION-APL     PIC X(2).
+                 88 E006-SW-EXCEPTION-GP          VALUE 'GP'.
+      *
+      *
+           05 E006-SOEC006-OUT.
+              10 E006-COD-RETURN           PIC X(02).
+              10 E006-ERROR                PIC X(20).
+              10 E006-NOTIFICATIONS        PIC X(20).
+              10 E006-ERR-DB2.
+                 15 E006-SQLCODE           PIC S9(09) COMP.
+                 15 E006-SQLERRM.
+                    20 E006-SQLERRMLTH     PIC S9(04) COMP.
+                    20 E006-DAT-SQLERRM    PIC X(70).
+                 15 E006-TABLENAME         PIC X(16).
+                 15 E006-REFERENCE         PIC X(20).
+              10 E006-ERR-PROGRAM          PIC X(8).
+              10 E006-AMT-COMMISSION       PIC X(3).
+              10 E006-AMT-STANDARD         PIC S9(11)V9(2) USAGE COMP-3.
+              10 E006-AMT-SPECIFIC         PIC S9(11)V9(2) USAGE COMP-3.
+              10 E006-AMT-IMMEDIATE        PIC X(1).
+              10 E006-AMT-APPLY            PIC S9(11)V9(2) USAGE COMP-3.
+              10 E006-AMT-BONUS            PIC S9(11)V9(2) USAGE COMP-3.
+              10 E006-AMT-MAXIMUM          PIC S9(11)V9(2) USAGE COMP-3.
+              10 E006-AMT-MINIMUM          PIC S9(11)V9(2) USAGE COMP-3.
+              10 E006-DAT-CONDITIONS       PIC X(10).
+              10 E006-CNDPROC              PIC X(02).
+              10 E006-AMBZONE              PIC X(04).
+              10 E006-AMBSEG               PIC X(02).
+              10 E006-CUN-OUTPUT           PIC X(8).
+              10 E006-PER-BONUS            PIC S9(3)V9(5)  USAGE COMP-3.
+              10 E006-TYP-BONUS            PIC X(1).
+              10 E006-BONCLV               PIC X(8).
+              10 E006-BRANCH               PIC X(4).
+              10 E006-CHANNEL              PIC X(2).
+              10 E006-SDE-COMCOD           PIC X(13).
+              10 E006-FLG-VATCOM           PIC X(1).
+              10 E006-PER-VAT              PIC S9(2)V9(2) USAGE COMP-3.
+              10 E006-AMT-OPEVAT           PIC S9(11)V9(2) USAGE COMP-3.
+              10 E006-TAXRT                PIC X(1).
+              10 E006-COD-COMCPT           PIC X(5).
+              10 E006-COD-VATCOM           PIC X(3).
+      *
+              10 E006-PER-NORMAL           PIC S9(3)V9(5) USAGE COMP-3.
+
+      *.MC.S.@BI00016DSO XISD009 20-07-04
+      ******* 10 E006-FILLER               PIC X(45).
+              10 E006-AMT-FREE1            PIC S9(11)V9(2) USAGE COMP-3.
+              10 E006-AMT-FREE2            PIC S9(11)V9(2) USAGE COMP-3.
+      ******* 10 E006-FILLER               PIC X(31).
+      *.MC.E.@BI00016DSO XISD009 20-07-04
+      *.MC.S.@BI00016DSO XISD983 13-10-04
+              10 E006-FLG-PAYTYP           PIC X(1).
+              10 E006-FLG-MANPAY           PIC X(1).
+              10 E006-FILLER               PIC X(29).
+      *.MC.E.@BI00016DSO XISD983 13-10-04
+      *MC.S.@BI00006DSO.XISD941.03-09-03
+              10 E006-TYP-POSTING          PIC X(1).
+      *MC.E.@BI00006DSO.XISD941.03-09-03

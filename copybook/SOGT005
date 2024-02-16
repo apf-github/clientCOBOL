@@ -1,0 +1,30 @@
+      *                     MODIFICATIONS LOG                          *
+      ******************************************************************
+      *     CODE       AUTHOR  DATE     DESCRIPTION                    *
+      *     ---------- ------- -------- ------------------------------ *
+      ******************************************************************
+      ******************************************************************
+           EXEC SQL DECLARE SODT005 TABLE
+           ( T005_KEY_ENT                   CHAR(4) NOT NULL,
+             T005_COD_PRODUCT                   CHAR(6) NOT NULL,
+             T005_COD_PLAN                   CHAR(3) NOT NULL,
+             T005_DAT_VALBEG                   DATE NOT NULL,
+             T005_DAT_VALEND                   DATE NOT NULL,
+             T005_FLG_ASSLIAB                   CHAR(1) NOT NULL,
+             T005_KEY_OPERBRN                   CHAR(4) NOT NULL,
+             T005_KEY_USER                   CHAR(8) NOT NULL,
+             T005_NUM_TRM                   CHAR(4) NOT NULL,
+             T005_STP_OPE                   TIMESTAMP NOT NULL
+           ) END-EXEC.
+       01  SODT005.
+           10 T005-KEY-ENT                 PIC X(4).
+           10 T005-COD-PRODUCT             PIC X(6).
+           10 T005-COD-PLAN                PIC X(3).
+           10 T005-DAT-VALBEG              PIC X(10).
+           10 T005-DAT-VALEND              PIC X(10).
+           10 T005-FLG-ASSLIAB             PIC X(1).
+           10 T005-KEY-OPERBRN             PIC X(4).
+           10 T005-KEY-USER                PIC X(8).
+           10 T005-NUM-TRM                 PIC X(4).
+           10 T005-STP-OPE                 PIC X(26).
+      *

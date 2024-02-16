@@ -1,0 +1,41 @@
+      *                     MODIFICATIONS LOG                          *
+      ******************************************************************
+      *     CODE       AUTHOR  DATE     DESCRIPTION                    *
+      *     ---------- ------- -------- ------------------------------ *
+      ******************************************************************
+      ******************************************************************
+       SEARCH-HARDCODE.
+      *
+           MOVE 0                            TO TCWC0080-START
+                                                TCWC0080-FLAG
+                                                TCWC0080-SW-FOUND
+                                                TCWC0080-CONTROL
+      *
+           MOVE SPACES                       TO TCWC0080-TXT
+      *
+           MOVE TCEC0050-COD-TOT             TO TCWC0080-END
+           PERFORM UNTIL TCWC0080-SW-FOU-FOUND OR TCWC0080-SW-FOU-ERROR
+                   COMPUTE TCWC0080-FLAG = (TCWC0080-START +
+                       TCWC0080-END + 1) / 2
+                   IF TCEC0050-TB-HAR-COD(TCWC0080-FLAG) =
+                       TCWC0080-SEARCHED
+                      MOVE TCEC0050-TB-HAR-TXT(TCWC0080-FLAG)  TO
+                          TCWC0080-TXT
+                       SET TCWC0080-SW-FOU-FOUND               TO TRUE
+                   ELSE
+                       IF TCEC0050-TB-HAR-COD(TCWC0080-FLAG) <
+                           TCWC0080-SEARCHED
+                          MOVE TCWC0080-FLAG                   TO
+                              TCWC0080-START
+                       ELSE
+                          MOVE TCWC0080-FLAG TO TCWC0080-END
+                       END-IF
+                   END-IF
+      *
+                   ADD 1                     TO TCWC0080-CONTROL
+      *
+                   IF TCWC0080-CONTROL > TCEC0050-COD-TOT
+                      SET TCWC0080-SW-FOU-ERROR               TO TRUE
+                   END-IF
+               END-PERFORM.
+      *

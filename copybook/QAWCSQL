@@ -1,0 +1,170 @@
+      ******************************************************************
+      *A.OR.S                                                          *
+      * COPY CON VALORES DE SQLCODES. POSEE UN NIVEL 88 PARA CADA      *
+      * UNO DE LOS VALORES DE SQLCODE PERM TIDOS. VALORES DE           *
+      * SQLCODE PERMITIDOS SIGNIFICA QUE LOS PRPGRAMAS DE              *
+      * APLICACION SOLO PUEDEN PREGUNTAR POR LOS VALORES DE ESTA       *
+      * COPY.                                                          *
+      *A.OR.E                                                          *
+      *B.OR.S                                                          *
+      * COPY WITH SQLCODES VALUES. IT HAS A LEVEL 88 FOR EACH          *
+      * ALLOWED SQLCODE VALUE. ALLOWED SQLCODE MEANS THAT EVERY        *
+      * APPLICATION PROGRAM CAN ONLY ASK FOR THE SQLCODES              *
+      * INCLUDED ON THIS COPY.                                         *
+      *B.OR.E                                                          *
+      ******************************************************************
+      ******************************************************************
+      *              M O D I F I C A T I O N S    L O G                *
+      *              -------------------------    -----                *
+      *B.MD @V620767DQA ALNOVA 29-03-06 TO ADD NEGATIVE VALUES TO THE  *
+      *B/MD                             FIELD SQL-88-NEGATIVE.         *
+      *B.MD @V620774DQA ALNOVA 06-04-06 ROLLBACK TO SAVEPOINT WARNING  *
+      ******************************************************************
+      *A.MF QAWCSQL                       QAWCSQL                      *
+      *A.MF VALUES                        VALORES SQL                  *
+      *A.FV   88-OK                       CODIGO DE RET. OK            *
+      *A/FV                               '0'                          *
+      *A.FV   88-NOT-FOUND                CODIGO DE RET.NO ENCONTRADO  *
+      *A/FV                               '+100'                       *
+      *A.FV   88-OP-WILL-NOT-BE-UNDONE    LA OPERACION NO PODRA SER    *
+      *A/FV                               DESHECHA EN ROLLBACK TO      *
+      *A/FV                               SAVEPOINT                    *
+      *A/FV                               '+883'                       *
+      *A.FV   88-INVALID-DATETIME-SYNTAX  SINTAXIS DE FECHA-DIA INVAL. *
+      *A/FV                               '-180'                       *
+      *A.FV   88-INVALID-DATETIME-VALUE   VALOR DE FECHA Y DIA INVAL.  *
+      *A/FV                               '-181'                       *
+      *A.FV   88-NULL-VALUE               VALOR NULO                   *
+      *A/FV                               '-305'                       *
+      *A.FV   88-CURSOR-FET-CLO-NOT-OPEN  FECTH-CLOSE CURSOR SIN OPEN  *
+      *A/FV                               '-501'                       *
+      *A.FV   88-CURSOR-UPD-DEL-NOT-OPEN  UPDATE-DELETE CURSOR SIN OPE *
+      *A/FV                               '-507'                       *
+      *A.FV   88-OVERFLOW                 CODIGO DE RETORNO OVERFLOW   *
+      *A/FV                               '-802'                       *
+      *A.FV   88-DUPLICATE-VALUES         VALORES DUPLICADOS           *
+      *A/FV                               '-803'                       *
+      *A.FV   88-SEVERAL                  VARIOS REGISTROS ENCONTRADOS *
+      *A/FV                               '-811'                       *
+      *A.FV   88-UNAVAIBLE-RESOURCE       RECURSO NO DISPONIBLE        *
+      *A/FV                               '-904'                       *
+      *A.FV   88-DEADLOCK-TIMEOUT         TIMEOUT POR BLOQUEO          *
+      *A/FV                               '-911'                       *
+      *A.FV   88-AUTHORIZATION-FAILURE    AUTORIZACION FALLIDA         *
+      *A/FV                               '-922'                       *
+      *A.FV   88-POSITIVE                 CODIGO DE RETORNO POSITIVO   *
+      *A/FV                               '+100'                       *
+      *A/FV                               '+883'                       *
+      *A.FV   88-NOT-NEGATIVE             CODIGO DE RETORNO NO NEGATIV *
+      *A/FV                               '0'                          *
+      *A/FV                               '+100'                       *
+      *A/FV                               '+883'                       *
+      *A.FV   88-NEGATIVE                 CODIGO DE RETORNO NEGATIVO   *
+      *A/FV                               '-136'                       *
+      *A/FV                               '-180'                       *
+      *A/FV                               '-181'                       *
+      *A/FV                               '-305'                       *
+      *A/FV                               '-501'                       *
+      *A/FV                               '-507'                       *
+      *A/FV                               '-508'                       *
+      *A/FV                               '-676'                       *
+      *A/FV                               '-802'                       *
+      *A/FV                               '-803'                       *
+      *A/FV                               '-811'                       *
+      *A/FV                               '-904'                       *
+      *A/FV                               '-911'                       *
+      *A/FV                               '-922'                       *
+      ******************************************************************
+      ******************************************************************
+      *B.MF QAWCSQL                       QAWCSQL                      *
+      *B.MF VALUES                        SQL VALUES                   *
+      *B.FV   88-OK                       RETURN CODE OK               *
+      *B/FV                               '0'                          *
+      *B.FV   88-NOT-FOUND                RETURN CODE NOT FOUND        *
+      *B/FV                               '+100'                       *
+      *B.FV   88-OP-WILL-NOT-BE-UNDONE    THE OPERATION WILL NOT BE    *
+      *B/FV                               UNDONE IN A ROLLBACK TO      *
+      *B/FV                               SAVEPOINT OPERATION          *
+      *B/FV                               '+883'                       *
+      *B.FV   88-INVALID-DATETIME-SYNTAX  DATE-TIME SYNTAX INVALID     *
+      *B/FV                               '-180'                       *
+      *B.FV   88-INVALID-DATETIME-VALUE   DATE-TIME VALUE INVALID      *
+      *B/FV                               '-181'                       *
+      *B.FV   88-NULL-VALUE               NULL VALUE                   *
+      *B/FV                               '-305'                       *
+      *B.FV   88-CURSOR-FET-CLO-NOT-OPEN  FECTH-CLOSE CUR. WITHOUT OPE *
+      *B/FV                               '-501'                       *
+      *B.FV   88-CURSOR-UPD-DEL-NOT-OPEN  UPDT-DEL CURSOR WITHOUT OPEN *
+      *B/FV                               '-507'                       *
+      *B.FV   88-OVERFLOW                 RETURN CODE OVERFLOW         *
+      *B/FV                               '-802'                       *
+      *B.FV   88-DUPLICATE-VALUES         DUPLICATE VALUES             *
+      *B/FV                               '-803'                       *
+      *B.FV   88-SEVERAL                  SEVERAL RECORDS FOUNDED      *
+      *B/FV                               '-811'                       *
+      *B.FV   88-UNAVAIBLE-RESOURCE       RESOURCE NOT AVAILABLE       *
+      *B/FV                               '-904'                       *
+      *B.FV   88-DEADLOCK-TIMEOUT         TIMEOUT BY DEADLOCK          *
+      *B/FV                               '-911'                       *
+      *B.FV   88-AUTHORIZATION-FAILURE    AUTHORIZATION FAILURE        *
+      *B/FV                               '-922'                       *
+      *B.FV   88-POSITIVE                 POSITIVE RETURN CODE         *
+      *B/FV                               '+100'                       *
+      *B/FV                               '+883'                       *
+      *B.FV   88-NOT-NEGATIVE             NOT NEGATIVE RETURN CODE     *
+      *B/FV                               '0'                          *
+      *B/FV                               '+100'                       *
+      *B/FV                               '+883'                       *
+      *B.FV   88-NEGATIVE                 NEGATIVE RETURN CODE         *
+      *B/FV                               '-136'                       *
+      *B/FV                               '-180'                       *
+      *B/FV                               '-181'                       *
+      *B/FV                               '-305'                       *
+      *B/FV                               '-501'                       *
+      *B/FV                               '-507'                       *
+      *B/FV                               '-508'                       *
+      *B/FV                               '-676'                       *
+      *B/FV                               '-802'                       *
+      *B/FV                               '-803'                       *
+      *B/FV                               '-811'                       *
+      *B/FV                               '-904'                       *
+      *B/FV                               '-911'                       *
+      *B/FV                               '-922'                       *
+      ******************************************************************
+
+       01 QAWCSQL.
+          05 SQL-VALUES                     PIC S9(9) COMP-4.
+             88 SQL-88-OK                             VALUE    0.
+             88 SQL-88-NOT-FOUND                      VALUE +100.
+      *.MC.S @V620774DQA
+             88 SQL-88-OP-WILL-NOT-BE-UNDONE          VALUE +883.
+      *.MC.E @V620774DQA
+             88 SQL-88-INVALID-DATETIME-SYNTAX        VALUE -180.
+             88 SQL-88-INVALID-DATETIME-VALUE         VALUE -181.
+             88 SQL-88-NULL-VALUE                     VALUE -305.
+             88 SQL-88-CURSOR-FET-CLO-NOT-OPEN        VALUE -501.
+             88 SQL-88-CURSOR-UPD-DEL-NOT-OPEN        VALUE -507.
+             88 SQL-88-OVERFLOW                       VALUE -802.
+             88 SQL-88-DUPLICATE-VALUES               VALUE -803.
+             88 SQL-88-SEVERAL                        VALUE -811.
+             88 SQL-88-UNAVAIBLE-RESOURCE             VALUE -904.
+             88 SQL-88-DEADLOCK-TIMEOUT               VALUE -911.
+             88 SQL-88-AUTHORIZATION-FAILURE          VALUE -922.
+      *.MC.S @V620774DQA
+      *      88 SQL-88-POSITIVE                       VALUE +100.
+      *      88 SQL-88-NOT-NEGATIVE                   VALUE 0, +100.
+             88 SQL-88-POSITIVE                       VALUE +100, +883.
+             88 SQL-88-NOT-NEGATIVE                   VALUE 0,
+                                                            +100,
+                                                            +883.
+      *.MC.E @V620774DQA
+      *.MC.S @V620767DQA
+      *      88 SQL-88-NEGATIVE   VALUE -180, -181, -305, -501, -507,
+      *                                 -802,
+      *                                 -803, -811, -904,
+      *                                 -911, -922.
+             88 SQL-88-NEGATIVE   VALUE -136, -180, -181, -305, -501,
+                                        -507, -508, -676, -802,
+                                        -803, -811, -904,
+                                        -911, -922.
+      *.MC.E @V620767DQA

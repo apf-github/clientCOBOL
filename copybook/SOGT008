@@ -1,0 +1,189 @@
+      *                     MODIFICATIONS LOG                          *
+      ******************************************************************
+      *     CODE       AUTHOR  DATE     DESCRIPTION                    *
+      *     ---------- ------- -------- ------------------------------ *
+      ******************************************************************
+      ******************************************************************
+           EXEC SQL DECLARE      SODT008 TABLE
+           ( T008_KEY_ENT                   CHAR(4) NOT NULL,
+             T008_NUM_OPE                   CHAR(21) NOT NULL,
+             T008_COD_PRODUCT               CHAR(6) NOT NULL,
+             T008_COD_PLAN                  CHAR(3) NOT NULL,
+             T008_COD_COM                   CHAR(3) NOT NULL,
+             T008_COD_FCC                   CHAR(3) NOT NULL,
+             T008_DAT_OPE                   DATE NOT NULL,
+             T008_COD_CHAN                  CHAR(2) NOT NULL,
+             T008_COD_ZONE                  CHAR(4) NOT NULL,
+             T008_COD_CUSSEG                CHAR(2) NOT NULL,
+             T008_BRN_OPEREG                CHAR(4) NOT NULL,
+             T008_ENT_LIABACC               CHAR(4) NOT NULL,
+             T008_BRN_LIABACC               CHAR(4) NOT NULL,
+             T008_NUM_LIABACC               CHAR(10) NOT NULL,
+             T008_FLG_CDKTLP                CHAR(1) NOT NULL,
+             T008_FLG_BAONL                 CHAR(1) NOT NULL,
+             T008_FLG_COMBON                CHAR(1) NOT NULL,
+             T008_FLG_AMTUNIT               CHAR(1) NOT NULL,
+             T008_FLG_COMANN                CHAR(1) NOT NULL,
+             T008_FLG_AFTERBON              CHAR(1) NOT NULL,
+             T008_FLG_OPETOJUS              CHAR(1) NOT NULL,
+             T008_FLG_LETTER                CHAR(1) NOT NULL,
+             T008_FLG_CNDPROC               CHAR(2) NOT NULL,
+             T008_NUM_UNITS                 DECIMAL(6, 0) NOT NULL,
+             T008_AMT_NOM                   DECIMAL(15, 2) NOT NULL,
+             T008_AMT_STD                   DECIMAL(15, 2) NOT NULL,
+             T008_AMT_PER                   DECIMAL(15, 2) NOT NULL,
+             T008_AMT_IMM                   DECIMAL(15, 2) NOT NULL,
+             T008_AMT_BONUS                 DECIMAL(15, 2) NOT NULL,
+             T008_PER_BONUS                 DECIMAL(8, 5) NOT NULL,
+             T008_FLG_COND                  CHAR(1) NOT NULL,
+             T008_NUM_CLV                   CHAR(8) NOT NULL,
+             T008_AMT_ACMBON                DECIMAL(15, 2) NOT NULL,
+             T008_AMT_INIAPPLY              DECIMAL(15, 2) NOT NULL,
+             T008_AMT_ACMAPPLY              DECIMAL(15, 2) NOT NULL,
+             T008_FLG_VATCOM                CHAR(1) NOT NULL,
+             T008_TYP_TAX                   CHAR(1) NOT NULL,
+             T008_PER_VAT                   DECIMAL(4, 2) NOT NULL,
+             T008_AMT_OPEVAT                DECIMAL(15, 2) NOT NULL,
+             T008_NUM_REGBILVAT             CHAR(15) NOT NULL,
+             T008_NUM_CUSID                 CHAR(1) NOT NULL,
+             T008_NUM_CUSDOCU               CHAR(15) NOT NULL,
+             T008_IDC_CUSSEQ                CHAR(2) NOT NULL,
+             T008_CUN                       CHAR(8) NOT NULL,
+             T008_ENT_CAUSE                 CHAR(4) NOT NULL,
+             T008_BRN_CAUSECOM              CHAR(4) NOT NULL,
+             T008_NUM_ACCCAUSE              CHAR(10) NOT NULL,
+             T008_DAT_REGTBL                DATE NOT NULL,
+             T008_DAT_OPEVAL                DATE NOT NULL,
+             T008_TXT_FREE1                 CHAR(40) NOT NULL,
+             T008_TXT_FREE2                 CHAR(40) NOT NULL,
+             T008_COD_APP                   CHAR(2) NOT NULL,
+             T008_COD_COMCPT                CHAR(5) NOT NULL,
+             T008_FLG_ANN                   CHAR(1) NOT NULL,
+             T008_DAT_ANN                   DATE NOT NULL,
+             T008_BRN_ANNOPE                CHAR(4) NOT NULL,
+             T008_NUM_ANNBILVAT             CHAR(15) NOT NULL,
+             T008_NUM_DEPACC                DECIMAL(5, 0) NOT NULL,
+             T008_KEY_USER                  CHAR(8) NOT NULL,
+             T008_NUM_TRM                   CHAR(4) NOT NULL,
+             T008_COD_PGMOPE                CHAR(8) NOT NULL,
+             T008_STP_OPE                   TIMESTAMP NOT NULL,
+             T008_NUM_OPEREF                DECIMAL(9, 0) NOT NULL,
+             T008_NUM_OPEREF2               DECIMAL(9, 0) NOT NULL,
+             T008_DAT_ACCT                  DATE NOT NULL,
+             T008_CEN_ORI                   CHAR(4) NOT NULL,
+             T008_CEN_DEST                  CHAR(4) NOT NULL,
+             T008_FLG_AMTPART               DECIMAL(15, 2) NOT NULL,
+             T008_TOT_AMT                   DECIMAL(15, 2) NOT NULL,
+             T008_DAT_BILLANN               DATE NOT NULL,
+             T008_FLG_ACCOBJST              CHAR(2) NOT NULL,
+             T008_YY_ACCT                   CHAR(1) NOT NULL,
+             T008_FLG_NONPAY                CHAR(1) NOT NULL,
+             T008_FLG_PRLNPAY               CHAR(1) NOT NULL,
+             T008_FLAGS                     CHAR(20) NOT NULL,
+             T008_TYP_POSTING              CHAR(1) NOT NULL,
+             T008_TYP_FEE                  CHAR(1) NOT NULL,
+             T008_DAT_POSTING              DATE NOT NULL,
+             T008_DAT_PEREND               DATE NOT NULL,
+             T008_DAT_PERBEG               DATE NOT NULL,
+             T008_ENT_GROUPACC             CHAR (4) NOT NULL,
+             T008_BRN_GROUPACC             CHAR (4) NOT NULL,
+             T008_NUM_GROUPACC             CHAR (10) NOT NULL,
+             T008_COD_GRADING              CHAR (3) NOT NULL,
+             T008_FLG_CANCEL               CHAR (1) NOT NULL,
+             T008_DAT_SITU                 DATE NOT NULL,
+             T008_DAT_PRENOT               DATE NOT NULL,
+             T008_AMT_FIXED                DECIMAL(15,2) NOT NULL,
+             T008_AMT_UNITARY              DECIMAL(15,2) NOT NULL,
+             T008_PER_NORMAL               DECIMAL(8,5) NOT NULL
+           ) END-EXEC.
+       01  SODT008.
+           10 T008-KEY-ENT                 PIC X(4).
+           10 T008-NUM-OPE                 PIC X(21).
+           10 T008-COD-PRODUCT             PIC X(6).
+           10 T008-COD-PLAN                PIC X(3).
+           10 T008-COD-COM                 PIC X(3).
+           10 T008-COD-FCC                 PIC X(3).
+           10 T008-DAT-OPE                 PIC X(10).
+           10 T008-COD-CHAN                PIC X(2).
+           10 T008-COD-ZONE                PIC X(4).
+           10 T008-COD-CUSSEG              PIC X(2).
+           10 T008-BRN-OPEREG              PIC X(4).
+           10 T008-ENT-LIABACC             PIC X(4).
+           10 T008-BRN-LIABACC             PIC X(4).
+           10 T008-NUM-LIABACC             PIC X(10).
+           10 T008-FLG-CDKTLP              PIC X(1).
+           10 T008-FLG-BAONL               PIC X(1).
+           10 T008-FLG-COMBON              PIC X(1).
+           10 T008-FLG-AMTUNIT             PIC X(1).
+           10 T008-FLG-COMANN              PIC X(1).
+           10 T008-FLG-AFTERBON            PIC X(1).
+           10 T008-FLG-OPETOJUS            PIC X(1).
+           10 T008-FLG-LETTER              PIC X(1).
+           10 T008-FLG-CNDPROC             PIC X(2).
+           10 T008-NUM-UNITS               PIC S9(6)V USAGE COMP-3.
+           10 T008-AMT-NOM                 PIC S9(13)V9(2) USAGE COMP-3.
+           10 T008-AMT-STD                 PIC S9(13)V9(2) USAGE COMP-3.
+           10 T008-AMT-PER                 PIC S9(13)V9(2) USAGE COMP-3.
+           10 T008-AMT-IMM                 PIC S9(13)V9(2) USAGE COMP-3.
+           10 T008-AMT-BONUS               PIC S9(13)V9(2) USAGE COMP-3.
+           10 T008-PER-BONUS               PIC S9(3)V9(5) USAGE COMP-3.
+           10 T008-FLG-COND                PIC X(1).
+           10 T008-NUM-CLV                 PIC X(8).
+           10 T008-AMT-ACMBON              PIC S9(13)V9(2) USAGE COMP-3.
+           10 T008-AMT-INIAPPLY            PIC S9(13)V9(2) USAGE COMP-3.
+           10 T008-AMT-ACMAPPLY            PIC S9(13)V9(2) USAGE COMP-3.
+           10 T008-FLG-VATCOM              PIC X(1).
+           10 T008-TYP-TAX                 PIC X(1).
+           10 T008-PER-VAT                 PIC S9(2)V9(2) USAGE COMP-3.
+           10 T008-AMT-OPEVAT              PIC S9(13)V9(2) USAGE COMP-3.
+           10 T008-NUM-REGBILVAT           PIC X(15).
+           10 T008-NUM-CUSID               PIC X(1).
+           10 T008-NUM-CUSDOCU             PIC X(15).
+           10 T008-IDC-CUSSEQ              PIC X(2).
+           10 T008-CUN                     PIC X(8).
+           10 T008-ENT-CAUSE               PIC X(4).
+           10 T008-BRN-CAUSECOM            PIC X(4).
+           10 T008-NUM-ACCCAUSE            PIC X(10).
+           10 T008-DAT-REGTBL              PIC X(10).
+           10 T008-DAT-OPEVAL              PIC X(10).
+           10 T008-TXT-FREE1               PIC X(40).
+           10 T008-TXT-FREE2               PIC X(40).
+           10 T008-COD-APP                 PIC X(2).
+           10 T008-COD-COMCPT              PIC X(5).
+           10 T008-FLG-ANN                 PIC X(1).
+           10 T008-DAT-ANN                 PIC X(10).
+           10 T008-BRN-ANNOPE              PIC X(4).
+           10 T008-NUM-ANNBILVAT           PIC X(15).
+           10 T008-NUM-DEPACC              PIC S9(5)V USAGE COMP-3.
+           10 T008-KEY-USER                PIC X(8).
+           10 T008-NUM-TRM                 PIC X(4).
+           10 T008-COD-PGMOPE              PIC X(8).
+           10 T008-STP-OPE                 PIC X(26).
+           10 T008-NUM-OPEREF              PIC S9(9)V USAGE COMP-3.
+           10 T008-NUM-OPEREF2             PIC S9(9)V USAGE COMP-3.
+           10 T008-DAT-ACCT                PIC X(10).
+           10 T008-CEN-ORI                 PIC X(4).
+           10 T008-CEN-DEST                PIC X(4).
+           10 T008-FLG-AMTPART             PIC S9(13)V9(2) USAGE COMP-3.
+           10 T008-TOT-AMT                 PIC S9(13)V9(2) USAGE COMP-3.
+           10 T008-DAT-BILLANN             PIC X(10).
+           10 T008-FLG-ACCOBJST            PIC X(2).
+           10 T008-YY-ACCT                 PIC X(1).
+           10 T008-FLG-NONPAY              PIC X(1).
+           10 T008-FLG-PRLNPAY             PIC X(1).
+           10 T008-FLAGS                   PIC X(20).
+           10 T008-TYP-POSTING             PIC X(1).
+           10 T008-TYP-FEE                 PIC X(1).
+           10 T008-DAT-POSTING             PIC X(10).
+           10 T008-DAT-PEREND              PIC X(10).
+           10 T008-DAT-PERBEG              PIC X(10).
+           10 T008-ENT-GROUPACC            PIC X(4).
+           10 T008-BRN-GROUPACC            PIC X(4).
+           10 T008-NUM-GROUPACC            PIC X(10).
+           10 T008-COD-GRADING             PIC X(3).
+           10 T008-FLG-CANCEL              PIC X(1).
+           10 T008-DAT-SITU                PIC X(10).
+           10 T008-DAT-PRENOT              PIC X(10).
+           10 T008-AMT-FIXED               PIC S9(13)V9(2) USAGE COMP-3.
+           10 T008-AMT-UNITARY             PIC S9(13)V9(2) USAGE COMP-3.
+           10 T008-PER-NORMAL              PIC S9(3)V9(5) USAGE COMP-3.

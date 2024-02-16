@@ -1,0 +1,75 @@
+      *                     MODIFICATIONS LOG                          *
+      ******************************************************************
+      *     CODE       AUTHOR  DATE     DESCRIPTION                    *
+      *     ---------- ------- -------- ------------------------------ *
+      *B.MD @UK17941DPE UPXDBM4 05-04-11 UPDATE ACCOUNT NUMBER LENGTH  *
+      ******************************************************************
+      *B.MF RECORD                    RECORD                           *
+      *B.IF INPUT                     INPUT FIELDS                     *
+      *B.IF CUN                       CUSTOMER NUMBER                  *
+      *B.IF DOCUMENT                  DOCUMENT                         *
+      *B.IF COD-ID                    IDENTIFICATION CODE              *
+      *B.IF KEY-ID                    INFORMATION KEY                  *
+      *B.IF SEQID                     IDENTIFICATION SEQUENCE          *
+      *B.IF ACTION                    ACTION                           *
+      *B.IF CONTRACT                  CONTRACT                         *
+      *B.IF KEY-ACC                   ACCOUNT KEY                      *
+      *B.IF COD-ENTITY                ENTITY CODE                      *
+      *B.IF BRN-OPEN                  OPENING BRANCH CODE              *
+      *B.IF COD-PRODSERV              PRODUCT OR SERVICE CODE          *
+      *B.IF NUM-ACCOUNT               ACCOUNT NUMBER                   *
+      *B.IF BRN-OPE                   BRANCH OPERATION                 *
+      *B.OF ANSWER                    OUTPUT FIELDS                    *
+      *B.OF COD-RTN                   RETURN CODE                      *
+      *B.OF COD-RTN1                  RETURN CODE                      *
+      *B/OF                           '00'- OK-OBTAINS BILL WITHOUT    *
+      *B/OF                               - VAT AND VAT-2              *
+      *B/OF                           '01'- OK-OBTAINS BILL WITH       *
+      *B/OF                               - VAT                        *
+      *B/OF                           '02'- OK-OBTAINS BILL WITH       *
+      *B/OF                                 VAT-2                      *
+      *B/OF                           '03'- OK-OBTAINS BILL WITH       *
+      *B/OF                                 VAT-3                      *
+      *B/OF                           '04'- THERE ARE MORE PEOPLE      *
+      *B/OF                           '09'- PARTICIPANTS ANNULMENT     *
+      *B/OF                           '10'- NON-EXISTENT BASIC DATA    *
+      *B/OF                           '20'- NON-EXISTENT DOCUMENTS     *
+      *B/OF                           '30'- NON-EXISTENT PARTICIPANT   *
+      *B/OF                               - CONTRACT                   *
+      *B/OF                           '80'- ERRONEOUS INPUT DATA       *
+      *B/OF                           '99'- SYSTEM ERROR               *
+      *B.OF SQLCODE                   SQL RETURN CODE                  *
+      *B.OF SQLERRMSG                 SQL ERROR MESSAGE                *
+      *B.OF SQLERRMSGLTH              SQL ERROR MESSAGE LENGTH         *
+      *B.OF SQLERRMSG-DATA            SQL ERROR MESSAGE DATA           *
+      *B.OF TBLNAME                   TABLE NAME                       *
+      *B.OF REFERENCE                 REFERENCE                        *
+      ******************************************************************
+       02 E680-RECORD.
+           05 E680-INPUT.
+              10 E680-CUN                  PIC  X(08).
+              10 E680-DOCUMENT.
+                 15 E680-COD-ID            PIC  X(01).
+                 15 E680-KEY-ID            PIC  X(15).
+                 15 E680-SEQID             PIC  X(02).
+                 15 E680-ACTION            PIC  X(01).
+              10 E680-CONTRACT.
+                 15 E680-KEY-ACC.
+                    18 E680-COD-ENTITY     PIC  X(04).
+                    18 E680-BRN-OPEN       PIC  X(04).
+                    18 E680-COD-PRODSERV   PIC  X(02).
+      *.MC.S @UK17941DPE
+      *             18 E680-NUM-ACCOUNT    PIC  X(08).
+                    18 E680-NUM-ACCOUNT    PIC  X(10).
+      *.MC.E @UK17941DPE
+              10 E680-BRN-OPE              PIC  X(04).
+           05 E680-ANSWER.
+              10 E680-COD-RTN.
+                 15 E680-COD-RTN1          PIC  X(02).
+                 15 E680-SQLCODE           PIC S9(09) COMP.
+                 15 E680-SQLERRMSG.
+                    20 E680-SQLERRMSGLTH   PIC S9(04) COMP.
+                    20 E680-SQLERRMSG-DATA PIC  X(70).
+                 15 E680-TBLNAME           PIC  X(16).
+                 15 E680-REFERENCE         PIC  X(20).
+      *
