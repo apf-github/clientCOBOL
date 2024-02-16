@@ -1,0 +1,65 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. SUBPGM.
+
+       ENVIRONMENT DIVISION.
+       INPUT-OUTPUT SECTION.
+       FILE-CONTROL.
+
+       DATA DIVISION.
+       FILE SECTION.
+
+       WORKING-STORAGE SECTION.
+           EXEC SQL
+              INCLUDE SQLCA
+           END-EXEC.
+
+           EXEC SQL
+               INCLUDE CUSTMSTR
+           END-EXEC.
+
+
+       LINKAGE SECTION.
+        COPY CUSTTRAN.
+
+       PROCEDURE DIVISION USING CUSTINPT-FILE.
+
+       0000-MAIN-PARA.
+
+           DISPLAY 'SUB PROGRAM LINE 1'.
+
+           MOVE CUSTIN-CUSTM-NAME-FRSTNM  TO CUSTM-NAME-FRSTNM
+           MOVE CUSTIN-CUSTM-NAME-MDLNM   TO CUSTM-NAME-MDLNM
+           MOVE CUSTIN-CUSTM-NAME-LASTNM  TO CUSTM-NAME-LASTNM
+           MOVE CUSTIN-CUSTM-ADDR         TO CUSTM-ADDR
+           MOVE CUSTIN-CUSTM-DOB          TO CUSTM-DOB
+
+           DISPLAY 'SUB PROGRAM BEFORE SQL'.
+           EXEC SQL
+                INSERT INTO CUSTM_TABLE
+                (
+                  CUSTM_NAME_FRSTNM        ,
+                  CUSTM_NAME_MDLNM         ,
+                  CUSTM_NAME_LASTNM        ,
+                  CUSTM_ADDR               ,
+                  CUSTM_DOB
+                )
+                VALUES
+                (
+                  :CUSTM-NAME-FRSTNM       ,
+                  :CUSTM-NAME-MDLNM        ,
+                  :CUSTM-NAME-LASTNM       ,
+                  :CUSTM-ADDR              ,
+                  :CUSTM-DOB
+                )
+           END-EXEC.
+
+           EVALUATE TRUE
+           WHEN SQLCODE = 0
+                CONTINUE
+           WHEN OTHER
+                DISPLAY 'CUST TABLE INSERT SQLCODE -', SQLCODE
+           END-EVALUATE.
+
+            DISPLAY 'SUB PROGRAM BEFORE EXIT'.
+           EXIT PROGRAM.
+
